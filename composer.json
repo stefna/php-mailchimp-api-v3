@@ -1,0 +1,43 @@
+{
+  "name": "stefna/php-mailchimp-api-v3",
+  "description": "Mailchimp v3 API client for PHP",
+  "license": "MIT",
+  "keywords": ["mailchimp"],
+  "authors": [
+    {
+      "name": "Birgir Haraldsson",
+      "email": "biggi@stefna.is"
+    }
+  ],
+  "require": {
+    "php-http/discovery": "^1.0",
+    "php-http/client-implementation": "^1.0",
+    "psr/log-implementation": "^1.0"
+  },
+  "require-dev": {
+    "php-http/curl-client": "^1.0",
+    "php-http/message": "^1.0",
+    "guzzlehttp/psr7": "^1.0",
+    "phpunit/phpunit": "5.*",
+    "monolog/monolog": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Stefna\\Mailchimp\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\Stefna\\Mailchimp\\": "tests/"
+    }
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit",
+    "test-ci": "vendor/bin/phpunit --coverage-text --coverage-clover=build/coverage.xml"
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "0.1.0"
+    }
+  }
+}
