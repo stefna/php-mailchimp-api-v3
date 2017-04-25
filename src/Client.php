@@ -194,12 +194,16 @@ class Client
 			]);
 		}
 		if ($status > 299) {
-			# error
+			$errorMsg = $this->formatError($ret);
 			if ($this->logger) {
-				$this->logger->alert($this->formatError($ret));
+				$this->logger->alert($errorMsg);
 			}
 			if ($status !== 404) {
-				throw new \RuntimeException("Error from API", $status);
+				$msg = "Error from API";
+				if ($errorMsg && $errorMsg[0] !== '{') {
+					$msg .= ": $errorMsg";
+				}
+				throw new \RuntimeException($msg, $status);
 			}
 			return null;
 		}
@@ -251,6 +255,9 @@ class Client
 				$errors[] = "  {$error['field']}: {$error['message']}";
 			}
 			$ret = "$ret\n" . implode("\n", $errors);
+		}
+		else if (isset($data['detail'])) {
+			$ret = $data['detail'];
 		}
 		return $ret;
 	}
