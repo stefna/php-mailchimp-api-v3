@@ -80,7 +80,7 @@ class Campaigns extends CollectionRestApi
 	/**
 	 * @param string $campaignId
 	 * @param CampaignsRequest $params
-	 * @return SendChecklist
+	 * @return SendChecklist|null
 	 */
 	public function checklist($campaignId, $params = null)
 	{

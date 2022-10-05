@@ -18,8 +18,12 @@
     "php-http/curl-client": "^1.0",
     "php-http/message": "^1.0",
     "guzzlehttp/psr7": "^1.0",
-    "phpunit/phpunit": "5.*",
-    "monolog/monolog": "^1.0"
+    "monolog/monolog": "^1.0",
+    "roave/security-advisories": "dev-latest",
+    "phpunit/phpunit": "^9.0",
+    "phpstan/phpstan": "^1.0",
+    "stefna/codestyle": "^1.0",
+    "stefna/release-tools": "^1.5"
   },
   "autoload": {
     "psr-4": {
@@ -33,7 +37,8 @@
   },
   "scripts": {
     "test": "vendor/bin/phpunit",
-    "test-ci": "vendor/bin/phpunit --coverage-text --coverage-clover=build/coverage.xml"
+    "test-ci": "vendor/bin/phpunit --coverage-text --coverage-clover=build/coverage.xml",
+    "stan": "venor/bin/phpstan"
   },
   "extra": {
     "branch-alias": {

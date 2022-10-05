@@ -38,10 +38,10 @@ class Client
 	 * Client constructor.
 	 * @param HttpClient $httpClient
 	 * @param string $apiKey
-	 * @param null $apiEndpoint
+	 * @param string|null $apiEndpoint
 	 * @param MessageFactoryDiscovery|null $messageFactory
 	 */
-	public function __construct(HttpClient $httpClient, $apiKey, $apiEndpoint = null, $messageFactory = null)
+	public function __construct(HttpClient $httpClient, string $apiKey, ?string $apiEndpoint = null, $messageFactory = null)
 	{
 		$this->httpClient = $httpClient;
 		$this->apiKey = $apiKey;
@@ -95,7 +95,7 @@ class Client
 	/**
 	 * @param string $path
 	 * @param array $args
-	 * @return bool|
+	 * @return bool
 	 */
 	public function delete($path, $args = [])
 	{
@@ -139,11 +139,11 @@ class Client
 	public function request(RequestInterface $request, $noOutput = false)
 	{
 		$this->lastRequest = $request;
-		if ($this->logger) {
-			$this->logger->debug("Request created", [
-				'request' => \GuzzleHttp\Psr7\str($request),
-			]);
-		}
+
+		$this->logger->debug("Request created", [
+			'request' => \GuzzleHttp\Psr7\str($request),
+		]);
+
 		return (!$noOutput)
 			? $this->response($this->sendRequest($request))
 			: $this->noOutputResponse($this->sendRequest($request));
@@ -154,18 +154,18 @@ class Client
 		$this->lastResponse = $response;
 		$status = $response->getStatusCode();
 
-		if ($this->logger) {
-			$this->logger->debug("Response created without output", [
-				'headers' => json_encode($response->getHeaders()),
-				'status' => $status,
-			]);
-		}
+
+		$this->logger->debug("Response created without output", [
+			'headers' => json_encode($response->getHeaders()),
+			'status' => $status,
+		]);
+
 
 		if ($status > 299) {
 			if ($status != 404) {
 				$contents = $response->getBody()->getContents();
 				$ret = json_decode($contents, true);
-				if ($ret && $this->logger) {
+				if ($ret) {
 					$this->logger->alert($this->formatError($ret));
 				}
 			}
@@ -185,19 +185,17 @@ class Client
 		if ($jsonOk && $ret && isset($ret['status'])) {
 			$status = $ret['status'];
 		}
-		if ($this->logger) {
-			$this->logger->debug("Response created", [
-				'headers' => json_encode($response->getHeaders()),
-				'body' => $jsonOk ? $ret : $contents,
-				'jsonLastError' => $jsonLastError,
-				'status' => $status,
-			]);
-		}
+		$this->logger->debug("Response created", [
+			'headers' => json_encode($response->getHeaders()),
+			'body' => $jsonOk ? $ret : $contents,
+			'jsonLastError' => $jsonLastError,
+			'status' => $status,
+		]);
+
 		if ($status > 299) {
 			$errorMsg = $this->formatError($ret);
-			if ($this->logger) {
-				$this->logger->alert($errorMsg);
-			}
+			$this->logger->alert($errorMsg);
+
 			if ($status !== 404) {
 				$msg = "Error from API";
 				if ($errorMsg && $errorMsg[0] !== '{') {
@@ -231,7 +229,7 @@ class Client
 		if (strpos($apiKey, '-') === false) {
 			throw new InvalidArgumentException("Invalid api key: $apiKey");
 		}
-		list(, $dc) = explode('-', $apiKey);
+		[, $dc] = explode('-', $apiKey);
 		return str_replace('<dc>', $dc, self::DEFAULT_ENDPOINT);
 	}
 

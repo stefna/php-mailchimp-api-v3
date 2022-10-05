@@ -69,7 +69,7 @@ class Templates extends CollectionRestApi
 	/**
 	 * @param int $templateId
 	 * @param TemplatesRequest $params
-	 * @return DefaultContent
+	 * @return DefaultContent|null
 	 */
 	public function getDefault($templateId, $params = null)
 	{

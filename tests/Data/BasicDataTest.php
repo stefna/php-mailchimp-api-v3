@@ -52,7 +52,7 @@ class A extends AbstractData
 	/** @var B */
 	public $b;
 
-	protected $classMap = [
+	protected array $classMap = [
 		'b' => B::class,
 	];
 }
