@@ -48,9 +48,8 @@ class RSSOptions extends AbstractData
 	/**
 	 * Mapping classes.
 	 *
-	 * @var string[]
 	 */
-	protected $classMap = [
+	protected array $classMap = [
 		'schedule' => SendingSchedule::class,
 	];
 }

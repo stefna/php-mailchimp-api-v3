@@ -159,9 +159,8 @@ class ListMembers extends AbstractData
 	/**
 	 * Mapping classes.
 	 *
-	 * @var string[]
 	 */
-	protected $classMap = [
+	protected array $classMap = [
 		'stats' => SubscriberStats::class,
 		'location' => Location::class,
 		'lastNote' => Notes::class,

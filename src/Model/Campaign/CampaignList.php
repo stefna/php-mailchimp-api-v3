@@ -46,9 +46,8 @@ class CampaignList extends AbstractData
 	/**
 	 * Mapping classes.
 	 *
-	 * @var string[]
 	 */
-	protected $classMap = [
+	protected array $classMap = [
 		'segmentOpts' => SegmentOptions::class,
 	];
 }

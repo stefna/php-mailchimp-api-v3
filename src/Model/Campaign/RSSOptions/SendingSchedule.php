@@ -41,9 +41,8 @@ class SendingSchedule extends AbstractData
 	/**
 	 * Mapping classes.
 	 *
-	 * @var string[]
 	 */
-	protected $classMap = [
+	protected array $classMap = [
 		'dailySend' => DailySendingDays::class,
 	];
 }

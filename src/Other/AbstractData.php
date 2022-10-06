@@ -1,24 +1,33 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Stefna\Mailchimp\Other;
 
 class AbstractData
 {
-	public $_links;
-	protected $classMap = [];
+	/**
+	 * @var array<int,array<string, string>>
+	 */
+	public array $_links = [];
+	/**
+	 * @var array<string, class-string<AbstractData>|array{0?: string, 1?:string}>
+	 */
+	protected array $classMap = [];
 
-	public function __construct(array $data = null)
+	/**
+	 * @param array<string, mixed>|null $data
+	 */
+	public function __construct(?array $data = null)
 	{
 		if ($data) {
 			$this->setData($data);
 		}
 	}
 
-	public static function camelCase($str)
+	public static function camelCase(string $str): string
 	{
 		// non-alpha and non-numeric characters become spaces
 		$str = preg_replace('/[^a-z0-9]+/i', ' ', $str);
-		$str = trim($str);
+		$str = trim((string)$str);
 		// uppercase the first character of each word
 		$str = ucwords($str);
 		$str = str_replace(" ", "", $str);
@@ -29,11 +38,11 @@ class AbstractData
 	}
 
 	/**
-	 * @param $value
+	 * @param string $value
 	 * @return string
 	 * @see http://stackoverflow.com/a/1993772
 	 */
-	public static function snakeCase($value)
+	public static function snakeCase(string $value): string
 	{
 		preg_match_all('!([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)!', $value, $matches);
 		$ret = $matches[0];
@@ -48,7 +57,11 @@ class AbstractData
 		return implode('_', $ret);
 	}
 
-	public static function snakeCaseArray(array $array)
+	/**
+	 * @param array<string, mixed> $array
+	 * @return array<string, mixed>
+	 */
+	public static function snakeCaseArray(array $array): array
 	{
 		$ret = [];
 		foreach ($array as $key => $value) {
@@ -61,7 +74,10 @@ class AbstractData
 		return $ret;
 	}
 
-	public function setData($data)
+	/**
+	 * @param array<string, mixed> $data
+	 */
+	public function setData(array $data): AbstractData
 	{
 		foreach ($data as $key => $value) {
 			$key = static::camelCase($key);
@@ -90,8 +106,12 @@ class AbstractData
 		return $this;
 	}
 
-	public function getData()
+	/**
+	 * @return array<string, mixed>
+	 */
+	public function getData(): array
 	{
+		/** @var array<string, mixed> $data */
 		$data = call_user_func('get_object_vars', $this);
 		foreach (array_keys($this->classMap) as $key) {
 			if (isset($data[$key]) && is_object($data[$key])) {

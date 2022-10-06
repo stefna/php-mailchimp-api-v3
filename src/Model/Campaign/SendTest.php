@@ -9,7 +9,7 @@ class SendTest extends AbstractData
 	/**
 	 * An array of email addresses to send the test email to.
 	 *
-	 * @var array
+	 * @var string[]
 	 */
 	public $testEmails;
 

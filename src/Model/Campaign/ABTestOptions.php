@@ -8,43 +8,41 @@ class ABTestOptions extends AbstractData
 {
 	/**
 	 * Combinations of possible variables that were used to build emails.
-	 *
-	 * @var array
+	 * NOT IN https://mailchimp.com/developer/marketing/api/campaigns/update-campaign-settings/
 	 */
-	public $combinations;
+	//public $combinations;
 
 	/**
 	 * Descriptions of possible email contents.
-	 *
-	 * @var array
+	 * NOT IN https://mailchimp.com/developer/marketing/api/campaigns/update-campaign-settings/
 	 */
-	public $contents;
+	//public $contents;
 
 	/**
 	 * Possible from names.
 	 *
-	 * @var array
+	 * @var string[]
 	 */
 	public $fromNames;
 
 	/**
 	 * Possible reply To addresses.
 	 *
-	 * @var array
+	 * @var string[]
 	 */
 	public $replyToAddresses;
 
 	/**
 	 * Possible send times.
 	 *
-	 * @var array
+	 * @var string[]
 	 */
 	public $sendTimes;
 
 	/**
 	 * Possible subject lines.
 	 *
-	 * @var array
+	 * @var string[]
 	 */
 	public $subjectLines;
 

@@ -5,13 +5,11 @@ namespace Stefna\Mailchimp\Api\Lists;
 use Stefna\Mailchimp\Api\CollectionRestApi;
 use Stefna\Mailchimp\Api\Lists\Request\ListsAllRequest;
 use Stefna\Mailchimp\Model\SubscriberList;
+use Stefna\Mailchimp\Other\AbstractData;
 
 class Lists extends CollectionRestApi
 {
-	/**
-	 * @return string
-	 */
-	public function getMethodUrl()
+	public function getMethodUrl(): string
 	{
 		return 'lists';
 	}
@@ -28,7 +26,7 @@ class Lists extends CollectionRestApi
 	/**
 	 * @param string $id
 	 * @param Lists|null $params
-	 * @return SubscriberList
+	 * @return SubscriberList|AbstractData|null
 	 */
 	public function get($id, $params = null)
 	{
@@ -49,21 +47,17 @@ class Lists extends CollectionRestApi
 	 * @param array $data
 	 * @return SubscriberList
 	 */
-	public function update($id, $data)
+	public function update(string $id, $data): SubscriberList
 	{
 		return $this->doUpdate($id, $data, SubscriberList::class);
 	}
 
-	/**
-	 * @param string $id
-	 * @return bool
-	 */
-	public function delete($id)
+	public function delete(string $id): ?bool
 	{
 		return $this->doDelete($id);
 	}
 
-	public function members($listId)
+	public function members(string $listId): Members
 	{
 		return new Members($this->client, $this, $listId);
 	}

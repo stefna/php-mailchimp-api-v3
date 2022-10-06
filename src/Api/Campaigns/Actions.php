@@ -11,28 +11,22 @@ class Actions extends RestApi
 	const ACTION_TEST = 'test';
 	const ACTION_SEND = 'send';
 
-	protected $actions = [
+	protected array $actions = [
 		self::ACTION_TEST => 'test',
 		self::ACTION_SEND => 'send',
 	];
 
-	/** @var Campaigns */
-	protected $campaigns;
+	protected Campaigns $campaigns;
+	protected string $campaignId;
 
-	/** @var string */
-	protected $campaignId;
-
-	public function __construct(Client $client, Campaigns $campaigns, $campaignId)
+	public function __construct(Client $client, Campaigns $campaigns, string $campaignId)
 	{
 		parent::__construct($client);
 		$this->campaigns = $campaigns;
 		$this->campaignId = $campaignId;
 	}
 
-	/**
-	 * @return string
-	 */
-	public function getMethodUrl()
+	public function getMethodUrl(): string
 	{
 		return $this->campaigns->getMethodUrl() . '/' . $this->campaignId . '/actions';
 	}

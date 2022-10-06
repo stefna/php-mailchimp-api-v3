@@ -80,9 +80,8 @@ class CampiagnTrackingOptions extends AbstractData
 	/**
 	 * Mapping classes.
 	 *
-	 * @var string[]
 	 */
-	protected $classMap = [
+	protected array $classMap = [
 		'salesforce' => SalesforceCRMTracking::class,
 		'capsule' => CapsuleCRMTracking::class,
 	];

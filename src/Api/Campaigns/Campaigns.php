@@ -9,19 +9,18 @@ use Stefna\Mailchimp\Model\Campaign\Campaign;
 use Stefna\Mailchimp\Model\Campaign\Create\Campaign as CreateCampaign;
 use Stefna\Mailchimp\Model\Campaign\SendChecklist;
 use Stefna\Mailchimp\Model\Campaign\Update\Campaign as UpdateCampaign;
+use Stefna\Mailchimp\Other\AbstractData;
+use Stefna\Mailchimp\Other\AbstractRequest;
 
 class Campaigns extends CollectionRestApi
 {
-	/**
-	 * @return string
-	 */
-	public function getMethodUrl()
+	public function getMethodUrl(): string
 	{
 		return 'campaigns';
 	}
 
 	/**
-	 * @param CampaignsAllRequest|null $params
+	 * @param CampaignsAllRequest|AbstractRequest|null $params
 	 * @return Campaign[]
 	 */
 	public function all($params = null)
@@ -40,7 +39,7 @@ class Campaigns extends CollectionRestApi
 	}
 
 	/**
-	 * @param CreateCampaign $campaign
+	 * @param CreateCampaign|AbstractData $campaign
 	 * @return Campaign
 	 */
 	public function create($campaign)
@@ -50,10 +49,10 @@ class Campaigns extends CollectionRestApi
 
 	/**
 	 * @param string $id
-	 * @param UpdateCampaign $campaign
+	 * @param UpdateCampaign|AbstractData $campaign
 	 * @return Campaign
 	 */
-	public function update($id, $campaign)
+	public function update(string $id, $campaign)
 	{
 		return $this->doUpdate($id, $campaign, Campaign::class);
 	}
@@ -62,17 +61,17 @@ class Campaigns extends CollectionRestApi
 	 * @param string $id
 	 * @return bool
 	 */
-	public function delete($id)
+	public function delete(string $id)
 	{
 		return $this->doDelete($id);
 	}
 
-	public function contents($campaignId)
+	public function contents(string $campaignId): Contents
 	{
 		return new Contents($this->client, $this, $campaignId);
 	}
 
-	public function actions($campaignId)
+	public function actions(string $campaignId): Actions
 	{
 		return new Actions($this->client, $this, $campaignId);
 	}

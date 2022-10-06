@@ -4,6 +4,7 @@ namespace Stefna\Mailchimp\Model\Campaign\Content;
 
 use Stefna\Mailchimp\Model\Campaign\Content\CampaignContent\TemplateContent;
 use Stefna\Mailchimp\Model\Campaign\Content\CampaignContent\UploadArchive;
+use Stefna\Mailchimp\Model\Campaign\Content\CampaignContent\VariateContent;
 use Stefna\Mailchimp\Other\AbstractData;
 
 class CampaignContent extends AbstractData
@@ -46,17 +47,17 @@ class CampaignContent extends AbstractData
 	/**
 	 * Content options for [Multivariate Campaigns](http://kb.mailchimp.com/campaigns/multivariate/about-multivariate-campaigns?utm_source=mc-api&utm_medium=docs&utm_campaign=apidocs). Each content option must provide HTML content and may optionally provide plain text. For campaigns not testing content, only one object should be provided.
 	 *
-	 * @var array
+	 * @var VariateContent[]
 	 */
 	public $variateContents;
 
 	/**
 	 * Mapping classes.
 	 *
-	 * @var string[]
 	 */
-	protected $classMap = [
+	protected array $classMap = [
 		'template' => TemplateContent::class,
 		'archive' => UploadArchive::class,
+		'variateContents' => VariateContent::class,
 	];
 }

@@ -21,7 +21,7 @@ class SendChecklist extends AbstractData
 	 */
 	public $items;
 
-	protected $classMap = [
+	protected array $classMap = [
 		'items' => [Item::class],
 	];
 }

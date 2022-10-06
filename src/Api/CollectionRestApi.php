@@ -11,31 +11,31 @@ abstract class CollectionRestApi extends RestApi
 	 * @param AbstractData $data
 	 * @return AbstractData
 	 */
-	abstract public function create($data);
+	abstract public function create(AbstractData $data);
 
 	/**
-	 * @param AbstractRequest $params
+	 * @param AbstractRequest|null $params
 	 * @return AbstractData[]
 	 */
-	abstract public function all($params = null);
+	abstract public function all(?AbstractRequest $params = null);
 
 	/**
-	 * @param mixed $id
+	 * @param string $id
 	 * @param AbstractRequest|null $params
 	 * @return AbstractData
 	 */
-	abstract public function get($id, $params = null);
+	abstract public function get(string $id, ?AbstractRequest $params = null);
 
 	/**
-	 * @param mixed $id
-	 * @param array|AbstractData $data
+	 * @param string $id
+	 * @param array<string, AbstractData>|AbstractData $data
 	 * @return AbstractData
 	 */
-	abstract public function update($id, $data);
+	abstract public function update(string $id, $data);
 
 	/**
-	 * @param mixed $id
+	 * @param string $id
 	 * @return bool
 	 */
-	abstract public function delete($id);
+	abstract public function delete(string $id);
 }

@@ -16,7 +16,7 @@ class CampaignSettings extends AbstractData
 	/**
 	 * An array of [Facebook](http://kb.mailchimp.com/integrations/facebook/integrate-facebook-with-mailchimp?utm_source=mc-api&utm_medium=docs&utm_campaign=apidocs) page ids to auto-post to.
 	 *
-	 * @var array
+	 * @var string[]
 	 */
 	public $autoFbPost;
 

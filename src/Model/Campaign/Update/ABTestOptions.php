@@ -2,6 +2,7 @@
 
 namespace Stefna\Mailchimp\Model\Campaign\Update;
 
+use Stefna\Mailchimp\Model\Campaign\Update\ABTestOptions\Combination;
 use Stefna\Mailchimp\Other\AbstractData;
 
 class ABTestOptions extends AbstractData
@@ -9,35 +10,35 @@ class ABTestOptions extends AbstractData
 	/**
 	 * Combinations of possible variables used to build emails.
 	 *
-	 * @var array
+	 * @var Combination[]
 	 */
 	public $combinations;
 
 	/**
 	 * The possible from names. The number of from_names provided must match the number of reply_to_addresses. If no from_names are provided, settings.from_name will be used.
 	 *
-	 * @var array
+	 * @var string[]
 	 */
 	public $fromNames;
 
 	/**
 	 * The possible reply-to addresses. The number of reply_to_addresses provided must match the number of from_names. If no reply_to_addresses are provided, settings.reply_to will be used.
 	 *
-	 * @var array
+	 * @var string[]
 	 */
 	public $replyToAddresses;
 
 	/**
 	 * The possible send times to test. The times provided should be in the format YYYY-MM-DD HH:MM:SS. If send_times are provided to test, the test_size will be set to 100% and winner_criteria will be ignored.
 	 *
-	 * @var array
+	 * @var string[]
 	 */
 	public $sendTimes;
 
 	/**
 	 * The possible subject lines to test. If no subject lines are provided, settings.subject_line will be used.
 	 *
-	 * @var array
+	 * @var string[]
 	 */
 	public $subjectLines;
 

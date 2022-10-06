@@ -10,20 +10,18 @@ use Stefna\Mailchimp\Model\SubscriberList\ListMembers;
 
 class Members extends CollectionRestApi
 {
-	/** @var Lists */
-	protected $lists;
+	protected Lists $lists;
 
-	/** @var string */
-	protected $listId;
+	protected string $listId;
 
-	public function __construct(Client $client, Lists $lists, $listId)
+	public function __construct(Client $client, Lists $lists, string $listId)
 	{
 		parent::__construct($client);
 		$this->lists = $lists;
 		$this->listId = $listId;
 	}
 
-	public static function formatEmailAddress($emailAddress)
+	public static function formatEmailAddress(string $emailAddress): string
 	{
 		if (preg_match('/^[a-f0-9]{32}$/', $emailAddress)) {
 			return $emailAddress;
@@ -31,10 +29,7 @@ class Members extends CollectionRestApi
 		return md5(strtolower($emailAddress));
 	}
 
-	/**
-	 * @return string
-	 */
-	public function getMethodUrl()
+	public function getMethodUrl(): string
 	{
 		return $this->lists->getMethodUrl() . '/' . $this->listId . '/members';
 	}
@@ -68,21 +63,17 @@ class Members extends CollectionRestApi
 	}
 
 	/**
-	 * @param string $emailAddress
+	 * @param string $id
 	 * @param array $data
 	 * @return ListMembers
 	 */
-	public function update($emailAddress, $data)
+	public function update(string $id, $data): ListMembers
 	{
-		return $this->doUpdate(Members::formatEmailAddress($emailAddress), $data, ListMembers::class);
+		return $this->doUpdate(Members::formatEmailAddress($id), $data, ListMembers::class);
 	}
 
-	/**
-	 * @param string $emailAddress
-	 * @return bool
-	 */
-	public function delete($emailAddress)
+	public function delete(string $id): ?bool
 	{
-		return $this->doDelete(Members::formatEmailAddress($emailAddress));
+		return $this->doDelete(Members::formatEmailAddress($id));
 	}
 }

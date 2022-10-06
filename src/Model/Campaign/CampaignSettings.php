@@ -17,7 +17,7 @@ class CampaignSettings extends AbstractData
 	/**
 	 * An array of Facebook page ids to auto-post to.
 	 *
-	 * @var array
+	 * @var string[]
 	 */
 	public $autoFbPost;
 

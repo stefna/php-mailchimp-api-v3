@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Stefna\Mailchimp\Api\Templates;
 
@@ -10,11 +10,7 @@ use Stefna\Mailchimp\Model\Template\TemplateInstance;
 
 class Templates extends CollectionRestApi
 {
-
-	/**
-	 * @return string
-	 */
-	public function getMethodUrl()
+	public function getMethodUrl(): string
 	{
 		return 'templates';
 	}
@@ -48,20 +44,16 @@ class Templates extends CollectionRestApi
 	}
 
 	/**
-	 * @param mixed $id
+	 * @param string $id
 	 * @param array $data
 	 * @return TemplateInstance
 	 */
-	public function update($id, $data)
+	public function update(string $id, $data)
 	{
 		return $this->doUpdate($id, $data, TemplateInstance::class);
 	}
 
-	/**
-	 * @param mixed $id
-	 * @return bool
-	 */
-	public function delete($id)
+	public function delete(string $id): ?bool
 	{
 		return $this->doDelete($id);
 	}
@@ -73,7 +65,8 @@ class Templates extends CollectionRestApi
 	 */
 	public function getDefault($templateId, $params = null)
 	{
-		$data = $this->fetch($this->getPath(self::ACTION_ONE, [$templateId, 'default-content']), null, $params);
+		$data = $this->fetch($this->getPath(self::ACTION_ONE, [$templateId, 'default-content']),
+			null, $params);
 		if (!$data) {
 			return null;
 		}

@@ -66,7 +66,7 @@ class SubscriberList extends AbstractData
 	/**
 	 * Any list-specific modules installed for this list.
 	 *
-	 * @var array
+	 * @var string[]
 	 */
 	public $modules;
 
@@ -144,9 +144,8 @@ class SubscriberList extends AbstractData
 	/**
 	 * Mapping classes.
 	 *
-	 * @var string[]
 	 */
-	protected $classMap = [
+	protected array $classMap = [
 		'contact' => ListContact::class,
 		'campaignDefaults' => CampaignDefaults::class,
 		'stats' => Statistics::class,

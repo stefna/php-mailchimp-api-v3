@@ -58,9 +58,8 @@ class Campaign extends AbstractData
 	/**
 	 * Mapping classes.
 	 *
-	 * @var string[]
 	 */
-	protected $classMap = [
+	protected array $classMap = [
 		'recipients' => CampaignList::class,
 		'settings' => CampaignSettings::class,
 		'variateSettings' => ABTestOptions::class,

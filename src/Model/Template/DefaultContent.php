@@ -9,5 +9,5 @@ class DefaultContent extends AbstractData
 	/**
 	 * @var string[]
 	 */
-	public $sections;
+	public array $sections;
 }
