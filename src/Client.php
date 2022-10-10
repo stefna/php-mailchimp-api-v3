@@ -4,86 +4,81 @@ namespace Stefna\Mailchimp;
 
 use Http\Client\HttpClient;
 use Http\Discovery\MessageFactoryDiscovery;
+use Http\Message\MessageFactory;
 use InvalidArgumentException;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
+use RuntimeException;
 use Stefna\Mailchimp\Api\Campaigns\Campaigns as CampaignsApi;
 use Stefna\Mailchimp\Api\Lists\Lists as ListsApi;
 use Stefna\Mailchimp\Api\Templates\Templates;
+use Stefna\Mailchimp\Other\AbstractData;
 
 class Client
 {
 	const DEFAULT_ENDPOINT = 'https://<dc>.api.mailchimp.com/3.0';
 	const TIMEOUT = 10;
+	protected ?LoggerInterface $logger = null;
+	protected ?ResponseInterface $lastResponse;
+	protected ?RequestInterface $lastRequest;
 	/**
-	 * @var LoggerInterface
+	 * @var MessageFactoryDiscovery|MessageFactory
 	 */
-	protected $logger;
-	/** @var ResponseInterface */
-	protected $lastResponse;
-	protected $lastRequest;
 	protected $messageFactory;
-	/**
-	 * @var HttpClient
-	 */
-	protected $httpClient;
-	/**
-	 * @var string
-	 */
-	protected $apiKey;
-	protected $apiEndpoint = '';
+	protected HttpClient $httpClient;
+	protected string $apiKey;
+	protected string $apiEndpoint = '';
 
 	/**
 	 * Client constructor.
 	 * @param HttpClient $httpClient
 	 * @param string $apiKey
 	 * @param string|null $apiEndpoint
-	 * @param MessageFactoryDiscovery|null $messageFactory
+	 * @param MessageFactory|null $messageFactory
 	 */
-	public function __construct(HttpClient $httpClient, string $apiKey, ?string $apiEndpoint = null, $messageFactory = null)
-	{
+	public function __construct(HttpClient      $httpClient,
+								string          $apiKey,
+								?string         $apiEndpoint = null,
+								?MessageFactory $messageFactory = null
+	) {
 		$this->httpClient = $httpClient;
 		$this->apiKey = $apiKey;
 		$this->apiEndpoint = $apiEndpoint ?: $this->createApiEndpoint($apiKey);
 		$this->messageFactory = $messageFactory ?: MessageFactoryDiscovery::find();
 	}
 
-	public function lists()
+	public function lists(): ListsApi
 	{
 		return new ListsApi($this);
 	}
 
-	public function campaigns()
+	public function campaigns(): CampaignsApi
 	{
 		return new CampaignsApi($this);
 	}
 
-	public function templates()
+	public function templates(): Templates
 	{
 		return new Templates($this);
 	}
 
-	/**
-	 * @return LoggerInterface
-	 */
-	public function getLogger()
+	public function getLogger(): ?LoggerInterface
 	{
 		return $this->logger;
 	}
 
-	public function setLogger(LoggerInterface $logger)
+	public function setLogger(LoggerInterface $logger): void
 	{
 		$this->logger = $logger;
-		return $this;
 	}
 
-	public function getHttpClient()
+	public function getHttpClient(): HttpClient
 	{
 		return $this->httpClient;
 	}
 
-	public function get($path, $args = [])
+	public function get(string $path, $args = [])
 	{
 		return $this->request($this->messageFactory->createRequest(
 			'get',
@@ -97,7 +92,7 @@ class Client
 	 * @param array $args
 	 * @return bool
 	 */
-	public function delete($path, $args = [])
+	public function delete(string $path, $args = [])
 	{
 		return $this->request($this->messageFactory->createRequest(
 			'delete',
@@ -106,7 +101,11 @@ class Client
 		), true);
 	}
 
-	public function post($path, $data = [])
+	/**
+	 * @param string $path
+	 * @param AbstractData|array<string, mixed>$data
+	 */
+	public function post(string $path, array $data = [])
 	{
 		return $this->request($this->messageFactory->createRequest(
 			'post',
@@ -116,7 +115,7 @@ class Client
 		));
 	}
 
-	public function put($path, $data = [])
+	public function put(string $path, $data = [])
 	{
 		return $this->request($this->messageFactory->createRequest(
 			'put',
@@ -126,7 +125,12 @@ class Client
 		));
 	}
 
-	public function patch($path, $data = [])
+	/**
+	 * @param string $path
+	 * @param $data
+	 * @return bool|string|string[]|null
+	 */
+	public function patch(string $path, $data = [])
 	{
 		return $this->request($this->messageFactory->createRequest(
 			'patch',
@@ -136,36 +140,44 @@ class Client
 		));
 	}
 
-	public function request(RequestInterface $request, $noOutput = false)
+	/**
+	 * @param RequestInterface $request
+	 * @param bool $noOutput
+	 * @return bool|string|string[]|null
+	 */
+	public function request(RequestInterface $request, bool $noOutput = false)
 	{
 		$this->lastRequest = $request;
 
-		$this->logger->debug("Request created", [
-			'request' => \GuzzleHttp\Psr7\str($request),
-		]);
+		if ($this->logger) {
+			$this->logger->debug("Request created", [
+				'request' => \GuzzleHttp\Psr7\str($request),
+			]);
+		}
 
-		return (!$noOutput)
+		return !$noOutput
 			? $this->response($this->sendRequest($request))
 			: $this->noOutputResponse($this->sendRequest($request));
 	}
 
-	public function noOutputResponse(ResponseInterface $response)
+	public function noOutputResponse(ResponseInterface $response): bool
 	{
 		$this->lastResponse = $response;
 		$status = $response->getStatusCode();
 
-
-		$this->logger->debug("Response created without output", [
-			'headers' => json_encode($response->getHeaders()),
-			'status' => $status,
-		]);
+		if ($this->logger) {
+			$this->logger->debug("Response created without output", [
+				'headers' => json_encode($response->getHeaders()),
+				'status' => $status,
+			]);
+		}
 
 
 		if ($status > 299) {
 			if ($status != 404) {
 				$contents = $response->getBody()->getContents();
 				$ret = json_decode($contents, true);
-				if ($ret) {
+				if ($ret && is_array($ret) && $this->logger) {
 					$this->logger->alert($this->formatError($ret));
 				}
 			}
@@ -174,34 +186,43 @@ class Client
 		return true;
 	}
 
+	/**
+	 * @param ResponseInterface $response
+	 * @return string|string[]|null
+	 */
 	public function response(ResponseInterface $response)
 	{
 		$this->lastResponse = $response;
 		$contents = $response->getBody()->getContents();
+		/** @var array<string, string>|null $ret */
 		$ret = json_decode($contents, true);
 		$jsonLastError = json_last_error();
 		$jsonOk = JSON_ERROR_NONE === $jsonLastError;
 		$status = $response->getStatusCode();
-		if ($jsonOk && $ret && isset($ret['status'])) {
-			$status = $ret['status'];
+		if ($jsonOk && $ret && isset($ret['status']) && is_numeric($ret['status'])) {
+			$status = (int)$ret['status'];
 		}
-		$this->logger->debug("Response created", [
-			'headers' => json_encode($response->getHeaders()),
-			'body' => $jsonOk ? $ret : $contents,
-			'jsonLastError' => $jsonLastError,
-			'status' => $status,
-		]);
+		if ($this->logger) {
+			$this->logger->debug("Response created", [
+				'headers' => json_encode($response->getHeaders()),
+				'body' => $jsonOk ? $ret : $contents,
+				'jsonLastError' => $jsonLastError,
+				'status' => $status,
+			]);
+		}
 
-		if ($status > 299) {
+		if ($status > 299 && is_array($ret)) {
 			$errorMsg = $this->formatError($ret);
-			$this->logger->alert($errorMsg);
+			if ($this->logger) {
+				$this->logger->alert($errorMsg);
+			}
 
 			if ($status !== 404) {
 				$msg = "Error from API";
 				if ($errorMsg && $errorMsg[0] !== '{') {
 					$msg .= ": $errorMsg";
 				}
-				throw new \RuntimeException($msg, $status);
+				throw new RuntimeException($msg, $status);
 			}
 			return null;
 		}
@@ -212,9 +233,9 @@ class Client
 	}
 
 	/**
-	 * @return array
+	 * @return string[]
 	 */
-	public function getDefaultHeaders()
+	public function getDefaultHeaders(): array
 	{
 		$headers = [
 			'Accept' => 'application/vnd.api+json',
@@ -224,43 +245,57 @@ class Client
 		return $headers;
 	}
 
-	protected function createApiEndpoint($apiKey)
+	protected function createApiEndpoint(string $apiKey): string
 	{
 		if (strpos($apiKey, '-') === false) {
 			throw new InvalidArgumentException("Invalid api key: $apiKey");
 		}
 		[, $dc] = explode('-', $apiKey);
-		return str_replace('<dc>', $dc, self::DEFAULT_ENDPOINT);
+		return (string)str_replace('<dc>', (string)$dc, self::DEFAULT_ENDPOINT);
 	}
 
-	protected function sendRequest(RequestInterface $request)
+	protected function sendRequest(RequestInterface $request): ResponseInterface
 	{
 		return $this->httpClient->sendRequest($request);
 	}
 
-	protected function formatError($data)
+	/**
+	 * @param string|array<string,string>|array<string,array<string,string>> $data
+	 * @return string
+	 */
+	protected function formatError($data): string
 	{
 		if (is_string($data)) {
 			return $data;
 		}
 		if (!isset($data['title'])) {
-			return json_encode($data);
+			return (string)json_encode($data);
 		}
-		$ret = $data['title'];
-		if (isset($data['errors'])) {
+		$ret = is_string($data['title']) ? $data['title'] : '';
+		if (isset($data['errors']) && is_array($data['errors'])) {
 			$errors = [];
+			/** @var array<string, string> $error */
 			foreach ($data['errors'] as $error) {
-				$errors[] = "  {$error['field']}: {$error['message']}";
+				if (is_array($error) && isset($error['field'], $error['message'])) {
+					$errors[] = "  {$error['field']}: {$error['message']}";
+				}
 			}
 			$ret = "$ret\n" . implode("\n", $errors);
 		}
-		else if (isset($data['detail'])) {
-			$ret = $data['detail'];
+		else {
+			if (isset($data['detail']) && is_string($data['detail'])) {
+				$ret = $data['detail'];
+			}
 		}
 		return $ret;
 	}
 
-	protected function createUrl($path, $queryParams = [])
+	/**
+	 * @param string $path
+	 * @param array<string,string> $queryParams
+	 * @return string
+	 */
+	protected function createUrl(string $path, array $queryParams = []): string
 	{
 		$ret = $this->apiEndpoint . '/' . $path;
 		if ($queryParams) {

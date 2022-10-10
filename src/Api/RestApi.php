@@ -34,10 +34,10 @@ abstract class RestApi
 	/**
 	 * @param string $path
 	 * @param string|null $returnKey
-	 * @param array<string, array>|null $params
-	 * @return array|null
+	 * @param AbstractRequest|null $params
+	 * @return array<string, mixed>|null
 	 */
-	public function fetch(string $path, ?string $returnKey = null, array $params = null): ?array
+	public function fetch(string $path, ?string $returnKey = null, ?AbstractRequest $params = null)
 	{
 		$data = $this->client->get($path, $this->paramsToArgs($params));
 		if (!$returnKey) {
@@ -52,10 +52,10 @@ abstract class RestApi
 	/**
 	 * @param string $className
 	 * @param string|null $id
-	 * @param array|null $params
+	 * @param AbstractRequest|null $params
 	 * @return AbstractData|null
 	 */
-	public function fetchOne(string $className, ?string $id = null, $params = null): ?AbstractData
+	public function fetchOne(string $className, ?string $id = null, ?AbstractRequest $params = null): ?AbstractData
 	{
 		$data = $this->fetch($this->getPath(self::ACTION_ONE, [$id]), null, $params);
 		if (!$data) {
@@ -67,8 +67,8 @@ abstract class RestApi
 	/**
 	 * @param string $className
 	 * @param string|null $returnKey
-	 * @param AbstractRequest|array|null $params
-	 * @return array
+	 * @param AbstractRequest|array<string, mixed>|null $params
+	 * @return empty|array<string, mixed>
 	 */
 	public function fetchAll(string $className, ?string $returnKey = null, $params = null): array
 	{
@@ -92,10 +92,10 @@ abstract class RestApi
 
 	/**
 	 * @param AbstractData $item
-	 * @param string|null $className
-	 * @return mixed|AbstractData
+	 * @param class-string|null $className
+	 * @return AbstractData
 	 */
-	protected function doCreate(AbstractData $item, ?string $className = null)
+	protected function doCreate(AbstractData $item, ?string $className = null): AbstractData
 	{
 		$data = $item->getData();
 		$path = $this->getPath(self::ACTION_CREATE);
@@ -108,11 +108,11 @@ abstract class RestApi
 
 	/**
 	 * @param string $id
-	 * @param array|AbstractData $data
-	 * @param string $className
-	 * @return mixed
+	 * @param array<string, mixed>|AbstractData $data
+	 * @param class-string $className
+	 * @return AbstractData
 	 */
-	protected function doUpdate(string $id, $data, string $className)
+	protected function doUpdate(string $id, $data, string $className): AbstractData
 	{
 		$data = ($data instanceof AbstractData)
 			? $data->getData()
@@ -129,10 +129,10 @@ abstract class RestApi
 	}
 
 	/**
-	 * @param array|AbstractRequest $params
-	 * @return array<string, array>
+	 * @param string[]|AbstractRequest|null $params
+	 * @return array<string, mixed>
 	 */
-	protected function paramsToArgs($params)
+	protected function paramsToArgs($params = null)
 	{
 		if (!$params) {
 			return [];
@@ -146,6 +146,11 @@ abstract class RestApi
 		throw new InvalidArgumentException("Params must be an array or an AbstractParams object");
 	}
 
+	/**
+	 * @param string $action
+	 * @param string[] $params
+	 * @return string
+	 */
 	protected function getPath(string $action, array $params = []): string
 	{
 		$urlAction = ($action && isset($this->actions[$action])) ? $this->actions[$action] : null;

@@ -30,38 +30,34 @@ class Campaigns extends CollectionRestApi
 
 	/**
 	 * @param string $id
-	 * @param Campaigns|null $params
-	 * @return Campaign
+	 * @param AbstractRequest|null $params
+	 * @return Campaign|AbstractData|null
 	 */
-	public function get($id, $params = null)
+	public function get(string $id, ?AbstractRequest $params = null)
 	{
 		return $this->fetchOne(Campaign::class, $id, $params);
 	}
 
 	/**
-	 * @param CreateCampaign|AbstractData $campaign
-	 * @return Campaign
+	 * @param CreateCampaign|AbstractData $data
+	 * @return AbstractData|Campaign
 	 */
-	public function create($campaign)
+	public function create(AbstractData $data)
 	{
-		return $this->doCreate($campaign, Campaign::class);
+		return $this->doCreate($data, Campaign::class);
 	}
 
 	/**
 	 * @param string $id
-	 * @param UpdateCampaign|AbstractData $campaign
-	 * @return Campaign
+	 * @param array<string, AbstractData>|AbstractData|UpdateCampaign $data
+	 * @return AbstractData|Campaign
 	 */
-	public function update(string $id, $campaign)
+	public function update(string $id, $data)
 	{
-		return $this->doUpdate($id, $campaign, Campaign::class);
+		return $this->doUpdate($id, $data, Campaign::class);
 	}
 
-	/**
-	 * @param string $id
-	 * @return bool
-	 */
-	public function delete(string $id)
+	public function delete(string $id): ?bool
 	{
 		return $this->doDelete($id);
 	}
@@ -81,7 +77,7 @@ class Campaigns extends CollectionRestApi
 	 * @param CampaignsRequest $params
 	 * @return SendChecklist|null
 	 */
-	public function checklist($campaignId, $params = null)
+	public function checklist(string $campaignId, $params = null)
 	{
 		$path = $this->getPath(self::ACTION_ONE, [$campaignId, 'send-checklist']);
 		$data = $this->fetch($path, null, $params);

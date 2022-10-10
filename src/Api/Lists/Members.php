@@ -7,6 +7,8 @@ use Stefna\Mailchimp\Api\Lists\Request\ListsMembersAllRequest;
 use Stefna\Mailchimp\Api\Lists\Request\ListsRequest;
 use Stefna\Mailchimp\Client;
 use Stefna\Mailchimp\Model\SubscriberList\ListMembers;
+use Stefna\Mailchimp\Other\AbstractData;
+use Stefna\Mailchimp\Other\AbstractRequest;
 
 class Members extends CollectionRestApi
 {
@@ -44,30 +46,30 @@ class Members extends CollectionRestApi
 	}
 
 	/**
-	 * @param string $emailAddress
-	 * @param ListsRequest|null $params
-	 * @return ListMembers
+	 * @param string $id
+	 * @param ListsRequest|AbstractRequest|null $params
+	 * @return ListMembers|AbstractData|null
 	 */
-	public function get($emailAddress, $params = null)
+	public function get(string $id, $params = null)
 	{
-		return $this->fetchOne(ListMembers::class, Members::formatEmailAddress($emailAddress), $params);
+		return $this->fetchOne(ListMembers::class, Members::formatEmailAddress($id), $params);
 	}
 
 	/**
-	 * @param ListMembers $members
-	 * @return ListMembers
+	 * @param ListMembers|AbstractData $data
+	 * @return ListMembers|AbstractData
 	 */
-	public function create($members)
+	public function create(AbstractData $data)
 	{
-		return $this->doCreate($members);
+		return $this->doCreate($data);
 	}
 
 	/**
 	 * @param string $id
-	 * @param array $data
-	 * @return ListMembers
+	 * @param array<string, AbstractData>|AbstractData $data
+	 * @return ListMembers|AbstractData
 	 */
-	public function update(string $id, $data): ListMembers
+	public function update(string $id, $data)
 	{
 		return $this->doUpdate(Members::formatEmailAddress($id), $data, ListMembers::class);
 	}

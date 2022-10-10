@@ -8,12 +8,12 @@ interface AllInterface
 	 * @param int $value
 	 * @return AllInterface
 	 */
-	public function setCount($value);
+	public function setCount(int $value);
 
 	/**
 	 * @param int $value
 	 * @return AllInterface
 	 */
-	public function setOffset($value);
+	public function setOffset(int $value);
 
 }

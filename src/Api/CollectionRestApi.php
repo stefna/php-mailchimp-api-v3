@@ -22,7 +22,7 @@ abstract class CollectionRestApi extends RestApi
 	/**
 	 * @param string $id
 	 * @param AbstractRequest|null $params
-	 * @return AbstractData
+	 * @return AbstractData|null
 	 */
 	abstract public function get(string $id, ?AbstractRequest $params = null);
 

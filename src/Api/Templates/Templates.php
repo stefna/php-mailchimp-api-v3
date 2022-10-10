@@ -7,6 +7,8 @@ use Stefna\Mailchimp\Api\Templates\Request\TemplatesRequest;
 use Stefna\Mailchimp\Model\Template\DefaultContent;
 use Stefna\Mailchimp\Model\Template\NewTemplateInstance;
 use Stefna\Mailchimp\Model\Template\TemplateInstance;
+use Stefna\Mailchimp\Other\AbstractData;
+use Stefna\Mailchimp\Other\AbstractRequest;
 
 class Templates extends CollectionRestApi
 {
@@ -16,16 +18,16 @@ class Templates extends CollectionRestApi
 	}
 
 	/**
-	 * @param NewTemplateInstance $data
-	 * @return TemplateInstance
+	 * @param AbstractData $data
+	 * @return TemplateInstance|AbstractData
 	 */
-	public function create($data)
+	public function create(AbstractData $data): AbstractData
 	{
 		return $this->doCreate($data, TemplateInstance::class);
 	}
 
 	/**
-	 * @param \Stefna\Mailchimp\Other\AbstractRequest $params
+	 * @param AbstractRequest $params
 	 * @return TemplateInstance[]
 	 */
 	public function all($params = null)
@@ -34,20 +36,15 @@ class Templates extends CollectionRestApi
 	}
 
 	/**
-	 * @param mixed $id
-	 * @param \Stefna\Mailchimp\Other\AbstractRequest|null $params
-	 * @return TemplateInstance
+	 * @param string $id
+	 * @param AbstractRequest|null $params
+	 * @return AbstractData|TemplateInstance|null
 	 */
-	public function get($id, $params = null)
+	public function get(string $id, ?AbstractRequest $params = null)
 	{
 		return $this->fetchOne(TemplateInstance::class, $id, $params);
 	}
 
-	/**
-	 * @param string $id
-	 * @param array $data
-	 * @return TemplateInstance
-	 */
 	public function update(string $id, $data)
 	{
 		return $this->doUpdate($id, $data, TemplateInstance::class);
@@ -59,11 +56,11 @@ class Templates extends CollectionRestApi
 	}
 
 	/**
-	 * @param int $templateId
-	 * @param TemplatesRequest $params
+	 * @param string $templateId
+	 * @param AbstractRequest|TemplatesRequest|null $params
 	 * @return DefaultContent|null
 	 */
-	public function getDefault($templateId, $params = null)
+	public function getDefault(string $templateId, $params = null)
 	{
 		$data = $this->fetch($this->getPath(self::ACTION_ONE, [$templateId, 'default-content']),
 			null, $params);

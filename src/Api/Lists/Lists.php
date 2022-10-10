@@ -6,6 +6,7 @@ use Stefna\Mailchimp\Api\CollectionRestApi;
 use Stefna\Mailchimp\Api\Lists\Request\ListsAllRequest;
 use Stefna\Mailchimp\Model\SubscriberList;
 use Stefna\Mailchimp\Other\AbstractData;
+use Stefna\Mailchimp\Other\AbstractRequest;
 
 class Lists extends CollectionRestApi
 {
@@ -25,17 +26,17 @@ class Lists extends CollectionRestApi
 
 	/**
 	 * @param string $id
-	 * @param Lists|null $params
+	 * @param AbstractRequest|null $params
 	 * @return SubscriberList|AbstractData|null
 	 */
-	public function get($id, $params = null)
+	public function get(string $id, ?AbstractRequest $params = null)
 	{
 		return $this->fetchOne(SubscriberList::class, $id, $params);
 	}
 
 	/**
-	 * @param SubscriberList $campaign
-	 * @return SubscriberList
+	 * @param AbstractData|SubscriberList $campaign
+	 * @return AbstractData|SubscriberList
 	 */
 	public function create($campaign)
 	{
@@ -44,10 +45,10 @@ class Lists extends CollectionRestApi
 
 	/**
 	 * @param string $id
-	 * @param array $data
-	 * @return SubscriberList
+	 * @param array<string, AbstractData>|AbstractData $data
+	 * @return AbstractData|SubscriberList
 	 */
-	public function update(string $id, $data): SubscriberList
+	public function update(string $id, $data)
 	{
 		return $this->doUpdate($id, $data, SubscriberList::class);
 	}
