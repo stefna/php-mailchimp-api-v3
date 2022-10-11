@@ -32,9 +32,7 @@ class AbstractData
 		$str = ucwords($str);
 		$str = str_replace(" ", "", $str);
 
-		$str = lcfirst($str);
-
-		return $str;
+		return lcfirst($str);
 	}
 
 	/**

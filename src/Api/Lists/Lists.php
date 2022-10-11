@@ -19,7 +19,7 @@ class Lists extends CollectionRestApi
 	 * @param ListsAllRequest|null $params
 	 * @return SubscriberList[]
 	 */
-	public function all($params = null)
+	public function all($params = null): array
 	{
 		return $this->fetchAll(SubscriberList::class, 'lists', $params);
 	}
@@ -35,12 +35,12 @@ class Lists extends CollectionRestApi
 	}
 
 	/**
-	 * @param AbstractData|SubscriberList $campaign
+	 * @param AbstractData|SubscriberList $data
 	 * @return AbstractData|SubscriberList
 	 */
-	public function create($campaign)
+	public function create($data)
 	{
-		return $this->doCreate($campaign);
+		return $this->doCreate($data);
 	}
 
 	/**

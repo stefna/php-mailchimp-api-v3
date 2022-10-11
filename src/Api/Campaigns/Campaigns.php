@@ -74,10 +74,10 @@ class Campaigns extends CollectionRestApi
 
 	/**
 	 * @param string $campaignId
-	 * @param CampaignsRequest $params
+	 * @param CampaignsRequest|null $params
 	 * @return SendChecklist|null
 	 */
-	public function checklist(string $campaignId, $params = null)
+	public function checklist(string $campaignId, ?CampaignsRequest $params = null)
 	{
 		$path = $this->getPath(self::ACTION_ONE, [$campaignId, 'send-checklist']);
 		$data = $this->fetch($path, null, $params);

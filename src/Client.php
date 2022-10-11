@@ -13,12 +13,11 @@ use RuntimeException;
 use Stefna\Mailchimp\Api\Campaigns\Campaigns as CampaignsApi;
 use Stefna\Mailchimp\Api\Lists\Lists as ListsApi;
 use Stefna\Mailchimp\Api\Templates\Templates;
-use Stefna\Mailchimp\Other\AbstractData;
+use function GuzzleHttp\Psr7\str;
 
 class Client
 {
 	const DEFAULT_ENDPOINT = 'https://<dc>.api.mailchimp.com/3.0';
-	const TIMEOUT = 10;
 	protected ?LoggerInterface $logger = null;
 	protected ?ResponseInterface $lastResponse;
 	protected ?RequestInterface $lastRequest;
@@ -37,10 +36,11 @@ class Client
 	 * @param string|null $apiEndpoint
 	 * @param MessageFactory|null $messageFactory
 	 */
-	public function __construct(HttpClient      $httpClient,
-								string          $apiKey,
-								?string         $apiEndpoint = null,
-								?MessageFactory $messageFactory = null
+	public function __construct(
+		HttpClient      $httpClient,
+		string          $apiKey,
+		?string         $apiEndpoint = null,
+		?MessageFactory $messageFactory = null
 	) {
 		$this->httpClient = $httpClient;
 		$this->apiKey = $apiKey;
@@ -127,7 +127,7 @@ class Client
 	 * @param array<string, mixed> $data
 	 * @return array<string, mixed>
 	 */
-	public function put(string $path, $data = [])
+	public function put(string $path, array $data = [])
 	{
 		/** @var array<string, mixed> */
 		return $this->request($this->messageFactory->createRequest(
@@ -143,7 +143,7 @@ class Client
 	 * @param array<string, mixed> $data
 	 * @return mixed
 	 */
-	public function patch(string $path, $data = [])
+	public function patch(string $path, array $data = [])
 	{
 		return $this->request($this->messageFactory->createRequest(
 			'patch',
@@ -164,7 +164,7 @@ class Client
 
 		if ($this->logger) {
 			$this->logger->debug("Request created", [
-				'request' => \GuzzleHttp\Psr7\str($request),
+				'request' => str($request),
 			]);
 		}
 
@@ -250,12 +250,11 @@ class Client
 	 */
 	public function getDefaultHeaders(): array
 	{
-		$headers = [
+		return [
 			'Accept' => 'application/vnd.api+json',
 			'Content-Type' => 'application/vnd.api+json',
 			'Authorization' => 'apikey ' . $this->apiKey,
 		];
-		return $headers;
 	}
 
 	protected function createApiEndpoint(string $apiKey): string

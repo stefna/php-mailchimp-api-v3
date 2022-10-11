@@ -37,7 +37,7 @@ abstract class RestApi
 	 * @param AbstractRequest|null $params
 	 * @return array<string, mixed>|null
 	 */
-	public function fetch(string $path, ?string $returnKey = null, ?AbstractRequest $params = null)
+	public function fetch(string $path, ?string $returnKey = null, ?AbstractRequest $params = null): ?array
 	{
 		$data = $this->client->get($path, $this->paramsToArgs($params));
 		if (!$returnKey) {
@@ -56,8 +56,10 @@ abstract class RestApi
 	 * @param AbstractRequest|null $params
 	 * @return AbstractData|null
 	 */
-	public function fetchOne(string $className, ?string $id = null, ?AbstractRequest $params = null): ?AbstractData
-	{
+	public function fetchOne(string           $className,
+							 ?string          $id = null,
+							 ?AbstractRequest $params = null
+	): ?AbstractData {
 		$data = $this->fetch($this->getPath(self::ACTION_ONE, [$id]), null, $params);
 		if (!$data) {
 			return null;
@@ -73,8 +75,11 @@ abstract class RestApi
 	 * @param AbstractRequest|null $params
 	 * @return array<array-key, T>
 	 */
-	public function fetchAll(string $className, ?string $returnKey = null, $params = null): array
-	{
+	public function fetchAll(
+		string           $className,
+		?string          $returnKey = null,
+		?AbstractRequest $params = null
+	): array {
 		$data = $this->fetch($this->getPath(self::ACTION_ALL), $returnKey, $params);
 		if (!$data) {
 			return [];

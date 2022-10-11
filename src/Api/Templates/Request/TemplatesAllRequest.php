@@ -21,7 +21,7 @@ class TemplatesAllRequest extends TemplatesRequest implements AllInterface
 	 * @param DateTime|string $value
 	 * @return $this
 	 */
-	public function setBeforeCreatedAt($value)
+	public function setBeforeCreatedAt($value): TemplatesAllRequest
 	{
 		if ($value instanceof DateTime) {
 			$value = $value->format(DateTimeInterface::W3C);

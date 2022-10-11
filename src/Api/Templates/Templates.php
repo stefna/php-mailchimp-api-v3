@@ -5,7 +5,6 @@ namespace Stefna\Mailchimp\Api\Templates;
 use Stefna\Mailchimp\Api\CollectionRestApi;
 use Stefna\Mailchimp\Api\Templates\Request\TemplatesRequest;
 use Stefna\Mailchimp\Model\Template\DefaultContent;
-use Stefna\Mailchimp\Model\Template\NewTemplateInstance;
 use Stefna\Mailchimp\Model\Template\TemplateInstance;
 use Stefna\Mailchimp\Other\AbstractData;
 use Stefna\Mailchimp\Other\AbstractRequest;
@@ -30,7 +29,7 @@ class Templates extends CollectionRestApi
 	 * @param AbstractRequest $params
 	 * @return TemplateInstance[]
 	 */
-	public function all($params = null)
+	public function all($params = null): array
 	{
 		return $this->fetchAll(TemplateInstance::class, 'templates', $params);
 	}
@@ -60,7 +59,7 @@ class Templates extends CollectionRestApi
 	 * @param AbstractRequest|TemplatesRequest|null $params
 	 * @return DefaultContent|null
 	 */
-	public function getDefault(string $templateId, $params = null)
+	public function getDefault(string $templateId, $params = null): ?DefaultContent
 	{
 		$data = $this->fetch($this->getPath(self::ACTION_ONE, [$templateId, 'default-content']),
 			null, $params);

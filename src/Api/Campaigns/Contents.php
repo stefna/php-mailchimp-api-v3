@@ -30,7 +30,7 @@ class Contents extends RestApi
 	 * @param AbstractRequest|null $params
 	 * @return AbstractData|Content|null
 	 */
-	public function get($params = null)
+	public function get(?AbstractRequest $params = null)
 	{
 		return $this->fetchOne(Content::class, null, $params);
 	}
@@ -39,7 +39,7 @@ class Contents extends RestApi
 	 * @param CampaignContent $params
 	 * @return Content
 	 */
-	public function update($params)
+	public function update(CampaignContent $params): Content
 	{
 		$data = $params->getData();
 		$path = $this->getPath(self::ACTION_UPDATE);

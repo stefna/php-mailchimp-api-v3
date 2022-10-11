@@ -47,7 +47,7 @@ abstract class TestCase extends AbstractTestCase
 	 * @param AllInterface|AbstractRequest $params
 	 * @param int $count
 	 */
-	protected function checkAll($params = null, $count = 1)
+	protected function checkAll($params = null, int $count = 1)
 	{
 		$api = $this->getApi();
 		$data = $api->all($params);

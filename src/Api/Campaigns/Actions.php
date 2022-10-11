@@ -35,7 +35,7 @@ class Actions extends RestApi
 	 * @param SendTest $data
 	 * @return bool
 	 */
-	public function test($data)
+	public function test(SendTest $data): bool
 	{
 		$retData = $this->client->post($this->getPath(self::ACTION_TEST), $data->getData());
 		if (!$retData) {
@@ -47,7 +47,7 @@ class Actions extends RestApi
 	/**
 	 * @return bool
 	 */
-	public function send()
+	public function send(): bool
 	{
 		$retData = $this->client->post($this->getPath(self::ACTION_SEND));
 		if (!$retData) {

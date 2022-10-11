@@ -40,7 +40,7 @@ class Members extends CollectionRestApi
 	 * @param ListsMembersAllRequest $params
 	 * @return ListMembers[]
 	 */
-	public function all($params = null)
+	public function all($params = null): array
 	{
 		return $this->fetchAll(ListMembers::class, 'members', $params);
 	}
