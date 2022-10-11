@@ -10,11 +10,11 @@ use Stefna\Mailchimp\Other\AbstractRequest;
 
 abstract class RestApi
 {
-	const ACTION_ALL = 'all';
-	const ACTION_ONE = 'one';
-	const ACTION_CREATE = 'create';
-	const ACTION_UPDATE = 'update';
-	const ACTION_DELETE = 'delete';
+	public const ACTION_ALL = 'all';
+	public const ACTION_ONE = 'one';
+	public const ACTION_CREATE = 'create';
+	public const ACTION_UPDATE = 'update';
+	public const ACTION_DELETE = 'delete';
 	protected Client $client;
 	/**
 	 * @var array<string, string>

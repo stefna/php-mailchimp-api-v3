@@ -12,11 +12,11 @@ class ListsMembersAllRequest extends ListsRequest implements AllInterface
 {
 	use AllTrait;
 
-	const PARAM_EMAIL = 'email';
-	const PARAM_SINCE_CAMPAIGN_LAST_SENT = 'since_campaign_last_sent';
-	const PARAM_BEFORE_CAMPAIGN_LAST_SENT = 'before_campaign_last_sent';
-	const PARAM_SINCE_DATE_CREATED = 'since_date_created';
-	const PARAM_BEFORE_DATE_CREATED = 'before_date_created';
+	private const PARAM_EMAIL = 'email';
+	private const PARAM_SINCE_CAMPAIGN_LAST_SENT = 'since_campaign_last_sent';
+	private const PARAM_BEFORE_CAMPAIGN_LAST_SENT = 'before_campaign_last_sent';
+	private const PARAM_SINCE_DATE_CREATED = 'since_date_created';
+	private const PARAM_BEFORE_DATE_CREATED = 'before_date_created';
 
 	/**
 	 * @param DateTime|string $value

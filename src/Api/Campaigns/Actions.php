@@ -9,8 +9,8 @@ use Stefna\Mailchimp\Model\Campaign\SendTest;
 
 class Actions extends RestApi
 {
-	const ACTION_TEST = 'test';
-	const ACTION_SEND = 'send';
+	private const ACTION_TEST = 'test';
+	private const ACTION_SEND = 'send';
 
 	protected array $actions = [
 		self::ACTION_TEST => 'test',

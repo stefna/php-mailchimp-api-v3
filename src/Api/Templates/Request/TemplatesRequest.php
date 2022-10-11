@@ -6,8 +6,8 @@ use Stefna\Mailchimp\Other\AbstractRequest;
 
 class TemplatesRequest extends AbstractRequest
 {
-	const PARAM_FIELDS = 'fields';
-	const PARAM_EXCLUDE_FIELDS = 'exclude_fields';
+	private const PARAM_FIELDS = 'fields';
+	private const PARAM_EXCLUDE_FIELDS = 'exclude_fields';
 
 	/**
 	 * @param string[] $value

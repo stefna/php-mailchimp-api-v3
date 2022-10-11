@@ -18,7 +18,7 @@ use function GuzzleHttp\Psr7\str;
 
 class Client
 {
-	const DEFAULT_ENDPOINT = 'https://<dc>.api.mailchimp.com/3.0';
+	private const DEFAULT_ENDPOINT = 'https://<dc>.api.mailchimp.com/3.0';
 	protected ?LoggerInterface $logger = null;
 	protected ?ResponseInterface $lastResponse;
 	protected ?RequestInterface $lastRequest;

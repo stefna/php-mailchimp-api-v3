@@ -11,11 +11,11 @@ class TemplatesAllRequest extends TemplatesRequest implements AllInterface
 {
 	use AllTrait;
 
-	const PARAM_EMAIL = 'email';
-	const PARAM_SINCE_CREATED_AT = 'since_created_at';
-	const PARAM_BEFORE_CREATED_AT = 'before_created_at';
-	const PARAM_TYPE = 'type';
-	const PARAM_FOLDER_ID = 'folder_id';
+	private const PARAM_EMAIL = 'email';
+	private const PARAM_SINCE_CREATED_AT = 'since_created_at';
+	private const PARAM_BEFORE_CREATED_AT = 'before_created_at';
+	private const PARAM_TYPE = 'type';
+	private const PARAM_FOLDER_ID = 'folder_id';
 
 	/**
 	 * @param DateTime|string $value
