@@ -23,7 +23,7 @@ class CampaignDefaults extends AbstractData
 	public $fromName;
 
 	/**
-	 * The default language for this lists's forms.
+	 * The default language for these lists forms.
 	 * Example: en.
 	 *
 	 * @var string

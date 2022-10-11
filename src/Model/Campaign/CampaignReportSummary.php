@@ -15,7 +15,7 @@ class CampaignReportSummary extends AbstractData
 	public $clickRate;
 
 	/**
-	 * The total number of clicks for an campaign.
+	 * The total number of clicks for a campaign.
 	 * Example: 42.
 	 *
 	 * @var int

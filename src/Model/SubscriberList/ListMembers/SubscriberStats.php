@@ -7,7 +7,7 @@ use Stefna\Mailchimp\Other\AbstractData;
 class SubscriberStats extends AbstractData
 {
 	/**
-	 * A subscriber's average clickthrough rate.
+	 * A subscriber's average click-through rate.
 	 *
 	 * @var number
 	 */

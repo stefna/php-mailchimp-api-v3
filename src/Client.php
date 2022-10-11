@@ -23,7 +23,7 @@ class Client
 	protected ?ResponseInterface $lastResponse;
 	protected ?RequestInterface $lastRequest;
 	/**
-	 * @var MessageFactoryDiscovery|MessageFactory
+	 * @var MessageFactory
 	 */
 	protected $messageFactory;
 	protected HttpClient $httpClient;
@@ -78,8 +78,13 @@ class Client
 		return $this->httpClient;
 	}
 
-	public function get(string $path, $args = [])
+	/**
+	 * @param array<string,string> $args
+	 * @return array<string, mixed>
+	 */
+	public function get(string $path, array $args = [])
 	{
+		/** @var array<string, mixed> */
 		return $this->request($this->messageFactory->createRequest(
 			'get',
 			$this->createUrl($path, $args),
@@ -89,12 +94,12 @@ class Client
 
 	/**
 	 * @param string $path
-	 * @param array $args
+	 * @param array<string, string> $args
 	 * @return bool
 	 */
-	public function delete(string $path, $args = [])
+	public function delete(string $path, array $args = [])
 	{
-		return $this->request($this->messageFactory->createRequest(
+		return (bool)$this->request($this->messageFactory->createRequest(
 			'delete',
 			$this->createUrl($path, $args),
 			$this->getDefaultHeaders()
@@ -103,32 +108,40 @@ class Client
 
 	/**
 	 * @param string $path
-	 * @param AbstractData|array<string, mixed>$data
+	 * @param array<string, mixed> $data
+	 * @return array<string, mixed>
 	 */
 	public function post(string $path, array $data = [])
 	{
+		/** @var array<string, mixed> */
 		return $this->request($this->messageFactory->createRequest(
 			'post',
 			$this->createUrl($path),
 			$this->getDefaultHeaders(),
-			json_encode($data)
-		));
-	}
-
-	public function put(string $path, $data = [])
-	{
-		return $this->request($this->messageFactory->createRequest(
-			'put',
-			$this->createUrl($path),
-			$this->getDefaultHeaders(),
-			json_encode($data)
+			(string)json_encode($data)
 		));
 	}
 
 	/**
 	 * @param string $path
-	 * @param $data
-	 * @return bool|string|string[]|null
+	 * @param array<string, mixed> $data
+	 * @return array<string, mixed>
+	 */
+	public function put(string $path, $data = [])
+	{
+		/** @var array<string, mixed> */
+		return $this->request($this->messageFactory->createRequest(
+			'put',
+			$this->createUrl($path),
+			$this->getDefaultHeaders(),
+			(string)json_encode($data)
+		));
+	}
+
+	/**
+	 * @param string $path
+	 * @param array<string, mixed> $data
+	 * @return mixed
 	 */
 	public function patch(string $path, $data = [])
 	{
@@ -136,7 +149,7 @@ class Client
 			'patch',
 			$this->createUrl($path),
 			$this->getDefaultHeaders(),
-			json_encode($data)
+			(string)json_encode($data)
 		));
 	}
 

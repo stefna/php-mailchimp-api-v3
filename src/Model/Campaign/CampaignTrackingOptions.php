@@ -2,14 +2,14 @@
 
 namespace Stefna\Mailchimp\Model\Campaign;
 
-use Stefna\Mailchimp\Model\Campaign\CampiagnTrackingOptions\CapsuleCRMTracking;
-use Stefna\Mailchimp\Model\Campaign\CampiagnTrackingOptions\SalesforceCRMTracking;
+use Stefna\Mailchimp\Model\Campaign\CampaignTrackingOptions\CapsuleCRMTracking;
+use Stefna\Mailchimp\Model\Campaign\CampaignTrackingOptions\SalesforceCRMTracking;
 use Stefna\Mailchimp\Other\AbstractData;
 
-class CampiagnTrackingOptions extends AbstractData
+class CampaignTrackingOptions extends AbstractData
 {
 	/**
-	 * Capsule tracking option sfor a campaign. Must be using MailChimp's built-in Capsule integration.
+	 * Capsule tracking options for a campaign. Must be using MailChimp's built-in Capsule integration.
 	 *
 	 * @var CapsuleCRMTracking
 	 */

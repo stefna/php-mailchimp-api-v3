@@ -84,7 +84,7 @@ class CampaignSettings extends AbstractData
 	public $title;
 
 	/**
-	 * The campaign's custom 'To' name. Typically the first name [merge field](http://kb.mailchimp.com/merge-tags/using/getting-started-with-merge-tags?utm_source=mc-api&utm_medium=docs&utm_campaign=apidocs).
+	 * The campaign's custom 'To' name. Typically, the first name [merge field](http://kb.mailchimp.com/merge-tags/using/getting-started-with-merge-tags?utm_source=mc-api&utm_medium=docs&utm_campaign=apidocs).
 	 *
 	 * @var string
 	 */

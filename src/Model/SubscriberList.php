@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Stefna\Mailchimp\Model;
 
@@ -40,7 +40,7 @@ class SubscriberList extends AbstractData
 	public $dateCreated;
 
 	/**
-	 * Whether or not the list supports multiple formats for emails.
+	 * Whether the list supports multiple formats for emails.
 	 * Example: 1.
 	 *
 	 * @var bool
@@ -126,7 +126,7 @@ class SubscriberList extends AbstractData
 	public $subscribeUrlShort;
 
 	/**
-	 * Whether or not campaigns for this list use the Archive Bar in archives by default.
+	 * Whether campaigns for this list use the Archive Bar in archives by default.
 	 * Example: 1.
 	 *
 	 * @var bool

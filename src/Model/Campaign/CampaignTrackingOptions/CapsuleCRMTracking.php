@@ -1,6 +1,6 @@
 <?php
 
-namespace Stefna\Mailchimp\Model\Campaign\CampiagnTrackingOptions;
+namespace Stefna\Mailchimp\Model\Campaign\CampaignTrackingOptions;
 
 use Stefna\Mailchimp\Other\AbstractData;
 

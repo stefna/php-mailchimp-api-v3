@@ -21,7 +21,7 @@ class CampaignSocialCard extends AbstractData
 	public $imageUrl;
 
 	/**
-	 * The title for the card. Typically the subject line of the campaign.
+	 * The title for the card. Typically, the subject line of the campaign.
 	 *
 	 * @var string
 	 */

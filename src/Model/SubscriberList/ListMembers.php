@@ -122,7 +122,7 @@ class ListMembers extends AbstractData
 	public $status;
 
 	/**
-	 * The date and time the subscribe confirmed their opt-in status.
+	 * The date and time the subscribed confirmed their opt-in status.
 	 *
 	 * @var string
 	 */

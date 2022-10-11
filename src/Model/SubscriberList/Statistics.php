@@ -111,7 +111,7 @@ class Statistics extends AbstractData
 	public $openRate;
 
 	/**
-	 * The target numberof subscriptions per month for the list to keep it growing (not returned if we haven't calculated it yet).
+	 * The target number of subscriptions per month for the list to keep it growing (not returned if we haven't calculated it yet).
 	 * Example: 42.
 	 *
 	 * @var number

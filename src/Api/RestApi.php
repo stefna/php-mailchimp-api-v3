@@ -46,11 +46,12 @@ abstract class RestApi
 		if (!array_key_exists($returnKey, $data)) {
 			return null;
 		}
+		/** @var array<string, mixed> */
 		return $data[$returnKey];
 	}
 
 	/**
-	 * @param string $className
+	 * @param class-string $className
 	 * @param string|null $id
 	 * @param AbstractRequest|null $params
 	 * @return AbstractData|null
@@ -61,14 +62,16 @@ abstract class RestApi
 		if (!$data) {
 			return null;
 		}
+		/** @var AbstractData */
 		return new $className($data);
 	}
 
 	/**
-	 * @param string $className
+	 * @template T
+	 * @param class-string<T> $className
 	 * @param string|null $returnKey
-	 * @param AbstractRequest|array<string, mixed>|null $params
-	 * @return empty|array<string, mixed>
+	 * @param AbstractRequest|null $params
+	 * @return array<array-key, T>
 	 */
 	public function fetchAll(string $className, ?string $returnKey = null, $params = null): array
 	{
@@ -78,6 +81,7 @@ abstract class RestApi
 		}
 		$ret = [];
 		$i = 0;
+		/** @var array{id?: string} $item */
 		foreach ($data as $item) {
 			$key = $item['id'] ?? $i++;
 			$ret[$key] = new $className($item);
@@ -103,6 +107,7 @@ abstract class RestApi
 		if (!$className) {
 			$className = get_class($item);
 		}
+		/** @var AbstractData $className */
 		return new $className($retData);
 	}
 
@@ -119,6 +124,8 @@ abstract class RestApi
 			: AbstractData::snakeCaseArray($data);
 		$path = $this->getPath(self::ACTION_UPDATE, [$id]);
 		$retData = $this->client->patch($path, $data);
+
+		/** @var AbstractData $className */
 		return new $className($retData);
 	}
 
@@ -130,7 +137,7 @@ abstract class RestApi
 
 	/**
 	 * @param string[]|AbstractRequest|null $params
-	 * @return array<string, mixed>
+	 * @return array<string, string>
 	 */
 	protected function paramsToArgs($params = null)
 	{
@@ -141,6 +148,7 @@ abstract class RestApi
 			return $params;
 		}
 		elseif ($params instanceof AbstractRequest) {
+			// @phpstan-ignore-next-line - I don't care
 			return $params->toArgs();
 		}
 		throw new InvalidArgumentException("Params must be an array or an AbstractParams object");
@@ -148,7 +156,7 @@ abstract class RestApi
 
 	/**
 	 * @param string $action
-	 * @param string[] $params
+	 * @param string[]|null[] $params
 	 * @return string
 	 */
 	protected function getPath(string $action, array $params = []): string

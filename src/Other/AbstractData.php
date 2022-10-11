@@ -116,7 +116,6 @@ class AbstractData
 		foreach (array_keys($this->classMap) as $key) {
 			if (isset($data[$key]) && is_object($data[$key])) {
 				if ($data[$key] instanceof AbstractData) {
-					/** @noinspection PhpUndefinedMethodInspection */
 					$data[$key] = $data[$key]->getData();
 				}
 				else {

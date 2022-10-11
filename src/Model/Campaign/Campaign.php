@@ -119,7 +119,7 @@ class Campaign extends AbstractData
 	/**
 	 * The tracking options for a campaign.
 	 *
-	 * @var CampiagnTrackingOptions
+	 * @var CampaignTrackingOptions
 	 */
 	public $tracking;
 
@@ -146,7 +146,7 @@ class Campaign extends AbstractData
 		'recipients' => CampaignList::class,
 		'settings' => CampaignSettings::class,
 		'variateSettings' => ABTestOptions::class,
-		'tracking' => CampiagnTrackingOptions::class,
+		'tracking' => CampaignTrackingOptions::class,
 		'rssOpts' => RSSOptions::class,
 		'abSplitOpts' => ABSplitOptions::class,
 		'socialCard' => CampaignSocialCard::class,

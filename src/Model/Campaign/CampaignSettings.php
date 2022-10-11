@@ -7,7 +7,7 @@ use Stefna\Mailchimp\Other\AbstractData;
 class CampaignSettings extends AbstractData
 {
 	/**
-	 * Whether or not the campaign was authenticated by MailChimp. Defaults to 'true'.
+	 * Whether the campaign was authenticated by MailChimp. Defaults to 'true'.
 	 * Example: 1.
 	 *
 	 * @var bool
@@ -116,7 +116,7 @@ class CampaignSettings extends AbstractData
 	public $title;
 
 	/**
-	 * The campaign's custom 'to' name. Typically something like the first name merge var.
+	 * The campaign's custom 'to' name. Typically, something like the first name merge var.
 	 * Example: *|FNAME|*.
 	 *
 	 * @var string

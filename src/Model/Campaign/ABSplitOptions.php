@@ -87,7 +87,7 @@ class ABSplitOptions extends AbstractData
 	public $splitTest;
 
 	/**
-	 * For campaings split on 'Subject Line', the subject line for Group A.
+	 * For campaigns split on 'Subject Line', the subject line for Group A.
 	 * Example: Freddie Likes Jokes.
 	 *
 	 * @var string
@@ -95,7 +95,7 @@ class ABSplitOptions extends AbstractData
 	public $subjectA;
 
 	/**
-	 * For campaings split on 'Subject Line', the subject line for Group B.
+	 * For campaigns split on 'Subject Line', the subject line for Group B.
 	 * Example: Freddie's Jokes for the week of *|DATE|*.
 	 *
 	 * @var string
