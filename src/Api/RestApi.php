@@ -157,7 +157,7 @@ abstract class RestApi
 			// @phpstan-ignore-next-line - I don't care
 			return $params->toArgs();
 		}
-		throw new InvalidArgumentException("Params must be an array or an AbstractParams object");
+		throw new InvalidArgumentException('Params must be an array or an AbstractParams object');
 	}
 
 	/**

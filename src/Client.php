@@ -162,7 +162,7 @@ class Client
 		$this->lastRequest = $request;
 
 		if ($this->logger) {
-			$this->logger->debug("Request created", [
+			$this->logger->debug('Request created', [
 				'request' => str($request),
 			]);
 		}
@@ -178,7 +178,7 @@ class Client
 		$status = $response->getStatusCode();
 
 		if ($this->logger) {
-			$this->logger->debug("Response created without output", [
+			$this->logger->debug('Response created without output', [
 				'headers' => json_encode($response->getHeaders()),
 				'status' => $status,
 			]);
@@ -215,7 +215,7 @@ class Client
 			$status = (int)$ret['status'];
 		}
 		if ($this->logger) {
-			$this->logger->debug("Response created", [
+			$this->logger->debug('Response created', [
 				'headers' => json_encode($response->getHeaders()),
 				'body' => $jsonOk ? $ret : $contents,
 				'jsonLastError' => $jsonLastError,
@@ -230,7 +230,7 @@ class Client
 			}
 
 			if ($status !== 404) {
-				$msg = "Error from API";
+				$msg = 'Error from API';
 				if ($errorMsg && $errorMsg[0] !== '{') {
 					$msg .= ": $errorMsg";
 				}

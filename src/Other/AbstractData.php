@@ -30,7 +30,7 @@ class AbstractData
 		$str = trim((string)$str);
 		// uppercase the first character of each word
 		$str = ucwords($str);
-		$str = str_replace(" ", "", $str);
+		$str = str_replace(' ', '', $str);
 
 		return lcfirst($str);
 	}
