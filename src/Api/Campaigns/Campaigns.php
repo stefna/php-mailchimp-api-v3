@@ -73,11 +73,6 @@ class Campaigns extends CollectionRestApi
 		return new Actions($this->client, $this, $campaignId);
 	}
 
-	/**
-	 * @param string $campaignId
-	 * @param CampaignsRequest|null $params
-	 * @return SendChecklist|null
-	 */
 	public function checklist(string $campaignId, ?CampaignsRequest $params = null): ?SendChecklist
 	{
 		$path = $this->getPath(self::ACTION_ONE, [$campaignId, 'send-checklist']);

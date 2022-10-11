@@ -96,10 +96,6 @@ class Campaign extends AbstractData
 	 * @var string
 	 */
 	public string $sendTime;
-
-	/**
-	 * @var CampaignSettings
-	 */
 	public CampaignSettings $settings;
 
 	/**

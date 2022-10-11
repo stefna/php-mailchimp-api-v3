@@ -21,9 +21,6 @@ abstract class RestApi
 	 */
 	protected array $actions = [];
 
-	/**
-	 * @param Client $client
-	 */
 	public function __construct(Client $client)
 	{
 		$this->client = $client;
@@ -51,12 +48,6 @@ abstract class RestApi
 		return $data[$returnKey];
 	}
 
-	/**
-	 * @param class-string $className
-	 * @param string|null $id
-	 * @param AbstractRequest|null $params
-	 * @return AbstractData|null
-	 */
 	public function fetchOne(string           $className,
 							 ?string          $id = null,
 							 ?AbstractRequest $params = null
@@ -100,11 +91,6 @@ abstract class RestApi
 
 	}
 
-	/**
-	 * @param AbstractData $item
-	 * @param class-string|null $className
-	 * @return AbstractData
-	 */
 	protected function doCreate(AbstractData $item, ?string $className = null): AbstractData
 	{
 		$data = $item->getData();

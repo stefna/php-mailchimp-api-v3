@@ -8,10 +8,6 @@ use Stefna\Mailchimp\Other\AbstractRequest;
 
 abstract class CollectionRestApi extends RestApi
 {
-	/**
-	 * @param AbstractData $data
-	 * @return AbstractData
-	 */
 	abstract public function create(AbstractData $data): AbstractData;
 
 	/**
@@ -20,11 +16,6 @@ abstract class CollectionRestApi extends RestApi
 	 */
 	abstract public function all(?AbstractRequest $params = null): array;
 
-	/**
-	 * @param string $id
-	 * @param AbstractRequest|null $params
-	 * @return AbstractData|null
-	 */
 	abstract public function get(string $id, ?AbstractRequest $params = null): ?AbstractData;
 
 	/**
@@ -34,9 +25,5 @@ abstract class CollectionRestApi extends RestApi
 	 */
 	abstract public function update(string $id, $data): AbstractData;
 
-	/**
-	 * @param string $id
-	 * @return bool
-	 */
 	abstract public function delete(string $id): bool;
 }

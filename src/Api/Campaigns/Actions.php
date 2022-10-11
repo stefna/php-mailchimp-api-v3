@@ -32,10 +32,6 @@ class Actions extends RestApi
 		return $this->campaigns->getMethodUrl() . '/' . $this->campaignId . '/actions';
 	}
 
-	/**
-	 * @param SendTest $data
-	 * @return bool
-	 */
 	public function test(SendTest $data): bool
 	{
 		$retData = $this->client->post($this->getPath(self::ACTION_TEST), $data->getData());
@@ -45,9 +41,6 @@ class Actions extends RestApi
 		return false;
 	}
 
-	/**
-	 * @return bool
-	 */
 	public function send(): bool
 	{
 		$retData = $this->client->post($this->getPath(self::ACTION_SEND));

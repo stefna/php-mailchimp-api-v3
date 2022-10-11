@@ -36,10 +36,6 @@ class Contents extends RestApi
 		return $this->fetchOne(Content::class, null, $params);
 	}
 
-	/**
-	 * @param CampaignContent $params
-	 * @return Content
-	 */
 	public function update(CampaignContent $params): Content
 	{
 		$data = $params->getData();
