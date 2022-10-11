@@ -1,26 +1,19 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Tests\Stefna\Mailchimp\Api\Campaigns;
 
-use Stefna\Mailchimp\Model\Campaign\Content;
-use Stefna\Mailchimp\Model\Campaign\Content\CampaignContent;
-use Stefna\Mailchimp\Model\Campaign\Content\CampaignContent\TemplateContent;
 use Stefna\Mailchimp\Model\Campaign\SendChecklist;
 use Tests\Stefna\Mailchimp\AbstractTestCase;
 
 class ChecklistTest extends AbstractTestCase
 {
+	private const CAMPAIGN_ID = '88cbf762dc';
 
-	const CAMPAIGN_ID = '88cbf762dc';
-	const DEFAULT_TEXT = 'plainTextEmailText';
-	const TEMPLATE_ID = 17025;
-
-	public function testGetWorks()
+	public function testGetWorks(): void
 	{
 		$ret = $this->getClient()->campaigns()->checklist(self::CAMPAIGN_ID);
 		$this->assertInstanceOf(SendChecklist::class, $ret);
-		$this->assertSame(true, $ret->isReady);
-		$this->assertTrue(is_array($ret->items));
+		$this->assertTrue($ret->isReady);
 		$this->assertArrayHasKey(0, $ret->items);
 		$this->assertSame('success', $ret->items[0]->type);
 		$this->assertSame('List', $ret->items[0]->heading);

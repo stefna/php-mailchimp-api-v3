@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Tests\Stefna\Mailchimp;
 
@@ -13,18 +13,18 @@ class ArrayIntersectAssocRecursiveTest extends UnitTestCase
 	 * @param $expected
 	 * @dataProvider provide
 	 */
-	public function test($a, $b, $expected)
+	public function test($a, $b, $expected): void
 	{
 		$this->assertEquals($expected, TestedTestCase::array_intersect_assoc_recursive($a, $b));
 	}
 
-	public function provide()
+	public function provide(): array
 	{
 		return [
 			'php.net' => [
-				["a" => "green", "b" => "brown", "c" => "blue", "red"],
-				["a" => "green", "b" => "yellow", "blue", "red"],
-				["a" => "green"],
+				['a' => 'green', 'b' => 'brown', 'c' => 'blue', 'red'],
+				['a' => 'green', 'b' => 'yellow', 'blue', 'red'],
+				['a' => 'green'],
 			],
 			'assocSimple' => [
 				['a' => 1, 'b' => ['c' => 3, 'd' => 4]],

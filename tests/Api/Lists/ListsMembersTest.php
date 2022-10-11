@@ -1,21 +1,21 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Tests\Stefna\Mailchimp\Api\Lists;
 
+use Stefna\Mailchimp\Api\RestApi;
 use Stefna\Mailchimp\Model\SubscriberList\ListMembers;
 use Stefna\Mailchimp\Api\Lists\Members as MembersApi;
 use Stefna\Mailchimp\Api\Lists\Request\ListsMembersAllRequest;
+use Stefna\Mailchimp\Other\AbstractData;
+use Stefna\Mailchimp\Other\AbstractRequest;
 use Tests\Stefna\Mailchimp\Api\CollectionTestCase;
 
 class ListsMembersTest extends CollectionTestCase
 {
-	const LIST_ID_1 = '215f4cfac8';
+	private const LIST_ID_1 = '215f4cfac8';
+	private const DEFAULT_EMAIL = 'testuser+test1@example.com';
 
-	const DEFAULT_EMAIL = 'testuser+test1@example.com';
-
-	const DEFAULT_ID = 'd4000905c79bb68b7ce9b80df716a26d';
-
-	public function testMergeNameWorks()
+	public function testMergeNameWorks(): void
 	{
 		$create = new ListMembers();
 		$create->emailAddress = 'testuser+testmerge@example.com';
@@ -35,12 +35,12 @@ class ListsMembersTest extends CollectionTestCase
 	 *
 	 * @return string
 	 */
-	protected function getEntityId($entity)
+	protected function getEntityId($entity): string
 	{
 		return $entity->id;
 	}
 
-	protected function checkFetchedOne($id, $entity)
+	protected function checkFetchedOne($id, $entity): void
 	{
 		$this->assertEquals(MembersApi::formatEmailAddress($id), $this->getEntityId($entity));
 		$this->checkEntityDefault($entity);
@@ -50,39 +50,27 @@ class ListsMembersTest extends CollectionTestCase
 	 * @param ListMembers $entity
 	 * @param ListMembers $returnEntity
 	 */
-	protected function checkEntity($entity, $returnEntity)
+	protected function checkEntity($entity, $returnEntity): void
 	{
 		$this->assertEquals($entity->emailAddress, $returnEntity->emailAddress);
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function getEntityClass()
+	protected function getEntityClass(): string
 	{
 		return ListMembers::class;
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function getApiClass()
+	protected function getApiClass(): string
 	{
 		return MembersApi::class;
 	}
 
-	/**
-	 * @return \Stefna\Mailchimp\Api\RestApi
-	 */
-	protected function getApi()
+	protected function getApi(): RestApi
 	{
 		return $this->getClient()->lists()->members(self::LIST_ID_1);
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function getSingleEntityId()
+	protected function getSingleEntityId(): string
 	{
 		return self::DEFAULT_EMAIL;
 	}
@@ -90,55 +78,43 @@ class ListsMembersTest extends CollectionTestCase
 	/**
 	 * @param mixed $param1
 	 * @param mixed $param2
-	 * @return \Stefna\Mailchimp\Other\AbstractData
+	 * @return AbstractData
 	 */
-	protected function getNewEntity($param1 = null, $param2 = null)
+	protected function getNewEntity($param1 = null, $param2 = null): AbstractData
 	{
-		if (!$param1) $param1 = self::DEFAULT_EMAIL;
-		if (!$param2) $param2 = 'subscribed';
-		$list = new ListMembers([
+		if (!$param1) {
+			$param1 = self::DEFAULT_EMAIL;
+		}
+		if (!$param2) {
+			$param2 = 'subscribed';
+		}
+		return new ListMembers([
 			'emailAddress' => $param1,
 			'status' => $param2,
 		]);
-		return $list;
 	}
 
-	/**
-	 * @return \Stefna\Mailchimp\Other\AbstractRequest
-	 */
-	protected function getAllOneParams()
+	protected function getAllOneParams(): AbstractRequest
 	{
 		return new ListsMembersAllRequest();
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function getBadCreateParam1()
+	protected function getBadCreateParam1(): string
 	{
 		return $this->getSingleEntityId();
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function getBadCreateParam2()
+	protected function getBadCreateParam2(): string
 	{
 		return 'badStatus';
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function getBadDeleteId()
+	protected function getBadDeleteId(): string
 	{
 		return 'testuser+bad@example.com';
 	}
 
-	/**
-	 * @return array
-	 */
-	protected function getUpdateData()
+	protected function getUpdateData(): array
 	{
 		return[
 			'status' => 'unsubscribed',

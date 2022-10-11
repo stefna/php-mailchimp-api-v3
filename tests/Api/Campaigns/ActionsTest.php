@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Tests\Stefna\Mailchimp\Api\Campaigns;
 
@@ -7,9 +7,9 @@ use Tests\Stefna\Mailchimp\AbstractTestCase;
 
 class ActionsTest extends AbstractTestCase
 {
-	const CAMPAIGN_ID = '88cbf762dc';
+	private const CAMPAIGN_ID = '88cbf762dc';
 
-	public function testTestWorks()
+	public function testTestWorks(): void
 	{
 		$data = new SendTest();
 		$data->sendType = 'html';
@@ -17,12 +17,12 @@ class ActionsTest extends AbstractTestCase
 			'testuser+test@example.com',
 		];
 		$ret = $this->getClient()->campaigns()->actions(self::CAMPAIGN_ID)->test($data);
-		$this->assertSame(true, $ret);
+		$this->assertTrue($ret);
 	}
 
-	public function testSendWorks()
+	public function testSendWorks(): void
 	{
 		$ret = $this->getClient()->campaigns()->actions(self::CAMPAIGN_ID)->send();
-		$this->assertSame(true, $ret);
+		$this->assertTrue($ret);
 	}
 }

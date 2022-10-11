@@ -1,12 +1,14 @@
-<?php
+<?php /** @noinspection PhpMissingFieldTypeInspection */
+declare(strict_types=1);
 
 namespace Tests\Stefna\Mailchimp\Data;
 
+use PHPUnit\Framework\TestCase;
 use Stefna\Mailchimp\Other\AbstractData;
 
-class BasicDataTest extends \PHPUnit_Framework_TestCase
+class BasicDataTest extends TestCase
 {
-	public function test()
+	public function test(): void
 	{
 		$data = [
 			'a' => 1,
@@ -49,8 +51,7 @@ class BasicDataTest extends \PHPUnit_Framework_TestCase
 class A extends AbstractData
 {
 	public $a;
-	/** @var B */
-	public $b;
+	public B $b;
 
 	protected array $classMap = [
 		'b' => B::class,

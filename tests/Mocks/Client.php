@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Tests\Stefna\Mailchimp\Mocks;
 
@@ -8,7 +8,7 @@ use Psr\Http\Message\ResponseInterface;
 class Client extends \Stefna\Mailchimp\Client
 {
 
-	protected function sendRequest(RequestInterface $request)
+	protected function sendRequest(RequestInterface $request): ResponseInterface
 	{
 		if ($response = $this->mockResponse($request)) {
 			return $response;
@@ -22,21 +22,18 @@ class Client extends \Stefna\Mailchimp\Client
 		return parent::response($response);
 	}
 
-	public function noOutputResponse(ResponseInterface $response)
+	public function noOutputResponse(ResponseInterface $response): bool
 	{
 		$this->saveResponse($response);
 		return parent::noOutputResponse($response);
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function getResponseDir()
+	protected function getResponseDir(): string
 	{
 		return __DIR__ . '/responses/';
 	}
 
-	private function saveResponse(ResponseInterface $response)
+	private function saveResponse(ResponseInterface $response): void
 	{
 		if ($this->lastRequest) {
 			$file = $this->getResponseFilename($this->lastRequest);
@@ -46,7 +43,7 @@ class Client extends \Stefna\Mailchimp\Client
 		}
 	}
 
-	private function writeResponse($file, ResponseInterface $response)
+	private function writeResponse($file, ResponseInterface $response): void
 	{
 		$body = $response->getBody();
 		$body->rewind();
@@ -72,15 +69,10 @@ class Client extends \Stefna\Mailchimp\Client
 		if ($this->logger) {
 			$this->logger->debug("Reading response from $file");
 		}
-		/** @noinspection PhpIncludeInspection */
 		return include $file;
 	}
 
-	/**
-	 * @param RequestInterface $request
-	 * @return string
-	 */
-	protected function getResponseFilename(RequestInterface $request)
+	protected function getResponseFilename(RequestInterface $request): string
 	{
 		$method = strtolower($request->getMethod());
 		$url = (string)$request->getUri();
@@ -92,8 +84,7 @@ class Client extends \Stefna\Mailchimp\Client
 		}
 		$key = str_replace($this->apiEndpoint, '', $url);
 		$key = trim($key, '/');
-		$file = $this->getResponseDir() . $key . '/' . $method . $queryParams . '.php';
-		return $file;
+		return $this->getResponseDir() . $key . '/' . $method . $queryParams . '.php';
 	}
 
 }
