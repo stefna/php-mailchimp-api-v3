@@ -21,10 +21,7 @@ class Client
 	protected ?LoggerInterface $logger = null;
 	protected ?ResponseInterface $lastResponse;
 	protected ?RequestInterface $lastRequest;
-	/**
-	 * @var MessageFactory
-	 */
-	protected $messageFactory;
+	protected MessageFactory $messageFactory;
 	protected HttpClient $httpClient;
 	protected string $apiKey;
 	protected string $apiEndpoint = '';

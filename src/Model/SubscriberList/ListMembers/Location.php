@@ -11,40 +11,40 @@ class Location extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $countryCode;
+	public string $countryCode;
 
 	/**
 	 * The offset for timezones where daylight saving time is observed.
 	 *
 	 * @var int
 	 */
-	public $dstoff;
+	public int $dstoff;
 
 	/**
 	 * The time difference in hours from GMT.
 	 *
 	 * @var int
 	 */
-	public $gmtoff;
+	public int $gmtoff;
 
 	/**
 	 * The location latitude.
 	 *
 	 * @var number
 	 */
-	public $latitude;
+	public number $latitude;
 
 	/**
 	 * The location longitude.
 	 *
 	 * @var number
 	 */
-	public $longitude;
+	public number $longitude;
 
 	/**
 	 * The timezone for the location.
 	 *
 	 * @var string
 	 */
-	public $timezone;
+	public string $timezone;
 }

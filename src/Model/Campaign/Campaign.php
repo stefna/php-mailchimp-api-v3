@@ -11,7 +11,7 @@ class Campaign extends AbstractData
 	 *
 	 * @var ABSplitOptions
 	 */
-	public $abSplitOpts;
+	public ABSplitOptions $abSplitOpts;
 
 	/**
 	 * The link to the campaign's archive version.
@@ -19,7 +19,7 @@ class Campaign extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $archiveUrl;
+	public string $archiveUrl;
 
 	/**
 	 * How the campaign's content is put together ('template', 'drag_and_drop', 'html', 'url').
@@ -27,7 +27,7 @@ class Campaign extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $contentType;
+	public string $contentType;
 
 	/**
 	 * The date and time the campaign was created.
@@ -35,14 +35,14 @@ class Campaign extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $createTime;
+	public string $createTime;
 
 	/**
 	 * Updates on campaigns in the process of sending.
 	 *
 	 * @var CampaignDeliveryStatus
 	 */
-	public $deliveryStatus;
+	public CampaignDeliveryStatus $deliveryStatus;
 
 	/**
 	 * The total number of emails sent for this campaign.
@@ -50,7 +50,7 @@ class Campaign extends AbstractData
 	 *
 	 * @var int
 	 */
-	public $emailsSent;
+	public int $emailsSent;
 
 	/**
 	 * A string that uniquely identifies this campaign.
@@ -58,35 +58,35 @@ class Campaign extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $id;
+	public string $id;
 
 	/**
 	 * The original link to the campaign's archive version.
 	 *
 	 * @var string
 	 */
-	public $longArchiveUrl;
+	public string $longArchiveUrl;
 
 	/**
 	 * List settings for the campaign.
 	 *
 	 * @var CampaignList
 	 */
-	public $recipients;
+	public CampaignList $recipients;
 
 	/**
 	 * For sent campaigns, a summary of opens, clicks, and unsubscribes.
 	 *
 	 * @var CampaignReportSummary
 	 */
-	public $reportSummary;
+	public CampaignReportSummary $reportSummary;
 
 	/**
 	 * RSS-specific options for a campaign.
 	 *
 	 * @var RSSOptions
 	 */
-	public $rssOpts;
+	public RSSOptions $rssOpts;
 
 	/**
 	 * The time and date a campaign was sent.
@@ -94,19 +94,19 @@ class Campaign extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $sendTime;
+	public string $sendTime;
 
 	/**
 	 * @var CampaignSettings
 	 */
-	public $settings;
+	public CampaignSettings $settings;
 
 	/**
 	 * The preview for the campaign as rendered by social networks like Facebook and Twitter.
 	 *
 	 * @var CampaignSocialCard
 	 */
-	public $socialCard;
+	public CampaignSocialCard $socialCard;
 
 	/**
 	 * The current status of the campaign ('save', 'paused', 'schedule', 'sending', 'sent').
@@ -114,14 +114,14 @@ class Campaign extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $status;
+	public string $status;
 
 	/**
 	 * The tracking options for a campaign.
 	 *
 	 * @var CampaignTrackingOptions
 	 */
-	public $tracking;
+	public CampaignTrackingOptions $tracking;
 
 	/**
 	 * The type of campaign (regular, plaintext, absplit, or rss).
@@ -129,14 +129,14 @@ class Campaign extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $type;
+	public string $type;
 
 	/**
 	 * The settings specific to A/B test campaigns.
 	 *
 	 * @var ABTestOptions
 	 */
-	public $variateSettings;
+	public ABTestOptions $variateSettings;
 
 	/**
 	 * Mapping classes.

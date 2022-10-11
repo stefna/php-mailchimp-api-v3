@@ -12,7 +12,7 @@ class DailySendingDays extends AbstractData
 	 *
 	 * @var bool
 	 */
-	public $friday;
+	public bool $friday;
 
 	/**
 	 * Sends the daily RSS campaign on Mondays.
@@ -20,21 +20,21 @@ class DailySendingDays extends AbstractData
 	 *
 	 * @var bool
 	 */
-	public $monday;
+	public bool $monday;
 
 	/**
 	 * Sends the daily RSS campaign on Saturdays.
 	 *
 	 * @var bool
 	 */
-	public $saturday;
+	public bool $saturday;
 
 	/**
 	 * Sends the daily RSS campaign on Sundays.
 	 *
 	 * @var bool
 	 */
-	public $sunday;
+	public bool $sunday;
 
 	/**
 	 * Sends the daily RSS campaign on Thursdays.
@@ -42,7 +42,7 @@ class DailySendingDays extends AbstractData
 	 *
 	 * @var bool
 	 */
-	public $thursday;
+	public bool $thursday;
 
 	/**
 	 * Sends the daily RSS campaign on Tuesdays.
@@ -50,7 +50,7 @@ class DailySendingDays extends AbstractData
 	 *
 	 * @var bool
 	 */
-	public $tuesday;
+	public bool $tuesday;
 
 	/**
 	 * Sends the daily RSS campaign on Wednesdays.
@@ -58,5 +58,5 @@ class DailySendingDays extends AbstractData
 	 *
 	 * @var bool
 	 */
-	public $wednesday;
+	public bool $wednesday;
 }

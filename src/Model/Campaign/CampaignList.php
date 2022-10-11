@@ -13,35 +13,35 @@ class CampaignList extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $listId;
+	public string $listId;
 
 	/**
 	 * The name of the list.
 	 *
 	 * @var string
 	 */
-	public $listName;
+	public string $listName;
 
 	/**
 	 * Count of the recipients on the associated list. Formatted as an integer.
 	 *
 	 * @var int
 	 */
-	public $recipientCount;
+	public int $recipientCount;
 
 	/**
 	 * Segment options.
 	 *
 	 * @var SegmentOptions
 	 */
-	public $segmentOpts;
+	public SegmentOptions $segmentOpts;
 
 	/**
 	 * A string marked-up with HTML explaining the segment used for the campaign in plain English.
 	 *
 	 * @var string
 	 */
-	public $segmentText;
+	public string $segmentText;
 
 	/**
 	 * Mapping classes.

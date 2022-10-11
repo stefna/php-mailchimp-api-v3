@@ -12,7 +12,7 @@ class CampaignDefaults extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $fromEmail;
+	public string $fromEmail;
 
 	/**
 	 * The default from name for campaigns sent to this list.
@@ -20,7 +20,7 @@ class CampaignDefaults extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $fromName;
+	public string $fromName;
 
 	/**
 	 * The default language for these lists forms.
@@ -28,7 +28,7 @@ class CampaignDefaults extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $language;
+	public string $language;
 
 	/**
 	 * The default subject line for campaigns sent to this list.
@@ -36,5 +36,5 @@ class CampaignDefaults extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $subject;
+	public string $subject;
 }

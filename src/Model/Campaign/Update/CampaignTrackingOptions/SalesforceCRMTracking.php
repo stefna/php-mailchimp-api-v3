@@ -11,12 +11,12 @@ class SalesforceCRMTracking extends AbstractData
 	 *
 	 * @var bool
 	 */
-	public $campaign;
+	public bool $campaign;
 
 	/**
 	 * Update contact notes for a campaign based on subscriber email addresses.
 	 *
 	 * @var bool
 	 */
-	public $notes;
+	public bool $notes;
 }

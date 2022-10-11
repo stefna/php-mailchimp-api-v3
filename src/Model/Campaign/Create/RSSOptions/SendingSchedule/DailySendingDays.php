@@ -11,47 +11,47 @@ class DailySendingDays extends AbstractData
 	 *
 	 * @var bool
 	 */
-	public $friday;
+	public bool $friday;
 
 	/**
 	 * Sends the daily RSS Campaign on Mondays.
 	 *
 	 * @var bool
 	 */
-	public $monday;
+	public bool $monday;
 
 	/**
 	 * Sends the daily RSS Campaign on Saturdays.
 	 *
 	 * @var bool
 	 */
-	public $saturday;
+	public bool $saturday;
 
 	/**
 	 * Sends the daily RSS Campaign on Sundays.
 	 *
 	 * @var bool
 	 */
-	public $sunday;
+	public bool $sunday;
 
 	/**
 	 * Sends the daily RSS Campaign on Thursdays.
 	 *
 	 * @var bool
 	 */
-	public $thursday;
+	public bool $thursday;
 
 	/**
 	 * Sends the daily RSS Campaign on Tuesdays.
 	 *
 	 * @var bool
 	 */
-	public $tuesday;
+	public bool $tuesday;
 
 	/**
 	 * Sends the daily RSS Campaign on Wednesdays.
 	 *
 	 * @var bool
 	 */
-	public $wednesday;
+	public bool $wednesday;
 }

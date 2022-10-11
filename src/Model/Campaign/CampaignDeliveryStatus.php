@@ -12,14 +12,14 @@ class CampaignDeliveryStatus extends AbstractData
 	 *
 	 * @var bool
 	 */
-	public $canCancel;
+	public bool $canCancel;
 
 	/**
 	 * The total number of emails canceled for this campaign.
 	 *
 	 * @var int
 	 */
-	public $emailsCanceled;
+	public int $emailsCanceled;
 
 	/**
 	 * The total number of emails confirmed sent for this campaign so far.
@@ -27,7 +27,7 @@ class CampaignDeliveryStatus extends AbstractData
 	 *
 	 * @var int
 	 */
-	public $emailsSent;
+	public int $emailsSent;
 
 	/**
 	 * Whether Campaign Delivery Status is enabled for this account and campaign.
@@ -35,7 +35,7 @@ class CampaignDeliveryStatus extends AbstractData
 	 *
 	 * @var bool
 	 */
-	public $enabled;
+	public bool $enabled;
 
 	/**
 	 * The current state of a campaign delivery.
@@ -43,5 +43,5 @@ class CampaignDeliveryStatus extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $status;
+	public string $status;
 }

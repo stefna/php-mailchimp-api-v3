@@ -15,21 +15,21 @@ class SubscriberList extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $beamerAddress;
+	public string $beamerAddress;
 
 	/**
 	 * Default values for campaigns created for this list.
 	 *
 	 * @var CampaignDefaults
 	 */
-	public $campaignDefaults;
+	public CampaignDefaults $campaignDefaults;
 
 	/**
 	 * displayed in campaign footers to comply with international spam laws.
 	 *
 	 * @var ListContact
 	 */
-	public $contact;
+	public ListContact $contact;
 
 	/**
 	 * The date and time that this list was created.
@@ -37,7 +37,7 @@ class SubscriberList extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $dateCreated;
+	public string $dateCreated;
 
 	/**
 	 * Whether the list supports multiple formats for emails.
@@ -45,7 +45,7 @@ class SubscriberList extends AbstractData
 	 *
 	 * @var bool
 	 */
-	public $emailTypeOption;
+	public bool $emailTypeOption;
 
 	/**
 	 * A string that uniquely identifies this list
@@ -53,7 +53,7 @@ class SubscriberList extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $id;
+	public string $id;
 
 	/**
 	 * An auto-generated activity score for the list (0-5).
@@ -61,14 +61,14 @@ class SubscriberList extends AbstractData
 	 *
 	 * @var int
 	 */
-	public $listRating;
+	public int $listRating;
 
 	/**
 	 * Any list-specific modules installed for this list.
 	 *
 	 * @var string[]
 	 */
-	public $modules;
+	public array $modules;
 
 	/**
 	 * The name of the list.
@@ -76,7 +76,7 @@ class SubscriberList extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $name;
+	public string $name;
 
 	/**
 	 * The email address to send subscribe notifications to, when enabled.
@@ -84,7 +84,7 @@ class SubscriberList extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $notifyOnSubscribe;
+	public string $notifyOnSubscribe;
 
 	/**
 	 * The email address to send unsubscribe notifications to, when enabled.
@@ -92,7 +92,7 @@ class SubscriberList extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $notifyOnUnsubscribe;
+	public string $notifyOnUnsubscribe;
 
 	/**
 	 * The permission reminder for the list: a line of text that appears in the footer of each campaign that explains why subscribers are receiving the email campaign.
@@ -100,14 +100,14 @@ class SubscriberList extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $permissionReminder;
+	public string $permissionReminder;
 
 	/**
 	 * Various stats and counts for the list. Many of these are cached for at least five minutes.
 	 *
 	 * @var Statistics
 	 */
-	public $stats;
+	public Statistics $stats;
 
 	/**
 	 * The full version of this list's subscribe form (host will vary).
@@ -115,7 +115,7 @@ class SubscriberList extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $subscribeUrlLong;
+	public string $subscribeUrlLong;
 
 	/**
 	 * Our eepurl shortened version of this list's subscribe form.
@@ -123,7 +123,7 @@ class SubscriberList extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $subscribeUrlShort;
+	public string $subscribeUrlShort;
 
 	/**
 	 * Whether campaigns for this list use the Archive Bar in archives by default.
@@ -131,7 +131,7 @@ class SubscriberList extends AbstractData
 	 *
 	 * @var bool
 	 */
-	public $useArchiveBar;
+	public bool $useArchiveBar;
 
 	/**
 	 * Whether this list is public (pub) or private (prv). Used internally for projects like Wavelength.
@@ -139,7 +139,7 @@ class SubscriberList extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $visibility;
+	public string $visibility;
 
 	/**
 	 * Mapping classes.

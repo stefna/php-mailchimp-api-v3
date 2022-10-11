@@ -23,61 +23,61 @@ class ABTestOptions extends AbstractData
 	 *
 	 * @var string[]
 	 */
-	public $fromNames;
+	public array $fromNames;
 
 	/**
 	 * Possible reply To addresses.
 	 *
 	 * @var string[]
 	 */
-	public $replyToAddresses;
+	public array $replyToAddresses;
 
 	/**
 	 * Possible send times.
 	 *
 	 * @var string[]
 	 */
-	public $sendTimes;
+	public array $sendTimes;
 
 	/**
 	 * Possible subject lines.
 	 *
 	 * @var string[]
 	 */
-	public $subjectLines;
+	public array $subjectLines;
 
 	/**
 	 * The percentage of subscribers to send the test combinations to, from 10 to 100.
 	 *
 	 * @var int
 	 */
-	public $testSize;
+	public int $testSize;
 
 	/**
 	 * The number of minutes to wait before the winning campaign is picked.
 	 *
 	 * @var int
 	 */
-	public $waitTime;
+	public int $waitTime;
 
 	/**
 	 * How the winning campaign will be chosen.
 	 *
 	 * @var string
 	 */
-	public $winnerCriteria;
+	public string $winnerCriteria;
 
 	/**
 	 * ID of the campaign that was sent to the remaining recipients based on the winning combination.
 	 *
 	 * @var string
 	 */
-	public $winningCampaignId;
+	public string $winningCampaignId;
 
 	/**
 	 * ID of the combination that was chosen as the winner.
 	 *
 	 * @var string
 	 */
-	public $winningCombinationId;
+	public string $winningCombinationId;
 }

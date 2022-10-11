@@ -12,7 +12,7 @@ class CampaignReportSummary extends AbstractData
 	 *
 	 * @var number
 	 */
-	public $clickRate;
+	public number $clickRate;
 
 	/**
 	 * The total number of clicks for a campaign.
@@ -20,7 +20,7 @@ class CampaignReportSummary extends AbstractData
 	 *
 	 * @var int
 	 */
-	public $clicks;
+	public int $clicks;
 
 	/**
 	 * The number of unique opens divided by the total number of successful deliveries.
@@ -28,7 +28,7 @@ class CampaignReportSummary extends AbstractData
 	 *
 	 * @var number
 	 */
-	public $openRate;
+	public number $openRate;
 
 	/**
 	 * The total number of opens for a campaign.
@@ -36,7 +36,7 @@ class CampaignReportSummary extends AbstractData
 	 *
 	 * @var int
 	 */
-	public $opens;
+	public int $opens;
 
 	/**
 	 * The number of unique subscribers who clicked.
@@ -44,7 +44,7 @@ class CampaignReportSummary extends AbstractData
 	 *
 	 * @var int
 	 */
-	public $subscriberClicks;
+	public int $subscriberClicks;
 
 	/**
 	 * The number of unique subscribers who opened.
@@ -52,5 +52,5 @@ class CampaignReportSummary extends AbstractData
 	 *
 	 * @var int
 	 */
-	public $uniqueOpens;
+	public int $uniqueOpens;
 }

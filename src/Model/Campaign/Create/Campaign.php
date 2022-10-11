@@ -11,56 +11,56 @@ class Campaign extends AbstractData
 	 *
 	 * @var ABTestingOptions
 	 */
-	public $abSplitOpts;
+	public ABTestingOptions $abSplitOpts;
 
 	/**
 	 * List settings for the campaign.
 	 *
 	 * @var CampaignList
 	 */
-	public $recipients;
+	public CampaignList $recipients;
 
 	/**
 	 * [RSS](http://kb.mailchimp.com/campaigns/rss-in-campaigns/create-an-rss-campaign?utm_source=mc-api&utm_medium=docs&utm_campaign=apidocs) options for a campaign.
 	 *
 	 * @var RSSOptions
 	 */
-	public $rssOpts;
+	public RSSOptions $rssOpts;
 
 	/**
 	 * The settings for your campaign, including subject, from name, reply-to address, and more.
 	 *
 	 * @var CampaignSettings
 	 */
-	public $settings;
+	public CampaignSettings $settings;
 
 	/**
 	 * The preview for the campaign, rendered by social networks like Facebook and Twitter. [Learn more](http://kb.mailchimp.com/campaigns/previews-and-tests/set-up-social-cards?utm_source=mc-api&utm_medium=docs&utm_campaign=apidocs).
 	 *
 	 * @var CampaignSocialCard
 	 */
-	public $socialCard;
+	public CampaignSocialCard $socialCard;
 
 	/**
 	 * The tracking options for a campaign.
 	 *
 	 * @var CampaignTrackingOptions
 	 */
-	public $tracking;
+	public CampaignTrackingOptions $tracking;
 
 	/**
 	 * There are four types of [campaigns](http://kb.mailchimp.com/campaigns?utm_source=mc-api&utm_medium=docs&utm_campaign=apidocs) you can create in MailChimp. A/B Split campaigns have been deprecated and variate campaigns should be used instead.
 	 *
 	 * @var string
 	 */
-	public $type;
+	public string $type;
 
 	/**
 	 * The settings specific to A/B test campaigns.
 	 *
 	 * @var ABTestOptions
 	 */
-	public $variateSettings;
+	public ABTestOptions $variateSettings;
 
 	/**
 	 * Mapping classes.

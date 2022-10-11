@@ -11,7 +11,7 @@ class SendTest extends AbstractData
 	 *
 	 * @var string[]
 	 */
-	public $testEmails;
+	public array $testEmails;
 
 	/**
 	 * Choose the type of test email to send.
@@ -19,5 +19,5 @@ class SendTest extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $sendType;
+	public string $sendType;
 }

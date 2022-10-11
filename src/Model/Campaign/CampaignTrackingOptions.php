@@ -13,7 +13,7 @@ class CampaignTrackingOptions extends AbstractData
 	 *
 	 * @var CapsuleCRMTracking
 	 */
-	public $capsule;
+	public CapsuleCRMTracking $capsule;
 
 	/**
 	 * The custom slug for ClickTale Analytics tracking (max of 50 bytes).
@@ -21,14 +21,14 @@ class CampaignTrackingOptions extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $clicktale;
+	public string $clicktale;
 
 	/**
 	 * Whether to enable eCommerce360 tracking.
 	 *
 	 * @var bool
 	 */
-	public $ecomm360;
+	public bool $ecomm360;
 
 	/**
 	 * Whether to enable Goal tracking. For more information, see this Knowledge Base article: http://eepurl.com/GPMdH
@@ -36,7 +36,7 @@ class CampaignTrackingOptions extends AbstractData
 	 *
 	 * @var bool
 	 */
-	public $goalTracking;
+	public bool $goalTracking;
 
 	/**
 	 * The custom slug for Google Analytics tracking (max of 50 bytes).
@@ -44,7 +44,7 @@ class CampaignTrackingOptions extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $googleAnalytics;
+	public string $googleAnalytics;
 
 	/**
 	 * Whether to track clicks in the HTML version of the campaign. Defaults to 'true'.
@@ -52,7 +52,7 @@ class CampaignTrackingOptions extends AbstractData
 	 *
 	 * @var bool
 	 */
-	public $htmlClicks;
+	public bool $htmlClicks;
 
 	/**
 	 * Whether to track opens. Defaults to 'true'.
@@ -60,14 +60,14 @@ class CampaignTrackingOptions extends AbstractData
 	 *
 	 * @var bool
 	 */
-	public $opens;
+	public bool $opens;
 
 	/**
 	 * Salesforce tracking options for a campaign.  Must be using MailChimp's built-in Salesforce integration.
 	 *
 	 * @var SalesforceCRMTracking
 	 */
-	public $salesforce;
+	public SalesforceCRMTracking $salesforce;
 
 	/**
 	 * Whether to track clicks in the plain-text version of the campaign. Defaults to 'true'.
@@ -75,7 +75,7 @@ class CampaignTrackingOptions extends AbstractData
 	 *
 	 * @var bool
 	 */
-	public $textClicks;
+	public bool $textClicks;
 
 	/**
 	 * Mapping classes.

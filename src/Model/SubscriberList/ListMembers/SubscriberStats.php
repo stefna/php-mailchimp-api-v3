@@ -11,12 +11,12 @@ class SubscriberStats extends AbstractData
 	 *
 	 * @var number
 	 */
-	public $avgClickRate;
+	public number $avgClickRate;
 
 	/**
 	 * A subscriber's average open rate.
 	 *
 	 * @var number
 	 */
-	public $avgOpenRate;
+	public number $avgOpenRate;
 }

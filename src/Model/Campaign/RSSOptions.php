@@ -12,7 +12,7 @@ class RSSOptions extends AbstractData
 	 *
 	 * @var bool
 	 */
-	public $constrainRssImg;
+	public bool $constrainRssImg;
 
 	/**
 	 * The URL for the RSS feed.
@@ -20,7 +20,7 @@ class RSSOptions extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $feedUrl;
+	public string $feedUrl;
 
 	/**
 	 * The frequency of the RSS-to-Email campaign ('daily', 'weekly', 'monthly').
@@ -28,7 +28,7 @@ class RSSOptions extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $frequency;
+	public string $frequency;
 
 	/**
 	 * The date the campaign was last sent.
@@ -36,14 +36,14 @@ class RSSOptions extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $lastSent;
+	public string $lastSent;
 
 	/**
 	 * The schedule for sending the RSS campaign.
 	 *
 	 * @var SendingSchedule
 	 */
-	public $schedule;
+	public SendingSchedule $schedule;
 
 	/**
 	 * Mapping classes.

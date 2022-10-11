@@ -12,7 +12,7 @@ class Item extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $contentLabel;
+	public string $contentLabel;
 
 	/**
 	 * The plain-text portion of the campaign. If left unspecified, we'll generate this automatically.
@@ -20,7 +20,7 @@ class Item extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $plainText;
+	public string $plainText;
 
 	/**
 	 * The raw HTML for the campaign.
@@ -28,5 +28,5 @@ class Item extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $html;
+	public string $html;
 }

@@ -12,7 +12,7 @@ class Statistics extends AbstractData
 	 *
 	 * @var number
 	 */
-	public $avgSubRate;
+	public number $avgSubRate;
 
 	/**
 	 * The average number of unsubscriptions per month for the list (not returned if we haven't calculated it yet).
@@ -20,7 +20,7 @@ class Statistics extends AbstractData
 	 *
 	 * @var number
 	 */
-	public $avgUnsubRate;
+	public number $avgUnsubRate;
 
 	/**
 	 * The number of campaigns in any status that use this list.
@@ -28,7 +28,7 @@ class Statistics extends AbstractData
 	 *
 	 * @var int
 	 */
-	public $campaignCount;
+	public int $campaignCount;
 
 	/**
 	 * The date and time the last campaign was sent to this list.
@@ -36,7 +36,7 @@ class Statistics extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $campaignLastSent;
+	public string $campaignLastSent;
 
 	/**
 	 * The number of members cleaned from the given list.
@@ -44,7 +44,7 @@ class Statistics extends AbstractData
 	 *
 	 * @var int
 	 */
-	public $cleanedCount;
+	public int $cleanedCount;
 
 	/**
 	 * The number of members cleaned from the given list since the last campaign was sent.
@@ -52,7 +52,7 @@ class Statistics extends AbstractData
 	 *
 	 * @var int
 	 */
-	public $cleanedCountSinceSend;
+	public int $cleanedCountSinceSend;
 
 	/**
 	 * The average click rate (a percentage represented as a number between 0 and 100) per campaign for the list (not returned if we haven't calculated it yet).
@@ -60,7 +60,7 @@ class Statistics extends AbstractData
 	 *
 	 * @var number
 	 */
-	public $clickRate;
+	public number $clickRate;
 
 	/**
 	 * The date and time of the last time someone subscribed to this list.
@@ -68,7 +68,7 @@ class Statistics extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $lastSubDate;
+	public string $lastSubDate;
 
 	/**
 	 * The date and time of the last time someone unsubscribed from this list.
@@ -76,7 +76,7 @@ class Statistics extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $lastUnsubDate;
+	public string $lastUnsubDate;
 
 	/**
 	 * The number of active members in the given list.
@@ -84,7 +84,7 @@ class Statistics extends AbstractData
 	 *
 	 * @var int
 	 */
-	public $memberCount;
+	public int $memberCount;
 
 	/**
 	 * The number of active members in the given list since the last campaign was sent.
@@ -92,7 +92,7 @@ class Statistics extends AbstractData
 	 *
 	 * @var int
 	 */
-	public $memberCountSinceSend;
+	public int $memberCountSinceSend;
 
 	/**
 	 * The number of merge vars for this list (not including the required EMAIL one).
@@ -100,7 +100,7 @@ class Statistics extends AbstractData
 	 *
 	 * @var int
 	 */
-	public $mergeFieldCount;
+	public int $mergeFieldCount;
 
 	/**
 	 * The average open rate (a percentage represented as a number between 0 and 100) per campaign for the list (not returned if we haven't calculated it yet).
@@ -108,7 +108,7 @@ class Statistics extends AbstractData
 	 *
 	 * @var number
 	 */
-	public $openRate;
+	public number $openRate;
 
 	/**
 	 * The target number of subscriptions per month for the list to keep it growing (not returned if we haven't calculated it yet).
@@ -116,7 +116,7 @@ class Statistics extends AbstractData
 	 *
 	 * @var number
 	 */
-	public $targetSubRate;
+	public number $targetSubRate;
 
 	/**
 	 * The number of members who have unsubscribed from the given list.
@@ -124,7 +124,7 @@ class Statistics extends AbstractData
 	 *
 	 * @var int
 	 */
-	public $unsubscribeCount;
+	public int $unsubscribeCount;
 
 	/**
 	 * The number of members who have unsubscribed since the last campaign was sent.
@@ -132,5 +132,5 @@ class Statistics extends AbstractData
 	 *
 	 * @var int
 	 */
-	public $unsubscribeCountSinceSend;
+	public int $unsubscribeCountSinceSend;
 }

@@ -12,7 +12,7 @@ class ABSplitOptions extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $fromNameA;
+	public string $fromNameA;
 
 	/**
 	 * For campaigns split on 'From Name', the name for Group B.
@@ -20,7 +20,7 @@ class ABSplitOptions extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $fromNameB;
+	public string $fromNameB;
 
 	/**
 	 * How we should evaluate a winner. Based on 'opens', 'clicks', or 'manual'.
@@ -28,7 +28,7 @@ class ABSplitOptions extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $pickWinner;
+	public string $pickWinner;
 
 	/**
 	 * For campaigns split on 'From Name', the reply-to address for Group A.
@@ -36,7 +36,7 @@ class ABSplitOptions extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $replyEmailA;
+	public string $replyEmailA;
 
 	/**
 	 * For campaigns split on 'From Name', the reply-to address for Group B.
@@ -44,7 +44,7 @@ class ABSplitOptions extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $replyEmailB;
+	public string $replyEmailB;
 
 	/**
 	 * The send time for Group A.
@@ -52,7 +52,7 @@ class ABSplitOptions extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $sendTimeA;
+	public string $sendTimeA;
 
 	/**
 	 * The send time for Group B.
@@ -60,7 +60,7 @@ class ABSplitOptions extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $sendTimeB;
+	public string $sendTimeB;
 
 	/**
 	 * The send time for the winning version.
@@ -68,7 +68,7 @@ class ABSplitOptions extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $sendTimeWinner;
+	public string $sendTimeWinner;
 
 	/**
 	 * The size of the split groups. Campaigns split based on 'schedule' are forced to have a 50/50 split. Valid split integers are between 1-50. Ex. A 10% split would result in two groups of 10% of the subscribers plus a winner sending to the remaining 80%.
@@ -76,7 +76,7 @@ class ABSplitOptions extends AbstractData
 	 *
 	 * @var int
 	 */
-	public $splitSize;
+	public int $splitSize;
 
 	/**
 	 * The type of AB split to run ('subject', 'from_name', or 'schedule').
@@ -84,7 +84,7 @@ class ABSplitOptions extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $splitTest;
+	public string $splitTest;
 
 	/**
 	 * For campaigns split on 'Subject Line', the subject line for Group A.
@@ -92,7 +92,7 @@ class ABSplitOptions extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $subjectA;
+	public string $subjectA;
 
 	/**
 	 * For campaigns split on 'Subject Line', the subject line for Group B.
@@ -100,7 +100,7 @@ class ABSplitOptions extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $subjectB;
+	public string $subjectB;
 
 	/**
 	 * The amount of time to wait before picking a winner. This cannot be changed after a campaign is sent.
@@ -108,7 +108,7 @@ class ABSplitOptions extends AbstractData
 	 *
 	 * @var int
 	 */
-	public $waitTime;
+	public int $waitTime;
 
 	/**
 	 * How unit of time for measuring the winner ('hours' or 'days'). This cannot be changed after a campaign is sent.
@@ -116,5 +116,5 @@ class ABSplitOptions extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $waitUnits;
+	public string $waitUnits;
 }

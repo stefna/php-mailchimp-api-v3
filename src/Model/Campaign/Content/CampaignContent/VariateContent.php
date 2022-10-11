@@ -11,14 +11,14 @@ class VariateContent extends AbstractData
 	 *
 	 * @var UploadArchive
 	 */
-	public $archive;
+	public UploadArchive $archive;
 
 	/**
 	 * Use this template to generate the HTML content of the campaign.
 	 *
 	 * @var TemplateContent
 	 */
-	public $template;
+	public TemplateContent $template;
 
 
 	/**
@@ -26,7 +26,7 @@ class VariateContent extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $plainText;
+	public string $plainText;
 
 
 	/**
@@ -34,19 +34,19 @@ class VariateContent extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $url;
+	public string $url;
 
 	/**
 	 * The label used to identify the content option.
 	 *
 	 * @var string
 	 */
-	public $contentLabel;
+	public string $contentLabel;
 
 	/**
 	 * The raw HTML for the campaign.
 	 *
 	 * @var string
 	 */
-	public $html;
+	public string $html;
 }

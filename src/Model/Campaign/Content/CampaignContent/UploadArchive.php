@@ -11,12 +11,12 @@ class UploadArchive extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $archiveContent;
+	public string $archiveContent;
 
 	/**
 	 * The type of encoded file. Defaults to zip.
 	 *
 	 * @var string
 	 */
-	public $archiveType;
+	public string $archiveType;
 }

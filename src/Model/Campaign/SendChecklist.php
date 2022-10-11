@@ -12,14 +12,14 @@ class SendChecklist extends AbstractData
 	 *
 	 * @var bool
 	 */
-	public $isReady;
+	public bool $isReady;
 
 	/**
 	 * A list of feedback items to review before sending your campaign.
 	 *
 	 * @var Item[]
 	 */
-	public $items;
+	public array $items;
 
 	protected array $classMap = [
 		'items' => [Item::class],

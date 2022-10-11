@@ -13,27 +13,27 @@ class Content extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $archiveHtml;
+	public string $archiveHtml;
 
 	/**
 	 * The raw HTML for the campaign.
 	 *
 	 * @var string
 	 */
-	public $html;
+	public string $html;
 
 	/**
 	 * The plain-text portion of the campaign. If left unspecified, we'll generate this automatically.
 	 *
 	 * @var string
 	 */
-	public $plainText;
+	public string $plainText;
 
 	/**
 	 * Content options for multivariate campaigns.
 	 *
 	 * @var Item[]
 	 */
-	public $variateContents;
+	public array $variateContents;
 
 }

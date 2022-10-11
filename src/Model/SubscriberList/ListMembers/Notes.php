@@ -11,26 +11,26 @@ class Notes extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $createdAt;
+	public string $createdAt;
 
 	/**
 	 * The author of the note.
 	 *
 	 * @var string
 	 */
-	public $createdBy;
+	public string $createdBy;
 
 	/**
 	 * The content of the note.
 	 *
 	 * @var string
 	 */
-	public $note;
+	public string $note;
 
 	/**
 	 * The note id.
 	 *
 	 * @var int
 	 */
-	public $noteId;
+	public int $noteId;
 }

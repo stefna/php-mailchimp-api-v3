@@ -11,5 +11,5 @@ class CampaignList extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $listId;
+	public string $listId;
 }

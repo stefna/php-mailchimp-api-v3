@@ -12,28 +12,28 @@ class RSSOptions extends AbstractData
 	 *
 	 * @var bool
 	 */
-	public $constrainRssImg;
+	public bool $constrainRssImg;
 
 	/**
 	 * The URL for the RSS feed.
 	 *
 	 * @var string
 	 */
-	public $feedUrl;
+	public string $feedUrl;
 
 	/**
 	 * The frequency of the RSS Campaign.
 	 *
 	 * @var string
 	 */
-	public $frequency;
+	public string $frequency;
 
 	/**
 	 * The schedule for sending the RSS Campaign.
 	 *
 	 * @var SendingSchedule
 	 */
-	public $schedule;
+	public SendingSchedule $schedule;
 
 	/**
 	 * Mapping classes.

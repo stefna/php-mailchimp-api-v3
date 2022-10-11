@@ -11,5 +11,5 @@ class CapsuleCRMTracking extends AbstractData
 	 *
 	 * @var bool
 	 */
-	public $notes;
+	public bool $notes;
 }

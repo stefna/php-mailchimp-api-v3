@@ -12,23 +12,23 @@ class Item extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $type;
+	public string $type;
 	/**
 	 * The ID for the specific item.
 	 *
 	 * @var int
 	 */
-	public $id;
+	public int $id;
 	/**
 	 * The heading for the specific item.
 	 *
 	 * @var string
 	 */
-	public $heading;
+	public string $heading;
 	/**
 	 * Details about the specific feedback item.
 	 *
 	 * @var string
 	 */
-	public $details;
+	public string $details;
 }

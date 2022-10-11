@@ -12,7 +12,7 @@ class ListContact extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $address1;
+	public string $address1;
 
 	/**
 	 * The street address for the list contact.
@@ -20,7 +20,7 @@ class ListContact extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $address2;
+	public string $address2;
 
 	/**
 	 * The city for the list contact.
@@ -28,7 +28,7 @@ class ListContact extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $city;
+	public string $city;
 
 	/**
 	 * The company name associated with the list.
@@ -36,7 +36,7 @@ class ListContact extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $company;
+	public string $company;
 
 	/**
 	 * A two-character ISO3166 country code. Defaults to US if invalid.
@@ -44,7 +44,7 @@ class ListContact extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $country;
+	public string $country;
 
 	/**
 	 * The phone number for the list contact.
@@ -52,7 +52,7 @@ class ListContact extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $phone;
+	public string $phone;
 
 	/**
 	 * The state for the list contact.
@@ -60,7 +60,7 @@ class ListContact extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $state;
+	public string $state;
 
 	/**
 	 * The postal or zip code for the list contact.
@@ -68,5 +68,5 @@ class ListContact extends AbstractData
 	 *
 	 * @var string
 	 */
-	public $zip;
+	public string $zip;
 }
