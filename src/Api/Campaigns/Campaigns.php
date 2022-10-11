@@ -24,7 +24,7 @@ class Campaigns extends CollectionRestApi
 	 * @param CampaignsAllRequest|AbstractRequest|null $params
 	 * @return Campaign[]
 	 */
-	public function all($params = null)
+	public function all($params = null): array
 	{
 		return $this->fetchAll(Campaign::class, 'campaigns', $params);
 	}
@@ -34,7 +34,7 @@ class Campaigns extends CollectionRestApi
 	 * @param AbstractRequest|null $params
 	 * @return Campaign|AbstractData|null
 	 */
-	public function get(string $id, ?AbstractRequest $params = null)
+	public function get(string $id, ?AbstractRequest $params = null): ?AbstractData
 	{
 		return $this->fetchOne(Campaign::class, $id, $params);
 	}
@@ -43,7 +43,7 @@ class Campaigns extends CollectionRestApi
 	 * @param CreateCampaign|AbstractData $data
 	 * @return AbstractData|Campaign
 	 */
-	public function create(AbstractData $data)
+	public function create(AbstractData $data): AbstractData
 	{
 		return $this->doCreate($data, Campaign::class);
 	}
@@ -53,14 +53,14 @@ class Campaigns extends CollectionRestApi
 	 * @param array<string, AbstractData>|AbstractData|UpdateCampaign $data
 	 * @return AbstractData|Campaign
 	 */
-	public function update(string $id, $data)
+	public function update(string $id, $data): AbstractData
 	{
 		return $this->doUpdate($id, $data, Campaign::class);
 	}
 
-	public function delete(string $id): ?bool
+	public function delete(string $id): bool
 	{
-		return $this->doDelete($id);
+		return (bool)$this->doDelete($id);
 	}
 
 	public function contents(string $campaignId): Contents
@@ -78,7 +78,7 @@ class Campaigns extends CollectionRestApi
 	 * @param CampaignsRequest|null $params
 	 * @return SendChecklist|null
 	 */
-	public function checklist(string $campaignId, ?CampaignsRequest $params = null)
+	public function checklist(string $campaignId, ?CampaignsRequest $params = null): ?SendChecklist
 	{
 		$path = $this->getPath(self::ACTION_ONE, [$campaignId, 'send-checklist']);
 		$data = $this->fetch($path, null, $params);

@@ -39,19 +39,19 @@ class Templates extends CollectionRestApi
 	 * @param AbstractRequest|null $params
 	 * @return AbstractData|TemplateInstance|null
 	 */
-	public function get(string $id, ?AbstractRequest $params = null)
+	public function get(string $id, ?AbstractRequest $params = null): ?AbstractData
 	{
 		return $this->fetchOne(TemplateInstance::class, $id, $params);
 	}
 
-	public function update(string $id, $data)
+	public function update(string $id, $data): AbstractData
 	{
 		return $this->doUpdate($id, $data, TemplateInstance::class);
 	}
 
-	public function delete(string $id): ?bool
+	public function delete(string $id): bool
 	{
-		return $this->doDelete($id);
+		return (bool)$this->doDelete($id);
 	}
 
 	/**

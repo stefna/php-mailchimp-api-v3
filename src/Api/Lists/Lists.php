@@ -30,7 +30,7 @@ class Lists extends CollectionRestApi
 	 * @param AbstractRequest|null $params
 	 * @return SubscriberList|AbstractData|null
 	 */
-	public function get(string $id, ?AbstractRequest $params = null)
+	public function get(string $id, ?AbstractRequest $params = null): ?AbstractData
 	{
 		return $this->fetchOne(SubscriberList::class, $id, $params);
 	}
@@ -39,7 +39,7 @@ class Lists extends CollectionRestApi
 	 * @param AbstractData|SubscriberList $data
 	 * @return AbstractData|SubscriberList
 	 */
-	public function create($data)
+	public function create($data): AbstractData
 	{
 		return $this->doCreate($data);
 	}
@@ -49,14 +49,14 @@ class Lists extends CollectionRestApi
 	 * @param array<string, AbstractData>|AbstractData $data
 	 * @return AbstractData|SubscriberList
 	 */
-	public function update(string $id, $data)
+	public function update(string $id, $data): AbstractData
 	{
 		return $this->doUpdate($id, $data, SubscriberList::class);
 	}
 
-	public function delete(string $id): ?bool
+	public function delete(string $id): bool
 	{
-		return $this->doDelete($id);
+		return (bool)$this->doDelete($id);
 	}
 
 	public function members(string $listId): Members

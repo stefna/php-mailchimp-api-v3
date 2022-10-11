@@ -80,7 +80,7 @@ class Client
 	 * @param array<string,string> $args
 	 * @return array<string, mixed>
 	 */
-	public function get(string $path, array $args = [])
+	public function get(string $path, array $args = []): array
 	{
 		/** @var array<string, mixed> */
 		return $this->request($this->messageFactory->createRequest(
@@ -95,7 +95,7 @@ class Client
 	 * @param array<string, string> $args
 	 * @return bool
 	 */
-	public function delete(string $path, array $args = [])
+	public function delete(string $path, array $args = []): bool
 	{
 		return (bool)$this->request($this->messageFactory->createRequest(
 			'delete',
@@ -109,7 +109,7 @@ class Client
 	 * @param array<string, mixed> $data
 	 * @return array<string, mixed>
 	 */
-	public function post(string $path, array $data = [])
+	public function post(string $path, array $data = []): array
 	{
 		/** @var array<string, mixed> */
 		return $this->request($this->messageFactory->createRequest(
@@ -125,7 +125,7 @@ class Client
 	 * @param array<string, mixed> $data
 	 * @return array<string, mixed>
 	 */
-	public function put(string $path, array $data = [])
+	public function put(string $path, array $data = []): array
 	{
 		/** @var array<string, mixed> */
 		return $this->request($this->messageFactory->createRequest(

@@ -51,7 +51,7 @@ class Members extends CollectionRestApi
 	 * @param ListsRequest|AbstractRequest|null $params
 	 * @return ListMembers|AbstractData|null
 	 */
-	public function get(string $id, $params = null)
+	public function get(string $id, $params = null): ?AbstractData
 	{
 		return $this->fetchOne(ListMembers::class, Members::formatEmailAddress($id), $params);
 	}
@@ -60,7 +60,7 @@ class Members extends CollectionRestApi
 	 * @param ListMembers|AbstractData $data
 	 * @return ListMembers|AbstractData
 	 */
-	public function create(AbstractData $data)
+	public function create(AbstractData $data): AbstractData
 	{
 		return $this->doCreate($data);
 	}
@@ -70,13 +70,13 @@ class Members extends CollectionRestApi
 	 * @param array<string, AbstractData>|AbstractData $data
 	 * @return ListMembers|AbstractData
 	 */
-	public function update(string $id, $data)
+	public function update(string $id, $data): AbstractData
 	{
 		return $this->doUpdate(Members::formatEmailAddress($id), $data, ListMembers::class);
 	}
 
-	public function delete(string $id): ?bool
+	public function delete(string $id): bool
 	{
-		return $this->doDelete(Members::formatEmailAddress($id));
+		return (bool)$this->doDelete(Members::formatEmailAddress($id));
 	}
 }
