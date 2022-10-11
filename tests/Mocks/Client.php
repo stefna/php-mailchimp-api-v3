@@ -7,15 +7,6 @@ use Psr\Http\Message\ResponseInterface;
 
 class Client extends \Stefna\Mailchimp\Client
 {
-
-	protected function sendRequest(RequestInterface $request): ResponseInterface
-	{
-		if ($response = $this->mockResponse($request)) {
-			return $response;
-		}
-		return parent::sendRequest($request);
-	}
-
 	public function response(ResponseInterface $response)
 	{
 		$this->saveResponse($response);
@@ -28,36 +19,17 @@ class Client extends \Stefna\Mailchimp\Client
 		return parent::noOutputResponse($response);
 	}
 
+	protected function sendRequest(RequestInterface $request): ResponseInterface
+	{
+		if ($response = $this->mockResponse($request)) {
+			return $response;
+		}
+		return parent::sendRequest($request);
+	}
+
 	protected function getResponseDir(): string
 	{
 		return __DIR__ . '/responses/';
-	}
-
-	private function saveResponse(ResponseInterface $response): void
-	{
-		if ($this->lastRequest) {
-			$file = $this->getResponseFilename($this->lastRequest);
-			if (!is_file($file)) {
-				$this->writeResponse($file, $response);
-			}
-		}
-	}
-
-	private function writeResponse($file, ResponseInterface $response): void
-	{
-		$body = $response->getBody();
-		$body->rewind();
-		$content = preg_replace("@'@", "\\'", $body->getContents());
-		$data = "<?php\n\nreturn new \\GuzzleHttp\\Psr7\\Response(\n\t200,\n\t['IsMock' => true],\n\t'$content'\n);\n";
-		$dir = dirname($file);
-		if (!is_dir($dir)) {
-			mkdir($dir, 0777, true);
-		}
-		file_put_contents($file, $data);
-		if ($this->logger) {
-			$this->logger->debug("Writing response to $file");
-		}
-		$body->rewind();
 	}
 
 	protected function mockResponse(RequestInterface $request)
@@ -87,4 +59,30 @@ class Client extends \Stefna\Mailchimp\Client
 		return $this->getResponseDir() . $key . '/' . $method . $queryParams . '.php';
 	}
 
+	private function saveResponse(ResponseInterface $response): void
+	{
+		if ($this->lastRequest) {
+			$file = $this->getResponseFilename($this->lastRequest);
+			if (!is_file($file)) {
+				$this->writeResponse($file, $response);
+			}
+		}
+	}
+
+	private function writeResponse($file, ResponseInterface $response): void
+	{
+		$body = $response->getBody();
+		$body->rewind();
+		$content = preg_replace("@'@", "\\'", $body->getContents());
+		$data = "<?php\n\nreturn new \\GuzzleHttp\\Psr7\\Response(\n\t200,\n\t['IsMock' => true],\n\t'$content'\n);\n";
+		$dir = dirname($file);
+		if (!is_dir($dir)) {
+			mkdir($dir, 0777, true);
+		}
+		file_put_contents($file, $data);
+		if ($this->logger) {
+			$this->logger->debug("Writing response to $file");
+		}
+		$body->rewind();
+	}
 }

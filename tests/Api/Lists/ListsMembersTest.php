@@ -2,10 +2,10 @@
 
 namespace Tests\Stefna\Mailchimp\Api\Lists;
 
-use Stefna\Mailchimp\Api\RestApi;
-use Stefna\Mailchimp\Model\SubscriberList\ListMembers;
 use Stefna\Mailchimp\Api\Lists\Members as MembersApi;
 use Stefna\Mailchimp\Api\Lists\Request\ListsMembersAllRequest;
+use Stefna\Mailchimp\Api\RestApi;
+use Stefna\Mailchimp\Model\SubscriberList\ListMembers;
 use Stefna\Mailchimp\Other\AbstractData;
 use Stefna\Mailchimp\Other\AbstractRequest;
 use Tests\Stefna\Mailchimp\Api\CollectionTestCase;
@@ -24,7 +24,7 @@ class ListsMembersTest extends CollectionTestCase
 			'FNAME' => 'Test',
 			'LNAME' => 'User',
 		];
-		$listId ='2f7bc35b74';
+		$listId = '2f7bc35b74';
 		$ret = $this->getClient()->lists()->members($listId)->create($create);
 		$this->assertInstanceOf(ListMembers::class, $ret);
 		$this->assertSame('Test', $ret->mergeFields['FNAME']);
@@ -116,7 +116,7 @@ class ListsMembersTest extends CollectionTestCase
 
 	protected function getUpdateData(): array
 	{
-		return[
+		return [
 			'status' => 'unsubscribed',
 		];
 	}

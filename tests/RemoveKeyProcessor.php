@@ -10,6 +10,21 @@ class RemoveKeyProcessor
 	/** @var int|string */
 	private $level;
 
+	public static function removeKey(&$array, $key): void
+	{
+		if (!$array || !is_array($array)) {
+			return;
+		}
+		if (isset($array[$key])) {
+			unset($array[$key]);
+		}
+		foreach ($array as &$v) {
+			if (is_array($v)) {
+				self::removeKey($v, $key);
+			}
+		}
+	}
+
 	public function __construct(string $key, $level = Logger::DEBUG)
 	{
 		$this->key = $key;
@@ -26,20 +41,4 @@ class RemoveKeyProcessor
 		}
 		return $record;
 	}
-
-	public static function removeKey(&$array, $key): void
-	{
-		if (!$array || !is_array($array)) {
-			return;
-		}
-		if (isset($array[$key])) {
-			unset($array[$key]);
-		}
-		foreach ($array as &$v) {
-			if (is_array($v)) {
-				self::removeKey($v, $key);
-			}
-		}
-	}
-
 }

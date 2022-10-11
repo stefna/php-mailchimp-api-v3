@@ -2,10 +2,10 @@
 
 namespace Tests\Stefna\Mailchimp\Api\Lists;
 
-use Stefna\Mailchimp\Api\RestApi;
-use Stefna\Mailchimp\Model\SubscriberList;
 use Stefna\Mailchimp\Api\Lists\Lists as ListsApi;
 use Stefna\Mailchimp\Api\Lists\Request\ListsAllRequest;
+use Stefna\Mailchimp\Api\RestApi;
+use Stefna\Mailchimp\Model\SubscriberList;
 use Stefna\Mailchimp\Other\AbstractData;
 use Stefna\Mailchimp\Other\AbstractRequest;
 use Tests\Stefna\Mailchimp\Api\CollectionTestCase;
@@ -96,7 +96,7 @@ class ListsTest extends CollectionTestCase
 		]);
 	}
 
-	protected function getAllOneParams():AbstractRequest
+	protected function getAllOneParams(): AbstractRequest
 	{
 		return new ListsAllRequest();
 	}

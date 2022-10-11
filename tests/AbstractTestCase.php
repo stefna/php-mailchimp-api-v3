@@ -12,7 +12,6 @@ abstract class AbstractTestCase extends TestCase
 {
 	private const ENV_API_KEY = 'MAILCHIMP_API_KEY';
 	private const ENV_LOG = 'MAILCHIMP_LOG';
-
 	private static HttpClient $httpClient;
 	private static string $apiKey;
 
@@ -43,7 +42,6 @@ abstract class AbstractTestCase extends TestCase
 		$fileName = getenv(self::ENV_LOG) ?: '/tmp/php-mailchimp-api-v3-test.log';
 		return (new Logger('testLogger'))
 			->pushHandler(new StreamHandler($fileName))
-			->pushProcessor(new RemoveKeyProcessor('_links'))
-		;
+			->pushProcessor(new RemoveKeyProcessor('_links'));
 	}
 }

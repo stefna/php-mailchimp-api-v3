@@ -29,12 +29,12 @@ class ArrayIntersectAssocRecursiveTest extends UnitTestCase
 			'assocSimple' => [
 				['a' => 1, 'b' => ['c' => 3, 'd' => 4]],
 				['b' => ['d' => 4]],
-				['b' => ['d' => 4]]
+				['b' => ['d' => 4]],
 			],
 			'assocBad' => [
 				['a' => 1, 'b' => ['c' => 3, 'd' => 4]],
 				['b' => ['d' => 5]],
-				[]
+				[],
 			],
 		];
 	}

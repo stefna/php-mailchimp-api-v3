@@ -2,10 +2,10 @@
 
 namespace Tests\Stefna\Mailchimp\Api\Campaigns;
 
-use Stefna\Mailchimp\Model\Campaign\Campaign;
-use Stefna\Mailchimp\Model\Campaign\Create\Campaign as CreateCampaign;
 use Stefna\Mailchimp\Api\Campaigns\Campaigns as CampaignsApi;
 use Stefna\Mailchimp\Api\Campaigns\Request\CampaignsAllRequest;
+use Stefna\Mailchimp\Model\Campaign\Campaign;
+use Stefna\Mailchimp\Model\Campaign\Create\Campaign as CreateCampaign;
 use Stefna\Mailchimp\Model\Campaign\Create\CampaignSettings as CreateCampaignSettings;
 use Stefna\Mailchimp\Model\Campaign\Update\Campaign as UpdateCampaign;
 use Stefna\Mailchimp\Model\Campaign\Update\CampaignSettings as UpdateCampaignSettings;
@@ -16,7 +16,6 @@ class CampaignsTest extends CollectionTestCase
 	private const CAMPAIGN_ID_1 = '0cefd1915f';
 	private const SUBJECT_DEFAULT = 'TestSubjectLine';
 	private const SUBJECT_BAD = 'TestSubjectLineBad';
-
 
 	protected function checkEntityDefault($entity): void
 	{

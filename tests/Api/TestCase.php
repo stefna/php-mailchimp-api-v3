@@ -4,17 +4,65 @@ namespace Tests\Stefna\Mailchimp\Api;
 
 use Stefna\Mailchimp\Api\CollectionRestApi;
 use Stefna\Mailchimp\Api\Request\AllInterface;
-use Stefna\Mailchimp\Other\AbstractData;
 use Stefna\Mailchimp\Api\RestApi;
+use Stefna\Mailchimp\Other\AbstractData;
 use Stefna\Mailchimp\Other\AbstractRequest;
 use Tests\Stefna\Mailchimp\AbstractTestCase;
 
 abstract class TestCase extends AbstractTestCase
 {
+	public static function array_intersect_assoc_recursive(&$arr1, &$arr2)
+	{
+		if (!is_array($arr1) || !is_array($arr2)) {
+			return (string)$arr1 === (string)$arr2;
+		}
+		$commonkeys = array_intersect(array_keys($arr1), array_keys($arr2));
+		$ret = [];
+		foreach ($commonkeys as $key) {
+			if (self::array_intersect_assoc_recursive($arr1[$key], $arr2[$key])) {
+				$ret[$key] = $arr2[$key];
+			}
+		}
+		return $ret;
+	}
+
 	public function testClientApi(): void
 	{
 		$this->checkClientApi();
 	}
+
+	abstract protected function checkEntity($entity, $returnEntity);
+
+	abstract protected function getEntityClass(): string;
+
+	abstract protected function getApiClass(): string;
+
+	/**
+	 * @return RestApi|CollectionRestApi
+	 */
+	abstract protected function getApi();
+
+	abstract protected function getSingleEntityId(): string;
+
+	/**
+	 * @param mixed $param1
+	 * @param mixed $param2
+	 * @return AbstractData
+	 */
+	abstract protected function getNewEntity($param1 = null, $param2 = null): AbstractData;
+
+	abstract protected function getAllOneParams(): AbstractRequest;
+
+	abstract protected function getBadCreateParam1(): string;
+
+	abstract protected function getBadCreateParam2(): ?string;
+
+	abstract protected function getBadDeleteId(): string;
+
+	/**
+	 * @return array|AbstractData
+	 */
+	abstract protected function getUpdateData();
 
 	protected function checkCreate($param1 = null, $param2 = null): void
 	{
@@ -32,12 +80,6 @@ abstract class TestCase extends AbstractTestCase
 		$api = $this->getApi();
 		$this->assertInstanceOf($this->getApiClass(), $api);
 	}
-
-	abstract protected function checkEntity($entity, $returnEntity);
-
-	abstract protected function getEntityClass(): string;
-
-	abstract protected function getApiClass(): string;
 
 	/**
 	 * @param AllInterface|AbstractRequest $params
@@ -114,21 +156,6 @@ abstract class TestCase extends AbstractTestCase
 		$this->assertFalse($ret);
 	}
 
-	public static function array_intersect_assoc_recursive(&$arr1, &$arr2)
-	{
-		if (!is_array($arr1) || !is_array($arr2)) {
-			return (string)$arr1 === (string)$arr2;
-		}
-		$commonkeys = array_intersect(array_keys($arr1), array_keys($arr2));
-		$ret = [];
-		foreach ($commonkeys as $key) {
-			if (self::array_intersect_assoc_recursive($arr1[$key], $arr2[$key])) {
-				$ret[$key] = $arr2[$key];
-			}
-		}
-		return $ret;
-	}
-
 	protected function checkEntityDefault($entity): void
 	{
 
@@ -138,31 +165,4 @@ abstract class TestCase extends AbstractTestCase
 	{
 		return $entity->id;
 	}
-
-	/**
-	 * @return RestApi|CollectionRestApi
-	 */
-	abstract protected function getApi();
-
-	abstract protected function getSingleEntityId(): string;
-
-	/**
-	 * @param mixed $param1
-	 * @param mixed $param2
-	 * @return AbstractData
-	 */
-	abstract protected function getNewEntity($param1 = null, $param2 = null): AbstractData;
-
-	abstract protected function getAllOneParams(): AbstractRequest;
-
-	abstract protected function getBadCreateParam1(): string;
-
-	abstract protected function getBadCreateParam2(): ?string;
-
-	abstract protected function getBadDeleteId(): string;
-
-	/**
-	 * @return array|AbstractData
-	 */
-	abstract protected function getUpdateData();
 }

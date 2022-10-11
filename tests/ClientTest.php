@@ -8,7 +8,6 @@ use Stefna\Mailchimp\Api\Lists\Members as ListsMembersApi;
 
 class ClientTest extends AbstractTestCase
 {
-
 	public function testCanInstantiateClient(): void
 	{
 		$this->getClient();
