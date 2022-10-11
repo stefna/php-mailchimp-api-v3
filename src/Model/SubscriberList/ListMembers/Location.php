@@ -30,16 +30,16 @@ class Location extends AbstractData
 	/**
 	 * The location latitude.
 	 *
-	 * @var number
+	 * @var float
 	 */
-	public number $latitude;
+	public float $latitude;
 
 	/**
 	 * The location longitude.
 	 *
-	 * @var number
+	 * @var float
 	 */
-	public number $longitude;
+	public float $longitude;
 
 	/**
 	 * The timezone for the location.

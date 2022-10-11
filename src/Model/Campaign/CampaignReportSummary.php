@@ -10,15 +10,13 @@ class CampaignReportSummary extends AbstractData
 	 * The number of unique subscribers who clicked divided by the total number of successful deliveries.
 	 * Example: 42.
 	 *
-	 * @var number
 	 */
-	public number $clickRate;
+	public float $clickRate;
 
 	/**
 	 * The total number of clicks for a campaign.
 	 * Example: 42.
 	 *
-	 * @var int
 	 */
 	public int $clicks;
 
@@ -26,9 +24,8 @@ class CampaignReportSummary extends AbstractData
 	 * The number of unique opens divided by the total number of successful deliveries.
 	 * Example: 42.
 	 *
-	 * @var number
 	 */
-	public number $openRate;
+	public float $openRate;
 
 	/**
 	 * The total number of opens for a campaign.

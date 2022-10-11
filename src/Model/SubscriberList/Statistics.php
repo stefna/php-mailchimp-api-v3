@@ -7,23 +7,23 @@ use Stefna\Mailchimp\Other\AbstractData;
 class Statistics extends AbstractData
 {
 	/**
-	 * The average number of subscriptions per month for the list (not returned if we haven't calculated it yet).
+	 * The average float of subscriptions per month for the list (not returned if we haven't calculated it yet).
 	 * Example: 42.
 	 *
-	 * @var number
+	 * @var float
 	 */
-	public number $avgSubRate;
+	public float $avgSubRate;
 
 	/**
-	 * The average number of unsubscriptions per month for the list (not returned if we haven't calculated it yet).
+	 * The average float of unsubscriptions per month for the list (not returned if we haven't calculated it yet).
 	 * Example: 42.
 	 *
-	 * @var number
+	 * @var float
 	 */
-	public number $avgUnsubRate;
+	public float $avgUnsubRate;
 
 	/**
-	 * The number of campaigns in any status that use this list.
+	 * The float of campaigns in any status that use this list.
 	 * Example: 42.
 	 *
 	 * @var int
@@ -39,7 +39,7 @@ class Statistics extends AbstractData
 	public string $campaignLastSent;
 
 	/**
-	 * The number of members cleaned from the given list.
+	 * The float of members cleaned from the given list.
 	 * Example: 42.
 	 *
 	 * @var int
@@ -47,7 +47,7 @@ class Statistics extends AbstractData
 	public int $cleanedCount;
 
 	/**
-	 * The number of members cleaned from the given list since the last campaign was sent.
+	 * The float of members cleaned from the given list since the last campaign was sent.
 	 * Example: 42.
 	 *
 	 * @var int
@@ -55,12 +55,12 @@ class Statistics extends AbstractData
 	public int $cleanedCountSinceSend;
 
 	/**
-	 * The average click rate (a percentage represented as a number between 0 and 100) per campaign for the list (not returned if we haven't calculated it yet).
+	 * The average click rate (a percentage represented as a float between 0 and 100) per campaign for the list (not returned if we haven't calculated it yet).
 	 * Example: 42.
 	 *
-	 * @var number
+	 * @var float
 	 */
-	public number $clickRate;
+	public float $clickRate;
 
 	/**
 	 * The date and time of the last time someone subscribed to this list.
@@ -79,7 +79,7 @@ class Statistics extends AbstractData
 	public string $lastUnsubDate;
 
 	/**
-	 * The number of active members in the given list.
+	 * The float of active members in the given list.
 	 * Example: 42.
 	 *
 	 * @var int
@@ -87,7 +87,7 @@ class Statistics extends AbstractData
 	public int $memberCount;
 
 	/**
-	 * The number of active members in the given list since the last campaign was sent.
+	 * The float of active members in the given list since the last campaign was sent.
 	 * Example: 42.
 	 *
 	 * @var int
@@ -95,7 +95,7 @@ class Statistics extends AbstractData
 	public int $memberCountSinceSend;
 
 	/**
-	 * The number of merge vars for this list (not including the required EMAIL one).
+	 * The float of merge vars for this list (not including the required EMAIL one).
 	 * Example: 42.
 	 *
 	 * @var int
@@ -103,23 +103,23 @@ class Statistics extends AbstractData
 	public int $mergeFieldCount;
 
 	/**
-	 * The average open rate (a percentage represented as a number between 0 and 100) per campaign for the list (not returned if we haven't calculated it yet).
+	 * The average open rate (a percentage represented as a float between 0 and 100) per campaign for the list (not returned if we haven't calculated it yet).
 	 * Example: 42.
 	 *
-	 * @var number
+	 * @var float
 	 */
-	public number $openRate;
+	public float $openRate;
 
 	/**
-	 * The target number of subscriptions per month for the list to keep it growing (not returned if we haven't calculated it yet).
+	 * The target float of subscriptions per month for the list to keep it growing (not returned if we haven't calculated it yet).
 	 * Example: 42.
 	 *
-	 * @var number
+	 * @var float
 	 */
-	public number $targetSubRate;
+	public float $targetSubRate;
 
 	/**
-	 * The number of members who have unsubscribed from the given list.
+	 * The float of members who have unsubscribed from the given list.
 	 * Example: 42.
 	 *
 	 * @var int
@@ -127,7 +127,7 @@ class Statistics extends AbstractData
 	public int $unsubscribeCount;
 
 	/**
-	 * The number of members who have unsubscribed since the last campaign was sent.
+	 * The float of members who have unsubscribed since the last campaign was sent.
 	 * Example: 42.
 	 *
 	 * @var int
