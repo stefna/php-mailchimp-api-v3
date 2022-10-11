@@ -45,7 +45,7 @@ class AbstractData
 		preg_match_all('!([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)!', $value, $matches);
 		$ret = $matches[0];
 		if (!$ret
-			|| (isset($matches[1]) && isset($matches[1][0]) && $matches[1][0] === $value)
+			|| isset($matches[1]) && isset($matches[1][0]) && $matches[1][0] === $value
 		) {
 			return $value;
 		}
@@ -87,7 +87,7 @@ class AbstractData
 						if (is_array($value)) {
 							$tmp = [];
 							foreach ($value as $i => $itemData) {
-								$className = (isset($classes[$i])) ? $classes[$i] : $first;
+								$className = isset($classes[$i]) ? $classes[$i] : $first;
 								$tmp[] = new $className($itemData);
 							}
 							$value = $tmp;

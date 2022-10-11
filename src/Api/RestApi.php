@@ -125,7 +125,7 @@ abstract class RestApi
 	 */
 	protected function doUpdate(string $id, $data, string $className): AbstractData
 	{
-		$data = ($data instanceof AbstractData)
+		$data = $data instanceof AbstractData
 			? $data->getData()
 			: AbstractData::snakeCaseArray($data);
 		$path = $this->getPath(self::ACTION_UPDATE, [$id]);
@@ -167,7 +167,7 @@ abstract class RestApi
 	 */
 	protected function getPath(string $action, array $params = []): string
 	{
-		$urlAction = ($action && isset($this->actions[$action])) ? $this->actions[$action] : null;
+		$urlAction = $action && isset($this->actions[$action]) ? $this->actions[$action] : null;
 		return implode('/', array_filter(array_merge([
 			$this->getMethodUrl(),
 			$urlAction,
