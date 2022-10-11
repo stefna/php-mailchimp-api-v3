@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Stefna\Mailchimp\Api\Lists\Request;
 
