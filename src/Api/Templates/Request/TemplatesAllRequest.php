@@ -43,10 +43,9 @@ class TemplatesAllRequest extends TemplatesRequest implements AllInterface
 		return $this;
 	}
 
-	public function setType(string $value): TemplatesAllRequest
+	public function setType(string $value): void
 	{
 		$this->data[self::PARAM_TYPE] = $value;
-		return $this;
 	}
 
 	public function setFolderId(string $value): TemplatesAllRequest

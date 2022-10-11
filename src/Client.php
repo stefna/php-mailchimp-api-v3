@@ -140,6 +140,7 @@ class Client
 	 * @param string $path
 	 * @param array<string, mixed> $data
 	 * @return mixed
+	 * @noinspection PhpReturnDocTypeMismatchInspection
 	 */
 	public function patch(string $path, array $data = [])
 	{
@@ -266,6 +267,7 @@ class Client
 
 	protected function sendRequest(RequestInterface $request): ResponseInterface
 	{
+		/** @noinspection PhpUnhandledExceptionInspection */
 		return $this->httpClient->sendRequest($request);
 	}
 

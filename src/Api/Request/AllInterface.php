@@ -5,16 +5,7 @@ namespace Stefna\Mailchimp\Api\Request;
 
 interface AllInterface
 {
-	/**
-	 * @param int $value
-	 * @return AllInterface
-	 */
-	public function setCount(int $value);
+	public function setCount(int $value): void;
 
-	/**
-	 * @param int $value
-	 * @return AllInterface
-	 */
-	public function setOffset(int $value);
-
+	public function setOffset(int $value): void;
 }

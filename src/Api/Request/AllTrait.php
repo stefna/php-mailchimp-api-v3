@@ -8,16 +8,13 @@ trait AllTrait
 	protected string $paramCount = 'count';
 	protected string $paramOffset = 'offset';
 
-	public function setCount(int $value)
+	public function setCount(int $value): void
 	{
 		$this->data[$this->paramCount] = $value;
-		return $this;
 	}
 
-	public function setOffset(int $value)
+	public function setOffset(int $value): void
 	{
 		$this->data[$this->paramOffset] = $value;
-		return $this;
 	}
-
 }
