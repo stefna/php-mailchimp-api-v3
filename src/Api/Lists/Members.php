@@ -53,7 +53,7 @@ class Members extends CollectionRestApi
 	 */
 	public function get(string $id, $params = null): ?AbstractData
 	{
-		return $this->fetchOne(ListMembers::class, Members::formatEmailAddress($id), $params);
+		return $this->fetchOne(ListMembers::class, self::formatEmailAddress($id), $params);
 	}
 
 	/**
@@ -72,11 +72,11 @@ class Members extends CollectionRestApi
 	 */
 	public function update(string $id, $data): AbstractData
 	{
-		return $this->doUpdate(Members::formatEmailAddress($id), $data, ListMembers::class);
+		return $this->doUpdate(self::formatEmailAddress($id), $data, ListMembers::class);
 	}
 
 	public function delete(string $id): bool
 	{
-		return (bool)$this->doDelete(Members::formatEmailAddress($id));
+		return (bool)$this->doDelete(self::formatEmailAddress($id));
 	}
 }

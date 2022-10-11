@@ -294,10 +294,8 @@ class Client
 			}
 			$ret = "$ret\n" . implode("\n", $errors);
 		}
-		else {
-			if (isset($data['detail']) && is_string($data['detail'])) {
-				$ret = $data['detail'];
-			}
+		elseif (isset($data['detail']) && is_string($data['detail'])) {
+			$ret = $data['detail'];
 		}
 		return $ret;
 	}

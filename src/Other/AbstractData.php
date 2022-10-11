@@ -44,9 +44,7 @@ class AbstractData
 	{
 		preg_match_all('!([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)!', $value, $matches);
 		$ret = $matches[0];
-		if (!$ret
-			|| isset($matches[1]) && isset($matches[1][0]) && $matches[1][0] === $value
-		) {
+		if (!$ret || (isset($matches[1][0]) && $matches[1][0] === $value)) {
 			return $value;
 		}
 		foreach ($ret as &$match) {
@@ -87,7 +85,7 @@ class AbstractData
 						if (is_array($value)) {
 							$tmp = [];
 							foreach ($value as $i => $itemData) {
-								$className = isset($classes[$i]) ? $classes[$i] : $first;
+								$className = $classes[$i] ?? $first;
 								$tmp[] = new $className($itemData);
 							}
 							$value = $tmp;
@@ -110,10 +108,10 @@ class AbstractData
 	public function getData(): array
 	{
 		/** @var array<string, mixed> $data */
-		$data = call_user_func('get_object_vars', $this);
+		$data = get_object_vars($this);
 		foreach (array_keys($this->classMap) as $key) {
 			if (isset($data[$key]) && is_object($data[$key])) {
-				if ($data[$key] instanceof AbstractData) {
+				if ($data[$key] instanceof self) {
 					$data[$key] = $data[$key]->getData();
 				}
 				else {
@@ -121,7 +119,7 @@ class AbstractData
 				}
 			}
 		}
-		return static::snakeCaseArray(array_filter($data, function ($value) {
+		return static::snakeCaseArray(array_filter($data, static function ($value) {
 			return null !== $value;
 		}));
 	}

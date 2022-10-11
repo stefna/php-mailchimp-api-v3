@@ -139,7 +139,8 @@ abstract class RestApi
 		if (is_array($params)) {
 			return $params;
 		}
-		elseif ($params instanceof AbstractRequest) {
+
+		if ($params instanceof AbstractRequest) {
 			// @phpstan-ignore-next-line - I don't care
 			return $params->toArgs();
 		}
