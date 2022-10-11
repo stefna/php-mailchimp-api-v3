@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Stefna\Mailchimp\Model\Campaign\Create;
 
-use Stefna\Mailchimp\Model\Campaign\CreateTrackingOptions\CapsuleCRMTracking;
-use Stefna\Mailchimp\Model\Campaign\CreateTrackingOptions\SalesforceCRMTracking;
+use Stefna\Mailchimp\Model\Campaign\Create\CampaignTrackingOptions\CapsuleCRMTracking;
+use Stefna\Mailchimp\Model\Campaign\Create\CampaignTrackingOptions\SalesforceCRMTracking;
 use Stefna\Mailchimp\Other\AbstractData;
 
 class CampaignTrackingOptions extends AbstractData

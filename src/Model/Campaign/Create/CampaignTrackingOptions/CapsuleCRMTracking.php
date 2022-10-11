@@ -1,7 +1,6 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
-namespace Stefna\Mailchimp\Model\Campaign\CreateTrackingOptions;
+namespace Stefna\Mailchimp\Model\Campaign\Create\CampaignTrackingOptions;
 
 use Stefna\Mailchimp\Other\AbstractData;
 
