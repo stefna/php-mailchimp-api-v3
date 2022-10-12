@@ -1,8 +1,6 @@
-<?php declare(strict_types=1);
+<?php
 
-use GuzzleHttp\Psr7\Response;
-
-return new Response(
+return new \GuzzleHttp\Psr7\Response(
 	204,
 	['IsMock' => true],
 	''
