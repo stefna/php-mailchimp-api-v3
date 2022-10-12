@@ -97,7 +97,7 @@ class Client
 	 */
 	public function delete(string $path, array $args = []): bool
 	{
-		return (bool)$this->request($this->messageFactory->createRequest(
+		return $this->request($this->messageFactory->createRequest(
 			'delete',
 			$this->createUrl($path, $args),
 			$this->getDefaultHeaders()
@@ -155,6 +155,7 @@ class Client
 	/**
 	 * @param RequestInterface $request
 	 * @param bool $noOutput
+	 * @phpstan-return ($noOutput is true ? bool : array<string, mixed>|string|null)
 	 * @return bool|string|string[]|null
 	 */
 	public function request(RequestInterface $request, bool $noOutput = false)
@@ -183,7 +184,6 @@ class Client
 				'status' => $status,
 			]);
 		}
-
 
 		if ($status > 299) {
 			if ($status != 404) {
@@ -236,6 +236,7 @@ class Client
 				}
 				throw new RuntimeException($msg, $status);
 			}
+			// todo replace with a not found exception
 			return null;
 		}
 		if (!$jsonOk) {
