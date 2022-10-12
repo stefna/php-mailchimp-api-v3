@@ -54,14 +54,14 @@ class AbstractData
 	}
 
 	/**
-	 * @param array<string, mixed> $array
+	 * @param array<array-key, mixed> $array
 	 * @return array<string, mixed>
 	 */
 	public static function snakeCaseArray(array $array): array
 	{
 		$ret = [];
 		foreach ($array as $key => $value) {
-			$key = static::snakeCase($key);
+			$key = static::snakeCase((string)$key);
 			if (is_array($value)) {
 				$value = self::snakeCaseArray($value);
 			}
