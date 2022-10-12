@@ -107,9 +107,9 @@ class Client
 	/**
 	 * @param string $path
 	 * @param array<string, mixed> $data
-	 * @return array<string, mixed>
+	 * @return array<string, mixed>|string|null
 	 */
-	public function post(string $path, array $data = []): array
+	public function post(string $path, array $data = [])
 	{
 		/** @var array<string, mixed> */
 		return $this->request($this->messageFactory->createRequest(
