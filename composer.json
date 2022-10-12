@@ -22,8 +22,7 @@
     "roave/security-advisories": "dev-latest",
     "phpunit/phpunit": "^9.0",
     "phpstan/phpstan": "^1.0",
-    "stefna/codestyle": "^1.0",
-    "stefna/release-tools": "^1.5"
+    "stefna/codestyle": "^1.0"
   },
   "autoload": {
     "psr-4": {
