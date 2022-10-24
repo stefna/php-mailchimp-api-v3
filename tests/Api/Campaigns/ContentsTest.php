@@ -2,6 +2,7 @@
 
 namespace Tests\Stefna\Mailchimp\Api\Campaigns;
 
+use ReflectionProperty;
 use Stefna\Mailchimp\Model\Campaign\Content;
 use Stefna\Mailchimp\Model\Campaign\Content\CampaignContent;
 use Stefna\Mailchimp\Model\Campaign\Content\CampaignContent\TemplateContent;
@@ -14,11 +15,14 @@ class ContentsTest extends AbstractTestCase
 
 	public function testGetWorks(): void
 	{
+		/** @var Content $ret */
 		$ret = $this->getClient()->campaigns()->contents(self::CAMPAIGN_ID)->get();
 		$this->assertInstanceOf(Content::class, $ret);
 		$this->assertStringContainsString('<title>TestSubject 00</title>', $ret->archiveHtml);
 		$this->assertStringContainsString('<title>*|MC:SUBJECT|*</title>', $ret->html);
-		$this->assertNull($ret->plainText);
+		$rp = new ReflectionProperty(Content::class, 'plainText');
+		$this->assertFalse($rp->isInitialized($ret));
+
 	}
 
 	public function testEditWorks(): void

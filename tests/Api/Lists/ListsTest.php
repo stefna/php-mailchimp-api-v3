@@ -15,13 +15,6 @@ class ListsTest extends CollectionTestCase
 	private const LIST_ID_1 = '215f4cfac8';
 	private const MAIN_LIST_NAME = 'Main List';
 
-	public function testTestTest(): void
-	{
-		$this->markTestSkipped('See commented out code');
-		/*$ret = $this->getRealClient()->lists()->update(self::LIST_ID_1, ['name' => self::MAIN_LIST_NAME]);
-		var_dump($ret);*/
-	}
-
 	protected function getNewList(string $name = 'MyNewTestList'): SubscriberList
 	{
 		return new SubscriberList([

@@ -2,6 +2,7 @@
 
 namespace Tests\Stefna\Mailchimp\Api\Templates;
 
+use ReflectionProperty;
 use Stefna\Mailchimp\Api\Templates\Request\TemplatesAllRequest;
 use Stefna\Mailchimp\Api\Templates\Templates as TemplatesApi;
 use Stefna\Mailchimp\Model\Template\DefaultContent;
@@ -129,7 +130,8 @@ EOD;
 		$this->assertTrue($entity->active);
 		$this->assertEquals(self::TEMPLATE_NAME, $entity->name);
 		$this->assertSame('', $entity->category);
-		$this->assertNull($entity->folderId);
+		$rp = new ReflectionProperty(TemplateInstance::class, 'folderId');
+		$this->assertFalse($rp->isInitialized($entity));
 		$this->assertSame('user', $entity->type);
 	}
 }

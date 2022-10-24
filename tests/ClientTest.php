@@ -5,12 +5,14 @@ namespace Tests\Stefna\Mailchimp;
 use Http\Client\Curl\Client as HttpClient;
 use Stefna\Mailchimp\Api\Lists\Lists as ListsApi;
 use Stefna\Mailchimp\Api\Lists\Members as ListsMembersApi;
+use Stefna\Mailchimp\Client;
 
 class ClientTest extends AbstractTestCase
 {
 	public function testCanInstantiateClient(): void
 	{
-		$this->getClient();
+		$client = $this->getClient();
+		$this->assertInstanceOf(Client::class, $client);
 	}
 
 	public function testProvidesClientAccess(): void
