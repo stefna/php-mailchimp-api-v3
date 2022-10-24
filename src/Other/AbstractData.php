@@ -109,6 +109,7 @@ class AbstractData
 	{
 		/** @var array<string, mixed> $data */
 		$data = get_object_vars($this);
+		unset($data['classMap']);
 		foreach (array_keys($this->classMap) as $key) {
 			if (isset($data[$key]) && is_object($data[$key])) {
 				if ($data[$key] instanceof self) {
@@ -118,6 +119,10 @@ class AbstractData
 					unset($data[$key]);
 				}
 			}
+		}
+		// Don't include empty links
+		if (!$data['_links']) {
+			unset($data['_links']);
 		}
 		return static::snakeCaseArray(array_filter($data, static function ($value) {
 			return null !== $value;
