@@ -26,9 +26,9 @@ class Content extends AbstractData
 	/**
 	 * The plain-text portion of the campaign. If left unspecified, we'll generate this automatically.
 	 *
-	 * @var string
+	 * @var string|null
 	 */
-	public string $plainText;
+	public ?string $plainText = null;
 
 	/**
 	 * Content options for multivariate campaigns.

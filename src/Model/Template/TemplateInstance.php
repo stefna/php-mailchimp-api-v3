@@ -45,9 +45,9 @@ class TemplateInstance extends AbstractData
 	/**
 	 * The id of the folder the template is currently in.
 	 *
-	 * @var string
+	 * @var string|null
 	 */
-	public string $folderId;
+	public ?string $folderId = null;
 
 	/**
 	 * The individual id for the template.
