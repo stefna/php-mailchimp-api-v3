@@ -27,10 +27,6 @@ class Contents extends RestApi
 		return $this->campaigns->getMethodUrl() . '/' . $this->campaignId . '/content';
 	}
 
-	/**
-	 * @param AbstractRequest|null $params
-	 * @return AbstractData|Content|null
-	 */
 	public function get(?AbstractRequest $params = null): ?Content
 	{
 		return $this->fetchOne(Content::class, null, $params);

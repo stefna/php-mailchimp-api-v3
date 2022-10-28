@@ -47,7 +47,6 @@ class Members extends CollectionRestApi
 	}
 
 	/**
-	 * @param string $id
 	 * @param ListsRequest|AbstractRequest|null $params
 	 */
 	public function get(string $id, $params = null): ?ListMembers
@@ -64,7 +63,6 @@ class Members extends CollectionRestApi
 	}
 
 	/**
-	 * @param string $id
 	 * @param array<string, AbstractData>|AbstractData $data
 	 */
 	public function update(string $id, $data): ListMembers

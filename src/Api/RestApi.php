@@ -30,9 +30,6 @@ abstract class RestApi
 	abstract public function getMethodUrl(): string;
 
 	/**
-	 * @param string $path
-	 * @param string|null $returnKey
-	 * @param AbstractRequest|null $params
 	 * @return array<string, mixed>|null
 	 */
 	public function fetch(string $path, ?string $returnKey = null, ?AbstractRequest $params = null): ?array
@@ -69,8 +66,6 @@ abstract class RestApi
 	/**
 	 * @template T
 	 * @param class-string<T> $className
-	 * @param string|null $returnKey
-	 * @param AbstractRequest|null $params
 	 * @return array<array-key, T>
 	 */
 	public function fetchAll(
@@ -159,9 +154,7 @@ abstract class RestApi
 	}
 
 	/**
-	 * @param string $action
 	 * @param string[]|null[] $params
-	 * @return string
 	 */
 	protected function getPath(string $action, array $params = []): string
 	{

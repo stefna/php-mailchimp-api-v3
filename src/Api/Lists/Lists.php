@@ -26,7 +26,6 @@ class Lists extends CollectionRestApi
 	}
 
 	/**
-	 * @param string $id
 	 * @param AbstractRequest|null $params
 	 */
 	public function get(string $id, ?AbstractRequest $params = null): ?SubscriberList
