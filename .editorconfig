@@ -3,6 +3,8 @@ root = true
 
 [*]
 indent_style = tab
+tab_width = 4
+indent_size = tab
 end_of_line = lf
 charset = utf-8
 insert_final_newline = true
@@ -10,16 +12,6 @@ trim_trailing_whitespace = true
 
 [*.md]
 trim_trailing_whitespace = false
-
-[*.json]
-indent_style = tab
-tab_width = 4
-indent_size = tab
-
-[*.php]
-indent_style = tab
-tab_width = 4
-indent_size = tab
 
 [*.yml]
 indent_style = space
