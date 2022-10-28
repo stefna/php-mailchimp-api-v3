@@ -12,19 +12,16 @@ class CampaignDefaults extends AbstractData
 	 * Example: freddie@freddiesjokes.com.
 	 */
 	public string $fromEmail;
-
 	/**
 	 * The default from name for campaigns sent to this list.
 	 * Example: Freddie.
 	 */
 	public string $fromName;
-
 	/**
 	 * The default language for these lists forms.
 	 * Example: en.
 	 */
 	public string $language;
-
 	/**
 	 * The default subject line for campaigns sent to this list.
 	 * Example: Freddie Likes Jokes.

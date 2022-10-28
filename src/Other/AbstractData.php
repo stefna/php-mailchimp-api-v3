@@ -9,16 +9,6 @@ class AbstractData
 	/** @var array<string, class-string<AbstractData>|array{0?: string, 1?:string}> */
 	protected array $classMap = [];
 
-	/**
-	 * @param array<string, mixed>|null $data
-	 */
-	public function __construct(?array $data = null)
-	{
-		if ($data) {
-			$this->setData($data);
-		}
-	}
-
 	public static function camelCase(string $str): string
 	{
 		// non-alpha and non-numeric characters become spaces
@@ -64,6 +54,16 @@ class AbstractData
 			$ret[$key] = $value;
 		}
 		return $ret;
+	}
+
+	/**
+	 * @param array<string, mixed>|null $data
+	 */
+	public function __construct(?array $data = null)
+	{
+		if ($data) {
+			$this->setData($data);
+		}
 	}
 
 	/**

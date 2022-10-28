@@ -10,7 +10,6 @@ class SalesforceCRMTracking extends AbstractData
 	 * Create a campaign in a connected Salesforce account.
 	 */
 	public bool $campaign;
-
 	/**
 	 * Update contact notes for a campaign based on subscriber email addresses.
 	 */

@@ -14,15 +14,7 @@ use Stefna\Mailchimp\Other\AbstractRequest;
 class Members extends CollectionRestApi
 {
 	protected Lists $lists;
-
 	protected string $listId;
-
-	public function __construct(Client $client, Lists $lists, string $listId)
-	{
-		parent::__construct($client);
-		$this->lists = $lists;
-		$this->listId = $listId;
-	}
 
 	public static function formatEmailAddress(string $emailAddress): string
 	{
@@ -30,6 +22,13 @@ class Members extends CollectionRestApi
 			return $emailAddress;
 		}
 		return md5(strtolower($emailAddress));
+	}
+
+	public function __construct(Client $client, Lists $lists, string $listId)
+	{
+		parent::__construct($client);
+		$this->lists = $lists;
+		$this->listId = $listId;
 	}
 
 	public function getMethodUrl(): string

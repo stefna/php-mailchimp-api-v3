@@ -12,22 +12,18 @@ class RSSOptions extends AbstractData
 	 * Whether to add CSS to images in the RSS feed to constrain their width in campaigns.
 	 */
 	public bool $constrainRssImg;
-
 	/**
 	 * The URL for the RSS feed.
 	 */
 	public string $feedUrl;
-
 	/**
 	 * The frequency of the RSS Campaign.
 	 */
 	public string $frequency;
-
 	/**
 	 * The schedule for sending the RSS Campaign.
 	 */
 	public SendingSchedule $schedule;
-
 	protected array $classMap = [
 		'schedule' => SendingSchedule::class,
 	];

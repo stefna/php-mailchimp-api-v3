@@ -11,7 +11,6 @@ class UploadArchive extends AbstractData
 	 * The base64-encoded representation of the archive file.
 	 */
 	public string $archiveContent;
-
 	/**
 	 * The type of encoded file. Defaults to zip.
 	 */

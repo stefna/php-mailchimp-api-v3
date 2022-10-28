@@ -13,7 +13,6 @@ class SendTest extends AbstractData
 	 * @var string[]
 	 */
 	public array $testEmails;
-
 	/**
 	 * Choose the type of test email to send.
 	 * Enum: ['html', 'plaintext']

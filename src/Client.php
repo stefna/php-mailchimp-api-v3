@@ -29,9 +29,9 @@ class Client
 	protected string $apiEndpoint = '';
 
 	public function __construct(
-		HttpClient      $httpClient,
-		string          $apiKey,
-		?string         $apiEndpoint = null,
+		HttpClient $httpClient,
+		string $apiKey,
+		?string $apiEndpoint = null,
 		?MessageFactory $messageFactory = null
 	) {
 		$this->httpClient = $httpClient;

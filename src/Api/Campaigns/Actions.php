@@ -16,7 +16,6 @@ class Actions extends RestApi
 		self::ACTION_TEST => 'test',
 		self::ACTION_SEND => 'send',
 	];
-
 	protected Campaigns $campaigns;
 	protected string $campaignId;
 

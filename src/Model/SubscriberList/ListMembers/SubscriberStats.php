@@ -11,7 +11,6 @@ class SubscriberStats extends AbstractData
 	 * A subscriber's average click-through rate.
 	 */
 	public float $avgClickRate;
-
 	/**
 	 * A subscriber's average open rate.
 	 */

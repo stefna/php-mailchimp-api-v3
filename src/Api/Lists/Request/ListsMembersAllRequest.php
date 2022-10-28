@@ -31,7 +31,6 @@ class ListsMembersAllRequest extends ListsRequest implements AllInterface
 		return $this;
 	}
 
-
 	public function setEmailType(string $value): ListsMembersAllRequest
 	{
 		$this->data['email_type'] = $value;

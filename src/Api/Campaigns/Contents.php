@@ -7,7 +7,6 @@ use Stefna\Mailchimp\Api\RestApi;
 use Stefna\Mailchimp\Client;
 use Stefna\Mailchimp\Model\Campaign\Content;
 use Stefna\Mailchimp\Model\Campaign\Content\CampaignContent;
-use Stefna\Mailchimp\Other\AbstractData;
 use Stefna\Mailchimp\Other\AbstractRequest;
 
 class Contents extends RestApi

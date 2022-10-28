@@ -20,7 +20,6 @@ class CampaignsAllRequest extends CampaignsRequest implements AllInterface
 	private const PARAM_SORT_FIELD = 'sort_field';
 	private const PARAM_SORT_DIR = 'sort_dir';
 
-
 	public function setType(string $value): CampaignsAllRequest
 	{
 		$this->data[self::PARAM_TYPE] = $value;
