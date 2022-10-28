@@ -37,9 +37,9 @@
 		}
 	},
 	"scripts": {
-		"test": "vendor/bin/phpunit",
-		"test-ci": "vendor/bin/phpunit --coverage-text --coverage-clover=build/coverage.xml",
-		"stan": "venor/bin/phpstan",
+		"test": "./vendor/bin/phpunit",
+		"test-ci": "./vendor/bin/phpunit --coverage-text --coverage-clover=build/coverage.xml",
+		"stan": "./vendor/bin/phpstan",
 		"codestyle": "./vendor/bin/phpcs -n --standard=vendor/stefna/codestyle/library.xml src/",
 		"codestyle-fix": "./vendor/bin/phpcbf --colors --standard=vendor/stefna/codestyle/library.xml src/"
 	},
