@@ -60,5 +60,4 @@ class ListsAllRequest extends ListsRequest implements AllInterface
 		$this->data[self::PARAM_EMAIL] = $value;
 		return $this;
 	}
-
 }

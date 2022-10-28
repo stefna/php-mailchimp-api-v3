@@ -74,5 +74,4 @@ class CampaignsAllRequest extends CampaignsRequest implements AllInterface
 		$this->data[self::PARAM_SORT_DIR] = $value;
 		return $this;
 	}
-
 }

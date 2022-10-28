@@ -15,10 +15,9 @@ abstract class RestApi
 	public const ACTION_CREATE = 'create';
 	public const ACTION_UPDATE = 'update';
 	public const ACTION_DELETE = 'delete';
+
 	protected Client $client;
-	/**
-	 * @var array<string, string>
-	 */
+	/** @var array<string, string> */
 	protected array $actions = [];
 
 	public function __construct(Client $client)
@@ -69,8 +68,8 @@ abstract class RestApi
 	 * @return array<array-key, T>
 	 */
 	public function fetchAll(
-		string           $className,
-		?string          $returnKey = null,
+		string $className,
+		?string $returnKey = null,
 		?AbstractRequest $params = null
 	): array {
 		$data = $this->fetch($this->getPath(self::ACTION_ALL), $returnKey, $params);
@@ -164,5 +163,4 @@ abstract class RestApi
 			$urlAction,
 		], $params)));
 	}
-
 }

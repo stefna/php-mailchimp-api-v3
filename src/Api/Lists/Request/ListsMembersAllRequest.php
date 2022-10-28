@@ -137,5 +137,4 @@ class ListsMembersAllRequest extends ListsRequest implements AllInterface
 		$this->data['interest_match'] = $value;
 		return $this;
 	}
-
 }

@@ -29,5 +29,4 @@ class ListsRequest extends AbstractRequest
 		$this->data[self::PARAM_EXCLUDE_FIELDS] = $value;
 		return $this;
 	}
-
 }
