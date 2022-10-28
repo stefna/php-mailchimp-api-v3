@@ -27,13 +27,6 @@ class Client
 	protected string $apiKey;
 	protected string $apiEndpoint = '';
 
-	/**
-	 * Client constructor.
-	 * @param HttpClient $httpClient
-	 * @param string $apiKey
-	 * @param string|null $apiEndpoint
-	 * @param MessageFactory|null $messageFactory
-	 */
 	public function __construct(
 		HttpClient      $httpClient,
 		string          $apiKey,
@@ -91,9 +84,7 @@ class Client
 	}
 
 	/**
-	 * @param string $path
 	 * @param array<string, string> $args
-	 * @return bool
 	 */
 	public function delete(string $path, array $args = []): bool
 	{
@@ -105,7 +96,6 @@ class Client
 	}
 
 	/**
-	 * @param string $path
 	 * @param array<string, mixed> $data
 	 * @return array<string, mixed>|string|null
 	 */
@@ -121,7 +111,6 @@ class Client
 	}
 
 	/**
-	 * @param string $path
 	 * @param array<string, mixed> $data
 	 * @return array<string, mixed>
 	 */
@@ -137,7 +126,6 @@ class Client
 	}
 
 	/**
-	 * @param string $path
 	 * @param array<string, mixed> $data
 	 * @return mixed
 	 * @noinspection PhpReturnDocTypeMismatchInspection
@@ -153,8 +141,6 @@ class Client
 	}
 
 	/**
-	 * @param RequestInterface $request
-	 * @param bool $noOutput
 	 * @phpstan-return ($noOutput is true ? bool : array<string, mixed>|string|null)
 	 * @return bool|string|string[]|null
 	 */
@@ -199,7 +185,6 @@ class Client
 	}
 
 	/**
-	 * @param ResponseInterface $response
 	 * @return string|string[]|null
 	 */
 	public function response(ResponseInterface $response)
@@ -274,7 +259,6 @@ class Client
 
 	/**
 	 * @param string|array<string,string>|array<string,array<string,string>> $data
-	 * @return string
 	 */
 	protected function formatError($data): string
 	{
@@ -302,9 +286,7 @@ class Client
 	}
 
 	/**
-	 * @param string $path
 	 * @param array<string,string> $queryParams
-	 * @return string
 	 */
 	protected function createUrl(string $path, array $queryParams = []): string
 	{

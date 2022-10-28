@@ -10,39 +10,27 @@ class SendingSchedule extends AbstractData
 {
 	/**
 	 * The days of the week to send a daily RSS-to-Email campaign.
-	 *
-	 * @var DailySendingDays
 	 */
 	public DailySendingDays $dailySend;
 
 	/**
 	 * The hour to send the campaign in local time. Acceptable hours are 0 - 23. For example, '4' would be 4AM in your account's default timezone.
 	 * Example: 20.
-	 *
-	 * @var int
 	 */
 	public int $hour;
 
 	/**
 	 * The day of the month to send a monthly RSS-to-Email campaign.  Acceptable days are 0-31, where '0' is always the last day of a month. Months with fewer than the selected number of days will not have an RSS campaign sent out that day. Ex. RSS-to-Email campaigns set to send on the 30th will not go out in February.
 	 * Example: 15.
-	 *
-	 * @var float
 	 */
 	public float $monthlySendDate;
 
 	/**
 	 * The day of the week to send a weekly RSS-to-Email campaign.
 	 * Example: monday.
-	 *
-	 * @var string
 	 */
 	public string $weeklySendDay;
 
-	/**
-	 * Mapping classes.
-	 *
-	 */
 	protected array $classMap = [
 		'dailySend' => DailySendingDays::class,
 	];

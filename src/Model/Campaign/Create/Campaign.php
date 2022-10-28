@@ -51,8 +51,6 @@ class Campaign extends AbstractData
 
 	/**
 	 * There are four types of [campaigns](http://kb.mailchimp.com/campaigns?utm_source=mc-api&utm_medium=docs&utm_campaign=apidocs) you can create in MailChimp. A/B Split campaigns have been deprecated and variate campaigns should be used instead.
-	 *
-	 * @var string
 	 */
 	public string $type;
 
@@ -65,7 +63,6 @@ class Campaign extends AbstractData
 
 	/**
 	 * Mapping classes.
-	 *
 	 */
 	protected array $classMap = [
 		'recipients' => CampaignList::class,

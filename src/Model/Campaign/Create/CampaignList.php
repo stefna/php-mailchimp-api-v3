@@ -9,8 +9,6 @@ class CampaignList extends AbstractData
 {
 	/**
 	 * The unique list id.
-	 *
-	 * @var string
 	 */
 	public string $listId;
 }

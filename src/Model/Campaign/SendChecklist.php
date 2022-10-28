@@ -10,8 +10,6 @@ class SendChecklist extends AbstractData
 {
 	/**
 	 * Whether the campaign is ready to send.
-	 *
-	 * @var bool
 	 */
 	public bool $isReady;
 

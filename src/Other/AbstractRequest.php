@@ -5,9 +5,7 @@ namespace Stefna\Mailchimp\Other;
 
 abstract class AbstractRequest
 {
-	/**
-	 * @var array<string, mixed>
-	 */
+	/** @var array<string, mixed> */
 	protected array $data = [];
 
 	/**

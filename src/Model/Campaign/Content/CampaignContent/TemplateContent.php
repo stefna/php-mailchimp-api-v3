@@ -9,8 +9,6 @@ class TemplateContent extends AbstractData
 {
 	/**
 	 * The id of the template to use.
-	 *
-	 * @var int
 	 */
 	public int $id;
 

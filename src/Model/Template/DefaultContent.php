@@ -7,8 +7,6 @@ use Stefna\Mailchimp\Other\AbstractData;
 
 class DefaultContent extends AbstractData
 {
-	/**
-	 * @var string[]
-	 */
+	/** @var string[] */
 	public array $sections;
 }

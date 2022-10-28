@@ -4,13 +4,9 @@ namespace Stefna\Mailchimp\Other;
 
 class AbstractData
 {
-	/**
-	 * @var array<int,array<string, string>>
-	 */
+	/** @var array<int,array<string, string>> */
 	public array $_links = [];
-	/**
-	 * @var array<string, class-string<AbstractData>|array{0?: string, 1?:string}>
-	 */
+	/** @var array<string, class-string<AbstractData>|array{0?: string, 1?:string}> */
 	protected array $classMap = [];
 
 	/**
@@ -128,5 +124,4 @@ class AbstractData
 			return null !== $value;
 		}));
 	}
-
 }

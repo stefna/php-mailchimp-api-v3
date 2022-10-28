@@ -10,6 +10,7 @@ class SegmentOptions extends AbstractData
 	/**
 	 * An array of segment conditions.
 	 * https://mailchimp.com/developer/marketing/docs/alternative-schemas/#segment-condition-schemas
+	 *
 	 * @var array<int|array<string, string>>
 	 */
 	public array $conditions;
@@ -17,16 +18,12 @@ class SegmentOptions extends AbstractData
 	/**
 	 * Segment match type ('any' or 'all').
 	 * Example: any.
-	 *
-	 * @var string
 	 */
 	public string $match;
 
 	/**
 	 * The id for an existing saved segment.
 	 * Example: 48389.
-	 *
-	 * @var int
 	 */
 	public int $savedSegmentId;
 }

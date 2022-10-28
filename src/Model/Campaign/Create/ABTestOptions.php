@@ -37,22 +37,16 @@ class ABTestOptions extends AbstractData
 
 	/**
 	 * The percentage of recipients to send the test combinations to, must be a value between 10 and 100.
-	 *
-	 * @var int
 	 */
 	public int $testSize;
 
 	/**
 	 * The number of minutes to wait before choosing the winning campaign. The value of wait_time must be greater than 0 and in whole hours, specified in minutes.
-	 *
-	 * @var int
 	 */
 	public int $waitTime;
 
 	/**
 	 * The combination that performs the best. This may be determined automatically by click rate, open rate, or total revenue—or you may choose manually based on the reporting data you find the most valuable. For Multivariate Campaigns testing send_time, winner_criteria is ignored. For Multivariate Campaigns with 'manual' as the winner_criteria, the winner must be chosen in the MailChimp web application.
-	 *
-	 * @var string
 	 */
 	public string $winnerCriteria;
 }
