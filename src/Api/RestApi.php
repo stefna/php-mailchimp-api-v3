@@ -48,15 +48,21 @@ abstract class RestApi
 		return $data[$returnKey];
 	}
 
-	public function fetchOne(string           $className,
-							 ?string          $id = null,
-							 ?AbstractRequest $params = null
+	/**
+	 * @template T of AbstractData
+	 * @param class-string<T> $className
+	 * @return T|null
+	 */
+	public function fetchOne(
+		string $className,
+		?string $id = null,
+		?AbstractRequest $params = null
 	): ?AbstractData {
 		$data = $this->fetch($this->getPath(self::ACTION_ONE, [$id]), null, $params);
 		if (!$data) {
 			return null;
 		}
-		/** @var AbstractData */
+		/** @var T */
 		return new $className($data);
 	}
 
@@ -88,9 +94,13 @@ abstract class RestApi
 
 	protected function init(): void
 	{
-
 	}
 
+	/**
+	 * @template T of AbstractData
+	 * @param class-string<T>|null $className
+	 * @return T
+	 */
 	protected function doCreate(AbstractData $item, ?string $className = null): AbstractData
 	{
 		$data = $item->getData();
@@ -99,15 +109,15 @@ abstract class RestApi
 		if (!$className) {
 			$className = get_class($item);
 		}
-		/** @var AbstractData $className */
+		/** @var T */
 		return new $className($retData);
 	}
 
 	/**
-	 * @param string $id
+	 * @template T of AbstractData
 	 * @param array<string, mixed>|AbstractData $data
-	 * @param class-string $className
-	 * @return AbstractData
+	 * @param class-string<T> $className
+	 * @return T
 	 */
 	protected function doUpdate(string $id, $data, string $className): AbstractData
 	{
@@ -117,7 +127,7 @@ abstract class RestApi
 		$path = $this->getPath(self::ACTION_UPDATE, [$id]);
 		$retData = $this->client->patch($path, $data);
 
-		/** @var AbstractData $className */
+		/** @var T $className */
 		return new $className($retData);
 	}
 

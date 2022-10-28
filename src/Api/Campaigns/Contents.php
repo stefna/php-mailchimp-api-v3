@@ -31,7 +31,7 @@ class Contents extends RestApi
 	 * @param AbstractRequest|null $params
 	 * @return AbstractData|Content|null
 	 */
-	public function get(?AbstractRequest $params = null)
+	public function get(?AbstractRequest $params = null): ?Content
 	{
 		return $this->fetchOne(Content::class, null, $params);
 	}

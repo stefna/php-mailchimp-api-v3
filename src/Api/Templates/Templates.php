@@ -16,11 +16,7 @@ class Templates extends CollectionRestApi
 		return 'templates';
 	}
 
-	/**
-	 * @param AbstractData $data
-	 * @return TemplateInstance|AbstractData
-	 */
-	public function create(AbstractData $data): AbstractData
+	public function create(AbstractData $data): TemplateInstance
 	{
 		return $this->doCreate($data, TemplateInstance::class);
 	}
@@ -34,17 +30,12 @@ class Templates extends CollectionRestApi
 		return $this->fetchAll(TemplateInstance::class, 'templates', $params);
 	}
 
-	/**
-	 * @param string $id
-	 * @param AbstractRequest|null $params
-	 * @return AbstractData|TemplateInstance|null
-	 */
-	public function get(string $id, ?AbstractRequest $params = null): ?AbstractData
+	public function get(string $id, ?AbstractRequest $params = null): ?TemplateInstance
 	{
 		return $this->fetchOne(TemplateInstance::class, $id, $params);
 	}
 
-	public function update(string $id, $data): AbstractData
+	public function update(string $id, $data): TemplateInstance
 	{
 		return $this->doUpdate($id, $data, TemplateInstance::class);
 	}
@@ -59,8 +50,11 @@ class Templates extends CollectionRestApi
 	 */
 	public function getDefault(string $templateId, $params = null): ?DefaultContent
 	{
-		$data = $this->fetch($this->getPath(self::ACTION_ONE, [$templateId, 'default-content']),
-			null, $params);
+		$data = $this->fetch(
+			$this->getPath(self::ACTION_ONE, [$templateId, 'default-content']),
+			null,
+			$params
+		);
 		if (!$data) {
 			return null;
 		}

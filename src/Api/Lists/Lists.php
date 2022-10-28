@@ -28,28 +28,25 @@ class Lists extends CollectionRestApi
 	/**
 	 * @param string $id
 	 * @param AbstractRequest|null $params
-	 * @return SubscriberList|AbstractData|null
 	 */
-	public function get(string $id, ?AbstractRequest $params = null): ?AbstractData
+	public function get(string $id, ?AbstractRequest $params = null): ?SubscriberList
 	{
 		return $this->fetchOne(SubscriberList::class, $id, $params);
 	}
 
 	/**
 	 * @param AbstractData|SubscriberList $data
-	 * @return AbstractData|SubscriberList
 	 */
-	public function create($data): AbstractData
+	public function create($data): SubscriberList
 	{
-		return $this->doCreate($data);
+		return $this->doCreate($data, SubscriberList::class);
 	}
 
 	/**
 	 * @param string $id
 	 * @param array<string, AbstractData>|AbstractData $data
-	 * @return AbstractData|SubscriberList
 	 */
-	public function update(string $id, $data): AbstractData
+	public function update(string $id, $data): SubscriberList
 	{
 		return $this->doUpdate($id, $data, SubscriberList::class);
 	}

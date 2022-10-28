@@ -49,28 +49,25 @@ class Members extends CollectionRestApi
 	/**
 	 * @param string $id
 	 * @param ListsRequest|AbstractRequest|null $params
-	 * @return ListMembers|AbstractData|null
 	 */
-	public function get(string $id, $params = null): ?AbstractData
+	public function get(string $id, $params = null): ?ListMembers
 	{
 		return $this->fetchOne(ListMembers::class, self::formatEmailAddress($id), $params);
 	}
 
 	/**
 	 * @param ListMembers|AbstractData $data
-	 * @return ListMembers|AbstractData
 	 */
-	public function create(AbstractData $data): AbstractData
+	public function create(AbstractData $data): ListMembers
 	{
-		return $this->doCreate($data);
+		return $this->doCreate($data, ListMembers::class);
 	}
 
 	/**
 	 * @param string $id
 	 * @param array<string, AbstractData>|AbstractData $data
-	 * @return ListMembers|AbstractData
 	 */
-	public function update(string $id, $data): AbstractData
+	public function update(string $id, $data): ListMembers
 	{
 		return $this->doUpdate(self::formatEmailAddress($id), $data, ListMembers::class);
 	}

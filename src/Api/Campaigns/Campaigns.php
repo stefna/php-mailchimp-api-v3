@@ -34,16 +34,15 @@ class Campaigns extends CollectionRestApi
 	 * @param AbstractRequest|null $params
 	 * @return Campaign|AbstractData|null
 	 */
-	public function get(string $id, ?AbstractRequest $params = null): ?AbstractData
+	public function get(string $id, ?AbstractRequest $params = null): ?Campaign
 	{
 		return $this->fetchOne(Campaign::class, $id, $params);
 	}
 
 	/**
 	 * @param CreateCampaign|AbstractData $data
-	 * @return AbstractData|Campaign
 	 */
-	public function create(AbstractData $data): AbstractData
+	public function create(AbstractData $data): Campaign
 	{
 		return $this->doCreate($data, Campaign::class);
 	}
@@ -51,9 +50,8 @@ class Campaigns extends CollectionRestApi
 	/**
 	 * @param string $id
 	 * @param array<string, AbstractData>|AbstractData|UpdateCampaign $data
-	 * @return AbstractData|Campaign
 	 */
-	public function update(string $id, $data): AbstractData
+	public function update(string $id, $data): Campaign
 	{
 		return $this->doUpdate($id, $data, Campaign::class);
 	}
