@@ -10,7 +10,7 @@ class SegmentOptions extends AbstractData
 	 * An array of segment conditions.
 	 * https://mailchimp.com/developer/marketing/docs/alternative-schemas/#segment-condition-schemas
 	 *
-	 * @var array<int|array<string, string>>
+	 * @var array<int, array<string, string>>
 	 */
 	public array $conditions;
 	/**

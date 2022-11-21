@@ -231,7 +231,7 @@ class Client
 	}
 
 	/**
-	 * @return string[]
+	 * @return array<string, string>
 	 */
 	public function getDefaultHeaders(): array
 	{

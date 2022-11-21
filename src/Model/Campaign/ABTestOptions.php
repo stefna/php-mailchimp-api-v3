@@ -7,18 +7,6 @@ use Stefna\Mailchimp\Other\AbstractData;
 class ABTestOptions extends AbstractData
 {
 	/**
-	 * Combinations of possible variables that were used to build emails.
-	 * NOT IN https://mailchimp.com/developer/marketing/api/campaigns/update-campaign-settings/
-	 */
-	//public $combinations;
-
-	/**
-	 * Descriptions of possible email contents.
-	 * NOT IN https://mailchimp.com/developer/marketing/api/campaigns/update-campaign-settings/
-	 */
-	//public $contents;
-
-	/**
 	 * Possible from names.
 	 *
 	 * @var string[]
