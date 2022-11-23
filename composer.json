@@ -42,10 +42,5 @@
 		"stan": "./vendor/bin/phpstan",
 		"codestyle": "./vendor/bin/phpcs -n --standard=vendor/stefna/codestyle/library.xml src/",
 		"codestyle-fix": "./vendor/bin/phpcbf --colors --standard=vendor/stefna/codestyle/library.xml src/"
-	},
-	"extra": {
-		"branch-alias": {
-			"dev-master": "0.1.0"
-		}
 	}
 }
