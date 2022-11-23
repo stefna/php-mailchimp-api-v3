@@ -4,34 +4,14 @@ API Client for MailChimp v3 with a complete model
 
 Uses [MailChimp API v3](http://developer.MailChimp.com/documentation/MailChimp/reference/overview/).
 
-## Development Status
-
-This project is still in Alpha stage. Expect many changes to pretty much everything.
-
-The API methods implemented today are just the ones that we needed at the moment, and much more is needed to complete the client.
-
-### JSON Schema
-
-MailChimp uses JSON Schema to define their API. Example can be viewed here: http://us1.API.MailChimp.com/schema/3.0/Definitions/Campaigns/POST.json
-
-To conform with the JSON Schema we use a tool to build our model based on the schema files. We could not find any good PHP code generators for that so we built our own. Link coming soon. 
-
-Example generation:
-```bash
-php ../json-schema-php-generator/bin/run.php generate \\
-  --phpcs .php_cs.dist \\
-  --extends 'Stefna\MailChimp\Other\AbstractData' \\
-  --namespace 'Stefna\MailChimp\Model\CampaignPatch' \\
-  --appendNamespace \\
-  -vv \\
-  http://us1.api.MailChimp.com/schema/3.0/Definitions/Campaigns/PATCH.json \\
-   src/Model/Campaign/
-```
-
 ## Requirements
 
-* PHP >= 5.5 with cURL extension
+* PHP >= 7.4 with cURL extension
 * Guzzle or any other "php-http/client-implementation
+
+## Installation
+
+	composer require stefna/php-mailchimp-api-v3
 
 ## Basic usage
 
