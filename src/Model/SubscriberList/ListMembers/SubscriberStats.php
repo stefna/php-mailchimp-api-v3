@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Stefna\Mailchimp\Model\SubscriberList\ListMembers;
 
@@ -7,16 +7,11 @@ use Stefna\Mailchimp\Other\AbstractData;
 class SubscriberStats extends AbstractData
 {
 	/**
-	 * A subscriber's average clickthrough rate.
-	 *
-	 * @var number
+	 * A subscriber's average click-through rate.
 	 */
-	public $avgClickRate;
-
+	public float $avgClickRate;
 	/**
 	 * A subscriber's average open rate.
-	 *
-	 * @var number
 	 */
-	public $avgOpenRate;
+	public float $avgOpenRate;
 }

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Stefna\Mailchimp\Model\Campaign;
 
@@ -8,25 +8,17 @@ class CampaignSocialCard extends AbstractData
 {
 	/**
 	 * A short summary of the campaign to display.
-	 * Example: Freddie's Weeekly Jokes.
-	 *
-	 * @var string
+	 * Example: Freddie's Weekly Jokes.
 	 */
-	public $description;
-
+	public string $description;
 	/**
 	 * The url for the header image for the card.
 	 * Example: http://kb.mailchimp.com/images/freddie.svg.
-	 *
-	 * @var string
 	 */
-	public $imageUrl;
-
+	public string $imageUrl;
 	/**
-	 * The title for the card. Typically the subject line of the campaign.
+	 * The title for the card. Typically, the subject line of the campaign.
 	 * Example: Freddie Likes Jokes.
-	 *
-	 * @var string
 	 */
-	public $title;
+	public string $title;
 }

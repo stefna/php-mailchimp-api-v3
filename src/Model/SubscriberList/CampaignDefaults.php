@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Stefna\Mailchimp\Model\SubscriberList;
 
@@ -9,32 +9,21 @@ class CampaignDefaults extends AbstractData
 	/**
 	 * The default from email (must be a valid email address) for campaigns sent to this list.
 	 * Example: freddie@freddiesjokes.com.
-	 *
-	 * @var string
 	 */
-	public $fromEmail;
-
+	public string $fromEmail;
 	/**
 	 * The default from name for campaigns sent to this list.
 	 * Example: Freddie.
-	 *
-	 * @var string
 	 */
-	public $fromName;
-
+	public string $fromName;
 	/**
-	 * The default language for this lists's forms.
+	 * The default language for these lists forms.
 	 * Example: en.
-	 *
-	 * @var string
 	 */
-	public $language;
-
+	public string $language;
 	/**
 	 * The default subject line for campaigns sent to this list.
 	 * Example: Freddie Likes Jokes.
-	 *
-	 * @var string
 	 */
-	public $subject;
+	public string $subject;
 }

@@ -1,22 +1,19 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Stefna\Mailchimp\Api\Request;
 
 trait AllTrait
 {
-	protected $paramCount = 'count';
-	protected $paramOffset = 'offset';
+	protected string $paramCount = 'count';
+	protected string $paramOffset = 'offset';
 
-	public function setCount($value)
+	public function setCount(int $value): void
 	{
-		$this->data[$this->paramCount] = (int)$value;
-		return $this;
+		$this->data[$this->paramCount] = $value;
 	}
 
-	public function setOffset($value)
+	public function setOffset(int $value): void
 	{
-		$this->data[$this->paramOffset] = (int)$value;
-		return $this;
+		$this->data[$this->paramOffset] = $value;
 	}
-
 }

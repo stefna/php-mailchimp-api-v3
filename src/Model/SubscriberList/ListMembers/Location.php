@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Stefna\Mailchimp\Model\SubscriberList\ListMembers;
 
@@ -8,43 +8,26 @@ class Location extends AbstractData
 {
 	/**
 	 * The unique code for the location country.
-	 *
-	 * @var string
 	 */
-	public $countryCode;
-
+	public string $countryCode;
 	/**
 	 * The offset for timezones where daylight saving time is observed.
-	 *
-	 * @var int
 	 */
-	public $dstoff;
-
+	public int $dstoff;
 	/**
 	 * The time difference in hours from GMT.
-	 *
-	 * @var int
 	 */
-	public $gmtoff;
-
+	public int $gmtoff;
 	/**
 	 * The location latitude.
-	 *
-	 * @var number
 	 */
-	public $latitude;
-
+	public float $latitude;
 	/**
 	 * The location longitude.
-	 *
-	 * @var number
 	 */
-	public $longitude;
-
+	public float $longitude;
 	/**
 	 * The timezone for the location.
-	 *
-	 * @var string
 	 */
-	public $timezone;
+	public string $timezone;
 }

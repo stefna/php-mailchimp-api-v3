@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Stefna\Mailchimp\Model\Campaign\Content\CampaignContent;
 
@@ -8,15 +8,10 @@ class UploadArchive extends AbstractData
 {
 	/**
 	 * The base64-encoded representation of the archive file.
-	 *
-	 * @var string
 	 */
-	public $archiveContent;
-
+	public string $archiveContent;
 	/**
 	 * The type of encoded file. Defaults to zip.
-	 *
-	 * @var string
 	 */
-	public $archiveType;
+	public string $archiveType;
 }

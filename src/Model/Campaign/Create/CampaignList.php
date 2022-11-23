@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Stefna\Mailchimp\Model\Campaign\Create;
 
@@ -8,8 +8,6 @@ class CampaignList extends AbstractData
 {
 	/**
 	 * The unique list id.
-	 *
-	 * @var string
 	 */
-	public $listId;
+	public string $listId;
 }

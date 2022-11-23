@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Stefna\Mailchimp\Api\Campaigns;
 
@@ -9,80 +9,62 @@ use Stefna\Mailchimp\Model\Campaign\Campaign;
 use Stefna\Mailchimp\Model\Campaign\Create\Campaign as CreateCampaign;
 use Stefna\Mailchimp\Model\Campaign\SendChecklist;
 use Stefna\Mailchimp\Model\Campaign\Update\Campaign as UpdateCampaign;
+use Stefna\Mailchimp\Other\AbstractData;
+use Stefna\Mailchimp\Other\AbstractRequest;
 
 class Campaigns extends CollectionRestApi
 {
-	/**
-	 * @return string
-	 */
-	public function getMethodUrl()
+	public function getMethodUrl(): string
 	{
 		return 'campaigns';
 	}
 
 	/**
-	 * @param CampaignsAllRequest|null $params
+	 * @param CampaignsAllRequest|AbstractRequest|null $params
 	 * @return Campaign[]
 	 */
-	public function all($params = null)
+	public function all($params = null): array
 	{
 		return $this->fetchAll(Campaign::class, 'campaigns', $params);
 	}
 
-	/**
-	 * @param string $id
-	 * @param Campaigns|null $params
-	 * @return Campaign
-	 */
-	public function get($id, $params = null)
+	public function get(string $id, ?AbstractRequest $params = null): ?Campaign
 	{
 		return $this->fetchOne(Campaign::class, $id, $params);
 	}
 
 	/**
-	 * @param CreateCampaign $campaign
-	 * @return Campaign
+	 * @param CreateCampaign|AbstractData $data
 	 */
-	public function create($campaign)
+	public function create(AbstractData $data): Campaign
 	{
-		return $this->doCreate($campaign, Campaign::class);
+		return $this->doCreate($data, Campaign::class);
 	}
 
 	/**
-	 * @param string $id
-	 * @param UpdateCampaign $campaign
-	 * @return Campaign
+	 * @param array<string, AbstractData>|AbstractData|UpdateCampaign $data
 	 */
-	public function update($id, $campaign)
+	public function update(string $id, $data): Campaign
 	{
-		return $this->doUpdate($id, $campaign, Campaign::class);
+		return $this->doUpdate($id, $data, Campaign::class);
 	}
 
-	/**
-	 * @param string $id
-	 * @return bool
-	 */
-	public function delete($id)
+	public function delete(string $id): bool
 	{
-		return $this->doDelete($id);
+		return (bool)$this->doDelete($id);
 	}
 
-	public function contents($campaignId)
+	public function contents(string $campaignId): Contents
 	{
 		return new Contents($this->client, $this, $campaignId);
 	}
 
-	public function actions($campaignId)
+	public function actions(string $campaignId): Actions
 	{
 		return new Actions($this->client, $this, $campaignId);
 	}
 
-	/**
-	 * @param string $campaignId
-	 * @param CampaignsRequest $params
-	 * @return SendChecklist
-	 */
-	public function checklist($campaignId, $params = null)
+	public function checklist(string $campaignId, ?CampaignsRequest $params = null): ?SendChecklist
 	{
 		$path = $this->getPath(self::ACTION_ONE, [$campaignId, 'send-checklist']);
 		$data = $this->fetch($path, null, $params);

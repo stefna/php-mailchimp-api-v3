@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Stefna\Mailchimp\Api\Campaigns;
 
@@ -6,44 +6,31 @@ use Stefna\Mailchimp\Api\RestApi;
 use Stefna\Mailchimp\Client;
 use Stefna\Mailchimp\Model\Campaign\Content;
 use Stefna\Mailchimp\Model\Campaign\Content\CampaignContent;
+use Stefna\Mailchimp\Other\AbstractRequest;
 
 class Contents extends RestApi
 {
-	/** @var Campaigns */
-	protected $campaigns;
+	protected Campaigns $campaigns;
+	protected string $campaignId;
 
-	/** @var string */
-	protected $campaignId;
-
-	public function __construct(Client $client, Campaigns $campaigns, $campaignId)
+	public function __construct(Client $client, Campaigns $campaigns, string $campaignId)
 	{
 		parent::__construct($client);
 		$this->campaigns = $campaigns;
 		$this->campaignId = $campaignId;
 	}
 
-	/**
-	 * @return string
-	 */
-	public function getMethodUrl()
+	public function getMethodUrl(): string
 	{
 		return $this->campaigns->getMethodUrl() . '/' . $this->campaignId . '/content';
 	}
 
-	/**
-	 * @param \Stefna\Mailchimp\Other\AbstractRequest|null $params
-	 * @return Content
-	 */
-	public function get($params = null)
+	public function get(?AbstractRequest $params = null): ?Content
 	{
 		return $this->fetchOne(Content::class, null, $params);
 	}
 
-	/**
-	 * @param CampaignContent $params
-	 * @return Content
-	 */
-	public function update($params)
+	public function update(CampaignContent $params): Content
 	{
 		$data = $params->getData();
 		$path = $this->getPath(self::ACTION_UPDATE);

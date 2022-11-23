@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Stefna\Mailchimp\Model\Campaign\Update;
 
@@ -7,23 +7,11 @@ use Stefna\Mailchimp\Other\AbstractData;
 class CampaignSocialCard extends AbstractData
 {
 	/**
-	 * A short summary of the campaign to display.
-	 *
-	 * @var string
-	 */
-	public $description;
-
-	/**
 	 * The url for the header image for the card.
-	 *
-	 * @var string
 	 */
-	public $imageUrl;
-
+	public string $imageUrl;
 	/**
-	 * The title for the card. Typically the subject line of the campaign.
-	 *
-	 * @var string
+	 * The title for the card. Typically, the subject line of the campaign.
 	 */
-	public $title;
+	public string $title;
 }

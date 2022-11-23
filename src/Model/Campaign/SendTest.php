@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Stefna\Mailchimp\Model\Campaign;
 
@@ -9,15 +9,12 @@ class SendTest extends AbstractData
 	/**
 	 * An array of email addresses to send the test email to.
 	 *
-	 * @var array
+	 * @var string[]
 	 */
-	public $testEmails;
-
+	public array $testEmails;
 	/**
 	 * Choose the type of test email to send.
 	 * Enum: ['html', 'plaintext']
-	 *
-	 * @var string
 	 */
-	public $sendType;
+	public string $sendType;
 }

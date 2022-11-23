@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Stefna\Mailchimp\Model\SubscriberList;
 
@@ -11,157 +11,93 @@ class ListMembers extends AbstractData
 {
 	/**
 	 * Email address for a subscriber.
-	 *
-	 * @var string
 	 */
-	public $emailAddress;
-
+	public string $emailAddress;
 	/**
 	 * The list member's email client.
-	 *
-	 * @var string
 	 */
-	public $emailClient;
-
+	public string $emailClient;
 	/**
 	 * Type of email this member asked to get ('html' or 'text').
-	 *
-	 * @var string
 	 */
-	public $emailType;
-
+	public string $emailType;
 	/**
 	 * The MD5 hash of the lowercase version of the list member's email address.
-	 *
-	 * @var string
 	 */
-	public $id;
-
+	public string $id;
 	/**
 	 * The key of this object's properties is the ID of the interest in question.
 	 *
 	 * @var string[]
 	 */
-	public $interests;
-
+	public array $interests;
 	/**
 	 * The IP address the subscriber used to confirm their opt-in status.
-	 *
-	 * @var string
 	 */
-	public $ipOpt;
-
+	public string $ipOpt;
 	/**
 	 * IP address the subscriber signed up from.
-	 *
-	 * @var string
 	 */
-	public $ipSignup;
-
+	public string $ipSignup;
 	/**
 	 * If set/detected, the [subscriber's language](http://kb.mailchimp.com/lists/managing-subscribers/view-and-edit-subscriber-languages?utm_source=mc-api&utm_medium=docs&utm_campaign=apidocs).
-	 *
-	 * @var string
 	 */
-	public $language;
-
+	public string $language;
 	/**
 	 * The date and time the member's info was last changed.
-	 *
-	 * @var string
 	 */
-	public $lastChanged;
-
+	public string $lastChanged;
 	/**
 	 * The most recent Note added about this member.
-	 *
-	 * @var Notes
 	 */
-	public $lastNote;
-
+	public Notes $lastNote;
 	/**
 	 * The list id.
-	 *
-	 * @var string
 	 */
-	public $listId;
-
+	public string $listId;
 	/**
 	 * Subscriber location information.
-	 *
-	 * @var Location
 	 */
-	public $location;
-
+	public Location $location;
 	/**
 	 * Star rating for this member, between 1 and 5.
-	 *
-	 * @var int
 	 */
-	public $memberRating;
-
+	public int $memberRating;
 	/**
 	 * An individual merge var and value for a member.
 	 *
 	 * @var string[]
 	 */
-	public $mergeFields;
-
+	public array $mergeFields;
 	/**
 	 * Open and click rates for this subscriber.
-	 *
-	 * @var SubscriberStats
 	 */
-	public $stats;
-
+	public SubscriberStats $stats;
 	/**
 	 * Subscriber's current status.
-	 *
-	 * @var string
 	 */
-	public $status;
-
+	public string $status;
 	/**
-	 * The date and time the subscribe confirmed their opt-in status.
-	 *
-	 * @var string
+	 * The date and time the subscribed confirmed their opt-in status.
 	 */
-	public $timestampOpt;
-
+	public string $timestampOpt;
 	/**
 	 * The date and time the subscriber signed up for the list.
-	 *
-	 * @var string
 	 */
-	public $timestampSignup;
-
+	public string $timestampSignup;
 	/**
 	 * An identifier for the address across all of MailChimp.
-	 *
-	 * @var string
 	 */
-	public $uniqueEmailId;
-
+	public string $uniqueEmailId;
 	/**
 	 * A subscriber's reason for unsubscribing.
-	 *
-	 * @var string
 	 */
-	public $unsubscribeReason;
-
+	public string $unsubscribeReason;
 	/**
 	 * [VIP status](http://kb.mailchimp.com/lists/managing-subscribers/designate-and-send-to-vip-subscribers?utm_source=mc-api&utm_medium=docs&utm_campaign=apidocs) for subscriber.
-	 *
-	 * @var bool
 	 */
-	public $vip;
-
-	/**
-	 * Mapping classes.
-	 *
-	 * @var string[]
-	 */
-	protected $classMap = [
+	public bool $vip;
+	protected array $classMap = [
 		'stats' => SubscriberStats::class,
 		'location' => Location::class,
 		'lastNote' => Notes::class,

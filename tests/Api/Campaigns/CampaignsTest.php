@@ -1,101 +1,83 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Tests\Stefna\Mailchimp\Api\Campaigns;
 
-use Stefna\Mailchimp\Model\Campaign\Campaign;
-use Stefna\Mailchimp\Model\Campaign\Create\Campaign as CreateCampaign;
 use Stefna\Mailchimp\Api\Campaigns\Campaigns as CampaignsApi;
 use Stefna\Mailchimp\Api\Campaigns\Request\CampaignsAllRequest;
+use Stefna\Mailchimp\Model\Campaign\Campaign;
+use Stefna\Mailchimp\Model\Campaign\Create\Campaign as CreateCampaign;
 use Stefna\Mailchimp\Model\Campaign\Create\CampaignSettings as CreateCampaignSettings;
 use Stefna\Mailchimp\Model\Campaign\Update\Campaign as UpdateCampaign;
 use Stefna\Mailchimp\Model\Campaign\Update\CampaignSettings as UpdateCampaignSettings;
-use Stefna\Mailchimp\Other\AbstractData;
 use Tests\Stefna\Mailchimp\Api\CollectionTestCase;
 
 class CampaignsTest extends CollectionTestCase
 {
-	const CAMPAIGN_ID_1 = '0cefd1915f';
+	private const CAMPAIGN_ID_1 = '0cefd1915f';
+	private const SUBJECT_DEFAULT = 'TestSubjectLine';
+	private const SUBJECT_BAD = 'TestSubjectLineBad';
 
-	const SUBJECT_DEFAULT = 'TestSubjectLine';
-	const SUBJECT_BAD = 'TestSubjectLineBad';
-
-
-	protected function checkEntityDefault($entity)
+	protected function checkEntityDefault($entity): void
 	{
 		parent::checkEntityDefault($entity);
 		$this->assertEquals(self::SUBJECT_DEFAULT, $entity->settings->subjectLine);
 	}
 
 	/**
-	 * @param string $subject
-	 * @param string $type
+	 * @param string $param1
+	 * @param string $param2
 	 * @return CreateCampaign
 	 */
-	protected function getNewEntity($subject = null, $type = null)
+	protected function getNewEntity($param1 = null, $param2 = null): CreateCampaign
 	{
-		if (null === $subject) $subject = self::SUBJECT_DEFAULT;
-		if (null === $type) $type = 'regular';
+		if (null === $param1) {
+			$param1 = self::SUBJECT_DEFAULT;
+		}
+		if (null === $param2) {
+			$param2 = 'regular';
+		}
 
 		$campaign = new CreateCampaign();
-		$campaign->type = $type;
+		$campaign->type = $param2;
 		$campaign->settings = new CreateCampaignSettings();
-		$campaign->settings->subjectLine = $subject;
+		$campaign->settings->subjectLine = $param1;
 		$campaign->settings->fromName = 'TestFromName';
 		$campaign->settings->replyTo = 'testuser@example.com';
 
 		return $campaign;
 	}
 
-	protected function getSingleEntityId()
+	protected function getSingleEntityId(): string
 	{
 		return self::CAMPAIGN_ID_1;
 	}
 
-	/**
-	 * @return CampaignsApi
-	 */
-	protected function getApi()
+	protected function getApi(): CampaignsApi
 	{
-		$campaigns = $this->getClient()->campaigns();
-		return $campaigns;
+		return $this->getClient()->campaigns();
 	}
 
-	/**
-	 * @return CampaignsAllRequest
-	 */
-	protected function getAllOneParams()
+	protected function getAllOneParams(): CampaignsAllRequest
 	{
 		return new CampaignsAllRequest();
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function getBadCreateParam1()
+	protected function getBadCreateParam1(): string
 	{
 		return self::SUBJECT_BAD;
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function getBadCreateParam2()
+	protected function getBadCreateParam2(): string
 	{
 		return 'badType';
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function getBadDeleteId()
+	protected function getBadDeleteId(): string
 	{
 		return 'nonExisting';
 	}
 
-	/**
-	 * @return array|AbstractData
-	 */
-	protected function getUpdateData()
+	protected function getUpdateData(): UpdateCampaign
 	{
 		$data = new UpdateCampaign();
 		$data->settings = new UpdateCampaignSettings();
@@ -103,23 +85,17 @@ class CampaignsTest extends CollectionTestCase
 		return $data;
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function getEntityClass()
+	protected function getEntityClass(): string
 	{
 		return Campaign::class;
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function getApiClass()
+	protected function getApiClass(): string
 	{
 		return CampaignsApi::class;
 	}
 
-	protected function checkEntity($entity, $returnEntity)
+	protected function checkEntity($entity, $returnEntity): void
 	{
 		$this->assertEquals($entity->type, $returnEntity->type);
 		$this->assertEquals($entity->settings->subjectLine, $returnEntity->settings->subjectLine);

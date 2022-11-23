@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Stefna\Mailchimp\Model\Campaign;
 
@@ -9,19 +9,15 @@ class SendChecklist extends AbstractData
 {
 	/**
 	 * Whether the campaign is ready to send.
-	 *
-	 * @var bool
 	 */
-	public $isReady;
-
+	public bool $isReady;
 	/**
 	 * A list of feedback items to review before sending your campaign.
 	 *
 	 * @var Item[]
 	 */
-	public $items;
-
-	protected $classMap = [
+	public array $items;
+	protected array $classMap = [
 		'items' => [Item::class],
 	];
 }

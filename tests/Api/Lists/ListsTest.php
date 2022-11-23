@@ -1,33 +1,23 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Tests\Stefna\Mailchimp\Api\Lists;
 
-use Stefna\Mailchimp\Model\SubscriberList;
 use Stefna\Mailchimp\Api\Lists\Lists as ListsApi;
 use Stefna\Mailchimp\Api\Lists\Request\ListsAllRequest;
+use Stefna\Mailchimp\Api\RestApi;
+use Stefna\Mailchimp\Model\SubscriberList;
+use Stefna\Mailchimp\Other\AbstractData;
+use Stefna\Mailchimp\Other\AbstractRequest;
 use Tests\Stefna\Mailchimp\Api\CollectionTestCase;
 
 class ListsTest extends CollectionTestCase
 {
-	const LIST_ID_1 = '215f4cfac8';
+	private const LIST_ID_1 = '215f4cfac8';
+	private const MAIN_LIST_NAME = 'Main List';
 
-	const MAIN_LIST_NAME = 'Main List';
-
-	public function testTestTest()
+	protected function getNewList(string $name = 'MyNewTestList'): SubscriberList
 	{
-		if (false) {
-			$ret = $this->getRealClient()->lists()->update(self::LIST_ID_1, ['name' => self::MAIN_LIST_NAME]);
-			var_dump($ret);
-		}
-	}
-
-	/**
-	 * @param string $name
-	 * @return SubscriberList
-	 */
-	protected function getNewList($name = 'MyNewTestList')
-	{
-		$list = new SubscriberList([
+		return new SubscriberList([
 			'name' => $name,
 			'permissionReminder' => 'Testing Permission Reminder',
 			'emailTypeOption' => false,
@@ -46,37 +36,24 @@ class ListsTest extends CollectionTestCase
 				'language' => 'en',
 			],
 		]);
-		return $list;
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function getEntityClass()
+	protected function getEntityClass(): string
 	{
 		return SubscriberList::class;
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function getApiClass()
+	protected function getApiClass(): string
 	{
 		return ListsApi::class;
 	}
 
-	/**
-	 * @return \Stefna\Mailchimp\Api\RestApi
-	 */
-	protected function getApi()
+	protected function getApi(): RestApi
 	{
 		return $this->getClient()->lists();
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function getSingleEntityId()
+	protected function getSingleEntityId(): string
 	{
 		return self::LIST_ID_1;
 	}
@@ -84,12 +61,14 @@ class ListsTest extends CollectionTestCase
 	/**
 	 * @param mixed $param1
 	 * @param mixed $param2
-	 * @return \Stefna\Mailchimp\Other\AbstractData
+	 * @return AbstractData
 	 */
-	protected function getNewEntity($param1 = null, $param2 = null)
+	protected function getNewEntity($param1 = null, $param2 = null): AbstractData
 	{
-		if (!$param1) $param1 = self::MAIN_LIST_NAME;
-		$list = new SubscriberList([
+		if (!$param1) {
+			$param1 = self::MAIN_LIST_NAME;
+		}
+		return new SubscriberList([
 			'name' => $param1,
 			'permissionReminder' => 'Testing Permission Reminder',
 			'emailTypeOption' => false,
@@ -108,45 +87,29 @@ class ListsTest extends CollectionTestCase
 				'language' => 'en',
 			],
 		]);
-		return $list;
 	}
 
-	/**
-	 * @return \Stefna\Mailchimp\Other\AbstractRequest
-	 */
-	protected function getAllOneParams()
+	protected function getAllOneParams(): AbstractRequest
 	{
 		return new ListsAllRequest();
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function getBadCreateParam1()
+	protected function getBadCreateParam1(): string
 	{
 		return 'MyNewTestListBad';
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function getBadCreateParam2()
+	protected function getBadCreateParam2(): ?string
 	{
 		return null;
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function getBadDeleteId()
+	protected function getBadDeleteId(): string
 	{
 		return 'nonExisting';
 	}
 
-	/**
-	 * @return array
-	 */
-	protected function getUpdateData()
+	protected function getUpdateData(): array
 	{
 		return [
 			'name' => 'ChangedName',
@@ -157,12 +120,12 @@ class ListsTest extends CollectionTestCase
 	 * @param SubscriberList $entity
 	 * @param SubscriberList $returnEntity
 	 */
-	protected function checkEntity($entity, $returnEntity)
+	protected function checkEntity($entity, $returnEntity): void
 	{
 		$this->assertEquals($entity->name, $returnEntity->name);
 	}
 
-	protected function checkEntityDefault($entity)
+	protected function checkEntityDefault($entity): void
 	{
 		parent::checkEntityDefault($entity);
 

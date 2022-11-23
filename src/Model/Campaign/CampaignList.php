@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Stefna\Mailchimp\Model\Campaign;
 
@@ -10,45 +10,25 @@ class CampaignList extends AbstractData
 	/**
 	 * The id of the list.
 	 * Example: 1a2df69xxx.
-	 *
-	 * @var string
 	 */
-	public $listId;
-
+	public string $listId;
 	/**
 	 * The name of the list.
-	 *
-	 * @var string
 	 */
-	public $listName;
-
+	public string $listName;
 	/**
 	 * Count of the recipients on the associated list. Formatted as an integer.
-	 *
-	 * @var int
 	 */
-	public $recipientCount;
-
+	public int $recipientCount;
 	/**
 	 * Segment options.
-	 *
-	 * @var SegmentOptions
 	 */
-	public $segmentOpts;
-
+	public SegmentOptions $segmentOpts;
 	/**
 	 * A string marked-up with HTML explaining the segment used for the campaign in plain English.
-	 *
-	 * @var string
 	 */
-	public $segmentText;
-
-	/**
-	 * Mapping classes.
-	 *
-	 * @var string[]
-	 */
-	protected $classMap = [
+	public string $segmentText;
+	protected array $classMap = [
 		'segmentOpts' => SegmentOptions::class,
 	];
 }

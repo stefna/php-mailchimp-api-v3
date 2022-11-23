@@ -1,79 +1,60 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Stefna\Mailchimp\Api\Templates;
 
 use Stefna\Mailchimp\Api\CollectionRestApi;
 use Stefna\Mailchimp\Api\Templates\Request\TemplatesRequest;
 use Stefna\Mailchimp\Model\Template\DefaultContent;
-use Stefna\Mailchimp\Model\Template\NewTemplateInstance;
 use Stefna\Mailchimp\Model\Template\TemplateInstance;
+use Stefna\Mailchimp\Other\AbstractData;
+use Stefna\Mailchimp\Other\AbstractRequest;
 
 class Templates extends CollectionRestApi
 {
-
-	/**
-	 * @return string
-	 */
-	public function getMethodUrl()
+	public function getMethodUrl(): string
 	{
 		return 'templates';
 	}
 
-	/**
-	 * @param NewTemplateInstance $data
-	 * @return TemplateInstance
-	 */
-	public function create($data)
+	public function create(AbstractData $data): TemplateInstance
 	{
 		return $this->doCreate($data, TemplateInstance::class);
 	}
 
 	/**
-	 * @param \Stefna\Mailchimp\Other\AbstractRequest $params
+	 * @param AbstractRequest $params
 	 * @return TemplateInstance[]
 	 */
-	public function all($params = null)
+	public function all($params = null): array
 	{
 		return $this->fetchAll(TemplateInstance::class, 'templates', $params);
 	}
 
-	/**
-	 * @param mixed $id
-	 * @param \Stefna\Mailchimp\Other\AbstractRequest|null $params
-	 * @return TemplateInstance
-	 */
-	public function get($id, $params = null)
+	public function get(string $id, ?AbstractRequest $params = null): ?TemplateInstance
 	{
 		return $this->fetchOne(TemplateInstance::class, $id, $params);
 	}
 
-	/**
-	 * @param mixed $id
-	 * @param array $data
-	 * @return TemplateInstance
-	 */
-	public function update($id, $data)
+	public function update(string $id, $data): TemplateInstance
 	{
 		return $this->doUpdate($id, $data, TemplateInstance::class);
 	}
 
-	/**
-	 * @param mixed $id
-	 * @return bool
-	 */
-	public function delete($id)
+	public function delete(string $id): bool
 	{
-		return $this->doDelete($id);
+		return (bool)$this->doDelete($id);
 	}
 
 	/**
-	 * @param int $templateId
-	 * @param TemplatesRequest $params
-	 * @return DefaultContent
+	 * @param AbstractRequest|TemplatesRequest|null $params
 	 */
-	public function getDefault($templateId, $params = null)
+	public function getDefault(string $templateId, $params = null): ?DefaultContent
 	{
-		$data = $this->fetch($this->getPath(self::ACTION_ONE, [$templateId, 'default-content']), null, $params);
+		$data = $this->fetch(
+			$this->getPath(self::ACTION_ONE, [$templateId, 'default-content']),
+			null,
+			$params
+		);
 		if (!$data) {
 			return null;
 		}

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Tests\Stefna\Mailchimp\Api\Templates;
 
@@ -7,45 +7,21 @@ use Stefna\Mailchimp\Api\Templates\Templates as TemplatesApi;
 use Stefna\Mailchimp\Model\Template\DefaultContent;
 use Stefna\Mailchimp\Model\Template\NewTemplateInstance;
 use Stefna\Mailchimp\Model\Template\TemplateInstance;
+use Stefna\Mailchimp\Other\AbstractData;
+use Stefna\Mailchimp\Other\AbstractRequest;
 use Tests\Stefna\Mailchimp\Api\CollectionTestCase;
 
 class TemplatesTest extends CollectionTestCase
 {
-	const TEMPLATE_NAME = 'testTemplate1';
-	const TEMPLATE_ID = '17017';
+	private const TEMPLATE_NAME = 'testTemplate1';
+	private const TEMPLATE_ID = '17017';
 
-	public function testAllWorks()
+	public function testAllWorks(): void
 	{
 		$this->checkAll(null, 10);
 	}
 
-	public function testOneWorks()
-	{
-		parent::testOneWorks();
-	}
-
-
-	public function testAllOneWorks()
-	{
-		parent::testAllOneWorks();
-	}
-
-	public function testUpdateWorks()
-	{
-		parent::testUpdateWorks();
-	}
-
-	public function testDeleteWorks()
-	{
-		parent::testDeleteWorks();
-	}
-
-	public function testCreateBadFails()
-	{
-		parent::testCreateBadFails();
-	}
-
-	public function testDefaultContent()
+	public function testDefaultContent(): void
 	{
 		$templateId = '17025';
 		$content = $this->getClient()->templates()->getDefault($templateId);
@@ -60,40 +36,27 @@ class TemplatesTest extends CollectionTestCase
 	 * @param NewTemplateInstance $entity
 	 * @param TemplateInstance $returnEntity
 	 */
-	protected function checkEntity($entity, $returnEntity)
+	protected function checkEntity($entity, $returnEntity): void
 	{
 		$this->assertEquals($entity->name, $returnEntity->name);
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function getEntityClass()
+	protected function getEntityClass(): string
 	{
 		return TemplateInstance::class;
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function getApiClass()
+	protected function getApiClass(): string
 	{
 		return TemplatesApi::class;
 	}
 
-	/**
-	 * @return \Stefna\Mailchimp\Api\Templates\Templates
-	 *
-	 */
-	protected function getApi()
+	protected function getApi(): TemplatesApi
 	{
 		return $this->getClient()->templates();
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function getSingleEntityId()
+	protected function getSingleEntityId(): string
 	{
 		return self::TEMPLATE_ID;
 	}
@@ -101,11 +64,13 @@ class TemplatesTest extends CollectionTestCase
 	/**
 	 * @param mixed $param1
 	 * @param mixed $param2
-	 * @return \Stefna\Mailchimp\Other\AbstractData
+	 * @return AbstractData
 	 */
-	protected function getNewEntity($param1 = null, $param2 = 'null')
+	protected function getNewEntity($param1 = null, $param2 = null): AbstractData
 	{
-		if (!$param1) $param1 = self::TEMPLATE_NAME;
+		if (!$param1) {
+			$param1 = self::TEMPLATE_NAME;
+		}
 		$template = new NewTemplateInstance();
 		$template->name = $param1;
 		if ($param2) {
@@ -126,44 +91,30 @@ EOD;
 		return $template;
 	}
 
-	/**
-	 * @return \Stefna\Mailchimp\Other\AbstractRequest
-	 */
-	protected function getAllOneParams()
+	protected function getAllOneParams(): AbstractRequest
 	{
 		$request = new TemplatesAllRequest();
-		$request->setType('user')->setCount(1);
+		$request->setType('user');
+		$request->setCount(1);
 		return $request;
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function getBadCreateParam1()
+	protected function getBadCreateParam1(): string
 	{
 		return 'myBadTemplateId';
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function getBadCreateParam2()
+	protected function getBadCreateParam2(): string
 	{
 		return 'someBadFolderId';
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function getBadDeleteId()
+	protected function getBadDeleteId(): string
 	{
 		return 'noTemplate';
 	}
 
-	/**
-	 * @return array
-	 */
-	protected function getUpdateData()
+	protected function getUpdateData(): array
 	{
 		return [
 			'name' => 'NewTemplateName',
@@ -173,7 +124,7 @@ EOD;
 	/**
 	 * @param TemplateInstance $entity
 	 */
-	protected function checkEntityDefault($entity)
+	protected function checkEntityDefault($entity): void
 	{
 		$this->assertTrue($entity->active);
 		$this->assertEquals(self::TEMPLATE_NAME, $entity->name);

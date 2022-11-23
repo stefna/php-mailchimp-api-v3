@@ -1,26 +1,27 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Tests\Stefna\Mailchimp;
 
 use Http\Client\Curl\Client as HttpClient;
 use Stefna\Mailchimp\Api\Lists\Lists as ListsApi;
 use Stefna\Mailchimp\Api\Lists\Members as ListsMembersApi;
+use Stefna\Mailchimp\Client;
 
 class ClientTest extends AbstractTestCase
 {
-
-	public function testCanInstantiateClient()
+	public function testCanInstantiateClient(): void
 	{
-		$this->getClient();
+		$client = $this->getClient();
+		$this->assertInstanceOf(Client::class, $client);
 	}
 
-	public function testProvidesClientAccess()
+	public function testProvidesClientAccess(): void
 	{
 		$client = $this->getClient();
 		$this->assertInstanceOf(HttpClient::class, $client->getHttpClient());
 	}
 
-	public function testProvidesBasicRequests()
+	public function testProvidesBasicRequests(): void
 	{
 		$client = $this->getClient();
 		$this->assertTrue(method_exists($client, 'get'), 'Missing get() method');
@@ -30,14 +31,16 @@ class ClientTest extends AbstractTestCase
 		$this->assertTrue(method_exists($client, 'patch'), 'Missing patch() method');
 	}
 
-	public function testProvidesMailchimpApi()
+	public function testProvidesMailchimpApi(): void
 	{
 		$client = $this->getClient();
+		/** @noinspection UnnecessaryAssertionInspection */
 		$this->assertInstanceOf(ListsApi::class, $client->lists());
-		$this->assertInstanceOf(ListsMembersApi::class, $client->lists()->members(1));
+		/** @noinspection UnnecessaryAssertionInspection */
+		$this->assertInstanceOf(ListsMembersApi::class, $client->lists()->members('1'));
 	}
 
-	public function testBasicGetWorks()
+	public function testBasicGetWorks(): void
 	{
 		$data = $this->getClient()->get('lists');
 		$this->assertCount(3, $data);

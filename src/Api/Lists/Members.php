@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Stefna\Mailchimp\Api\Lists;
 
@@ -7,23 +7,15 @@ use Stefna\Mailchimp\Api\Lists\Request\ListsMembersAllRequest;
 use Stefna\Mailchimp\Api\Lists\Request\ListsRequest;
 use Stefna\Mailchimp\Client;
 use Stefna\Mailchimp\Model\SubscriberList\ListMembers;
+use Stefna\Mailchimp\Other\AbstractData;
+use Stefna\Mailchimp\Other\AbstractRequest;
 
 class Members extends CollectionRestApi
 {
-	/** @var Lists */
-	protected $lists;
+	protected Lists $lists;
+	protected string $listId;
 
-	/** @var string */
-	protected $listId;
-
-	public function __construct(Client $client, Lists $lists, $listId)
-	{
-		parent::__construct($client);
-		$this->lists = $lists;
-		$this->listId = $listId;
-	}
-
-	public static function formatEmailAddress($emailAddress)
+	public static function formatEmailAddress(string $emailAddress): string
 	{
 		if (preg_match('/^[a-f0-9]{32}$/', $emailAddress)) {
 			return $emailAddress;
@@ -31,10 +23,14 @@ class Members extends CollectionRestApi
 		return md5(strtolower($emailAddress));
 	}
 
-	/**
-	 * @return string
-	 */
-	public function getMethodUrl()
+	public function __construct(Client $client, Lists $lists, string $listId)
+	{
+		parent::__construct($client);
+		$this->lists = $lists;
+		$this->listId = $listId;
+	}
+
+	public function getMethodUrl(): string
 	{
 		return $this->lists->getMethodUrl() . '/' . $this->listId . '/members';
 	}
@@ -43,46 +39,37 @@ class Members extends CollectionRestApi
 	 * @param ListsMembersAllRequest $params
 	 * @return ListMembers[]
 	 */
-	public function all($params = null)
+	public function all($params = null): array
 	{
 		return $this->fetchAll(ListMembers::class, 'members', $params);
 	}
 
 	/**
-	 * @param string $emailAddress
-	 * @param ListsRequest|null $params
-	 * @return ListMembers
+	 * @param ListsRequest|AbstractRequest|null $params
 	 */
-	public function get($emailAddress, $params = null)
+	public function get(string $id, $params = null): ?ListMembers
 	{
-		return $this->fetchOne(ListMembers::class, Members::formatEmailAddress($emailAddress), $params);
+		return $this->fetchOne(ListMembers::class, self::formatEmailAddress($id), $params);
 	}
 
 	/**
-	 * @param ListMembers $members
-	 * @return ListMembers
+	 * @param ListMembers|AbstractData $data
 	 */
-	public function create($members)
+	public function create(AbstractData $data): ListMembers
 	{
-		return $this->doCreate($members);
+		return $this->doCreate($data, ListMembers::class);
 	}
 
 	/**
-	 * @param string $emailAddress
-	 * @param array $data
-	 * @return ListMembers
+	 * @param array<string, AbstractData>|AbstractData $data
 	 */
-	public function update($emailAddress, $data)
+	public function update(string $id, $data): ListMembers
 	{
-		return $this->doUpdate(Members::formatEmailAddress($emailAddress), $data, ListMembers::class);
+		return $this->doUpdate(self::formatEmailAddress($id), $data, ListMembers::class);
 	}
 
-	/**
-	 * @param string $emailAddress
-	 * @return bool
-	 */
-	public function delete($emailAddress)
+	public function delete(string $id): bool
 	{
-		return $this->doDelete(Members::formatEmailAddress($emailAddress));
+		return (bool)$this->doDelete(self::formatEmailAddress($id));
 	}
 }

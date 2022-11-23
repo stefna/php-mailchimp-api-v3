@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Stefna\Mailchimp\Api\Campaigns;
 
@@ -8,40 +8,29 @@ use Stefna\Mailchimp\Model\Campaign\SendTest;
 
 class Actions extends RestApi
 {
-	const ACTION_TEST = 'test';
-	const ACTION_SEND = 'send';
+	private const ACTION_TEST = 'test';
+	private const ACTION_SEND = 'send';
 
-	protected $actions = [
+	protected array $actions = [
 		self::ACTION_TEST => 'test',
 		self::ACTION_SEND => 'send',
 	];
+	protected Campaigns $campaigns;
+	protected string $campaignId;
 
-	/** @var Campaigns */
-	protected $campaigns;
-
-	/** @var string */
-	protected $campaignId;
-
-	public function __construct(Client $client, Campaigns $campaigns, $campaignId)
+	public function __construct(Client $client, Campaigns $campaigns, string $campaignId)
 	{
 		parent::__construct($client);
 		$this->campaigns = $campaigns;
 		$this->campaignId = $campaignId;
 	}
 
-	/**
-	 * @return string
-	 */
-	public function getMethodUrl()
+	public function getMethodUrl(): string
 	{
 		return $this->campaigns->getMethodUrl() . '/' . $this->campaignId . '/actions';
 	}
 
-	/**
-	 * @param SendTest $data
-	 * @return bool
-	 */
-	public function test($data)
+	public function test(SendTest $data): bool
 	{
 		$retData = $this->client->post($this->getPath(self::ACTION_TEST), $data->getData());
 		if (!$retData) {
@@ -50,10 +39,7 @@ class Actions extends RestApi
 		return false;
 	}
 
-	/**
-	 * @return bool
-	 */
-	public function send()
+	public function send(): bool
 	{
 		$retData = $this->client->post($this->getPath(self::ACTION_SEND));
 		if (!$retData) {

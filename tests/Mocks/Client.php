@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Tests\Stefna\Mailchimp\Mocks;
 
@@ -7,8 +7,19 @@ use Psr\Http\Message\ResponseInterface;
 
 class Client extends \Stefna\Mailchimp\Client
 {
+	public function response(ResponseInterface $response)
+	{
+		$this->saveResponse($response);
+		return parent::response($response);
+	}
 
-	protected function sendRequest(RequestInterface $request)
+	public function noOutputResponse(ResponseInterface $response): bool
+	{
+		$this->saveResponse($response);
+		return parent::noOutputResponse($response);
+	}
+
+	protected function sendRequest(RequestInterface $request): ResponseInterface
 	{
 		if ($response = $this->mockResponse($request)) {
 			return $response;
@@ -16,27 +27,39 @@ class Client extends \Stefna\Mailchimp\Client
 		return parent::sendRequest($request);
 	}
 
-	public function response(ResponseInterface $response)
-	{
-		$this->saveResponse($response);
-		return parent::response($response);
-	}
-
-	public function noOutputResponse(ResponseInterface $response)
-	{
-		$this->saveResponse($response);
-		return parent::noOutputResponse($response);
-	}
-
-	/**
-	 * @return string
-	 */
-	protected function getResponseDir()
+	protected function getResponseDir(): string
 	{
 		return __DIR__ . '/responses/';
 	}
 
-	private function saveResponse(ResponseInterface $response)
+	protected function mockResponse(RequestInterface $request)
+	{
+		$file = $this->getResponseFilename($request);
+		if (!is_file($file)) {
+			return false;
+		}
+		if ($this->logger) {
+			$this->logger->debug("Reading response from $file");
+		}
+		return include $file;
+	}
+
+	protected function getResponseFilename(RequestInterface $request): string
+	{
+		$method = strtolower($request->getMethod());
+		$url = (string)$request->getUri();
+		$q = parse_url($url, PHP_URL_QUERY);
+		$queryParams = '';
+		if ($q) {
+			$queryParams = "?$q";
+			$url = substr($url, 0, -1 * strlen($queryParams));
+		}
+		$key = str_replace($this->apiEndpoint, '', $url);
+		$key = trim($key, '/');
+		return $this->getResponseDir() . $key . '/' . $method . $queryParams . '.php';
+	}
+
+	private function saveResponse(ResponseInterface $response): void
 	{
 		if ($this->lastRequest) {
 			$file = $this->getResponseFilename($this->lastRequest);
@@ -46,7 +69,7 @@ class Client extends \Stefna\Mailchimp\Client
 		}
 	}
 
-	private function writeResponse($file, ResponseInterface $response)
+	private function writeResponse($file, ResponseInterface $response): void
 	{
 		$body = $response->getBody();
 		$body->rewind();
@@ -62,38 +85,4 @@ class Client extends \Stefna\Mailchimp\Client
 		}
 		$body->rewind();
 	}
-
-	protected function mockResponse(RequestInterface $request)
-	{
-		$file = $this->getResponseFilename($request);
-		if (!is_file($file)) {
-			return false;
-		}
-		if ($this->logger) {
-			$this->logger->debug("Reading response from $file");
-		}
-		/** @noinspection PhpIncludeInspection */
-		return include $file;
-	}
-
-	/**
-	 * @param RequestInterface $request
-	 * @return string
-	 */
-	protected function getResponseFilename(RequestInterface $request)
-	{
-		$method = strtolower($request->getMethod());
-		$url = (string)$request->getUri();
-		$q = parse_url($url, PHP_URL_QUERY);
-		$queryParams = '';
-		if ($q) {
-			$queryParams = "?$q";
-			$url = substr($url, 0, -1 * strlen($queryParams));
-		}
-		$key = str_replace($this->apiEndpoint, '', $url);
-		$key = trim($key, '/');
-		$file = $this->getResponseDir() . $key . '/' . $method . $queryParams . '.php';
-		return $file;
-	}
-
 }

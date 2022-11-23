@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Stefna\Mailchimp\Model\Campaign\Update\CampaignTrackingOptions;
 
@@ -8,8 +8,6 @@ class CapsuleCRMTracking extends AbstractData
 {
 	/**
 	 * Update contact notes for a campaign based on subscriber email addresses.
-	 *
-	 * @var bool
 	 */
-	public $notes;
+	public bool $notes;
 }

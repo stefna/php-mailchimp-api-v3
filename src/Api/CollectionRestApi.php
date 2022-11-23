@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Stefna\Mailchimp\Api;
 
@@ -7,35 +7,19 @@ use Stefna\Mailchimp\Other\AbstractRequest;
 
 abstract class CollectionRestApi extends RestApi
 {
-	/**
-	 * @param AbstractData $data
-	 * @return AbstractData
-	 */
-	abstract public function create($data);
+	abstract public function create(AbstractData $data): AbstractData;
 
 	/**
-	 * @param AbstractRequest $params
 	 * @return AbstractData[]
 	 */
-	abstract public function all($params = null);
+	abstract public function all(?AbstractRequest $params = null): array;
+
+	abstract public function get(string $id, ?AbstractRequest $params = null): ?AbstractData;
 
 	/**
-	 * @param mixed $id
-	 * @param AbstractRequest|null $params
-	 * @return AbstractData
+	 * @param array<string, AbstractData>|AbstractData $data
 	 */
-	abstract public function get($id, $params = null);
+	abstract public function update(string $id, $data): AbstractData;
 
-	/**
-	 * @param mixed $id
-	 * @param array|AbstractData $data
-	 * @return AbstractData
-	 */
-	abstract public function update($id, $data);
-
-	/**
-	 * @param mixed $id
-	 * @return bool
-	 */
-	abstract public function delete($id);
+	abstract public function delete(string $id): bool;
 }
