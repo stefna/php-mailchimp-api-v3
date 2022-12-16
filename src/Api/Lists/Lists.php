@@ -58,4 +58,9 @@ class Lists extends CollectionRestApi
 	{
 		return new Members($this->client, $this, $listId);
 	}
+
+	public function mergeFields(string $listId): MergeFields
+	{
+		return new MergeFields($this->client, $this, $listId);
+	}
 }

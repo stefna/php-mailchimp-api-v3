@@ -72,7 +72,7 @@ class AbstractData
 	public function setData(array $data): AbstractData
 	{
 		foreach ($data as $key => $value) {
-			$key = static::camelCase($key);
+			$key = static::camelCase((string)$key);
 			if (property_exists($this, $key)) {
 				if (isset($this->classMap[$key])) {
 					if (is_array($this->classMap[$key]) && isset($this->classMap[$key][0])) {
