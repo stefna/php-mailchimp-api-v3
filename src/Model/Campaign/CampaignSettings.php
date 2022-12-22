@@ -16,7 +16,7 @@ class CampaignSettings extends AbstractData
 	 *
 	 * @var string[]
 	 */
-	public array $autoFbPost;
+	public ?array $autoFbPost = null;
 	/**
 	 * Automatically append MailChimp's default footer to the campaign.
 	 * Example: 1.
@@ -45,7 +45,7 @@ class CampaignSettings extends AbstractData
 	 * The 'from' name on the campaign (not an email address).
 	 * Example: Urist McVankab.
 	 */
-	public string $fromName;
+	public ?string $fromName = null;
 	/**
 	 * Automatically inline the CSS included with the campaign content.
 	 * Example: 1.
@@ -55,12 +55,12 @@ class CampaignSettings extends AbstractData
 	 * The reply-to email address for the campaign.
 	 * Example: urist.mcvankab@freddiesjokes.com.
 	 */
-	public string $replyTo;
+	public ?string $replyTo = null;
 	/**
 	 * The subject line for the campaign.
 	 * Example: Freddie Likes Jokes.
 	 */
-	public string $subjectLine;
+	public ?string $subjectLine = null;
 	/**
 	 * The id for the template used in this campaign.
 	 * Example: 9001.
