@@ -23,7 +23,7 @@ class CampaignList extends AbstractData
 	/**
 	 * Segment options.
 	 */
-	public SegmentOptions $segmentOpts;
+	public ?SegmentOptions $segmentOpts = null;
 	/**
 	 * A string marked-up with HTML explaining the segment used for the campaign in plain English.
 	 */

@@ -9,7 +9,7 @@ class Campaign extends AbstractData
 	/**
 	 * AB Split-specific options for a campaign.
 	 */
-	public ABSplitOptions $abSplitOpts;
+	public ?ABSplitOptions $abSplitOpts = null;
 	/**
 	 * The link to the campaign's archive version.
 	 * Example: http://eepurl.com/bsOxxx.
@@ -50,11 +50,11 @@ class Campaign extends AbstractData
 	/**
 	 * For sent campaigns, a summary of opens, clicks, and unsubscribes.
 	 */
-	public CampaignReportSummary $reportSummary;
+	public ?CampaignReportSummary $reportSummary = null;
 	/**
 	 * RSS-specific options for a campaign.
 	 */
-	public RSSOptions $rssOpts;
+	public ?RSSOptions $rssOpts = null;
 	/**
 	 * The time and date a campaign was sent.
 	 * Example: 2015-07-09T13:14:28+00:00.
@@ -64,7 +64,7 @@ class Campaign extends AbstractData
 	/**
 	 * The preview for the campaign as rendered by social networks like Facebook and Twitter.
 	 */
-	public CampaignSocialCard $socialCard;
+	public ?CampaignSocialCard $socialCard = null;
 	/**
 	 * The current status of the campaign ('save', 'paused', 'schedule', 'sending', 'sent').
 	 * Example: save.
@@ -82,7 +82,7 @@ class Campaign extends AbstractData
 	/**
 	 * The settings specific to A/B test campaigns.
 	 */
-	public ABTestOptions $variateSettings;
+	public ?ABTestOptions $variateSettings = null;
 	protected array $classMap = [
 		'recipients' => CampaignList::class,
 		'settings' => CampaignSettings::class,

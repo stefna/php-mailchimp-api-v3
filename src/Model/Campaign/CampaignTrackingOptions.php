@@ -11,7 +11,7 @@ class CampaignTrackingOptions extends AbstractData
 	/**
 	 * Capsule tracking options for a campaign. Must be using MailChimp's built-in Capsule integration.
 	 */
-	public CapsuleCRMTracking $capsule;
+	public ?CapsuleCRMTracking $capsule = null;
 	/**
 	 * The custom slug for ClickTale Analytics tracking (max of 50 bytes).
 	 * Example: Freddies_Jokes_2015_07_07.
@@ -44,7 +44,7 @@ class CampaignTrackingOptions extends AbstractData
 	/**
 	 * Salesforce tracking options for a campaign.  Must be using MailChimp's built-in Salesforce integration.
 	 */
-	public SalesforceCRMTracking $salesforce;
+	public ?SalesforceCRMTracking $salesforce = null;
 	/**
 	 * Whether to track clicks in the plain-text version of the campaign. Defaults to 'true'.
 	 * Example: 1.
