@@ -77,7 +77,7 @@ class Client
 	{
 		/** @var array<string, mixed> */
 		return $this->request($this->messageFactory->createRequest(
-			'get',
+			'GET',
 			$this->createUrl($path, $args),
 			$this->getDefaultHeaders()
 		));
@@ -89,7 +89,7 @@ class Client
 	public function delete(string $path, array $args = []): bool
 	{
 		return $this->request($this->messageFactory->createRequest(
-			'delete',
+			'DELETE',
 			$this->createUrl($path, $args),
 			$this->getDefaultHeaders()
 		), true);
@@ -103,7 +103,7 @@ class Client
 	{
 		/** @var array<string, mixed> */
 		return $this->request($this->messageFactory->createRequest(
-			'post',
+			'POST',
 			$this->createUrl($path),
 			$this->getDefaultHeaders(),
 			(string)json_encode($data)
@@ -118,7 +118,7 @@ class Client
 	{
 		/** @var array<string, mixed> */
 		return $this->request($this->messageFactory->createRequest(
-			'put',
+			'PUT',
 			$this->createUrl($path),
 			$this->getDefaultHeaders(),
 			(string)json_encode($data)
@@ -133,7 +133,7 @@ class Client
 	public function patch(string $path, array $data = [])
 	{
 		return $this->request($this->messageFactory->createRequest(
-			'patch',
+			'PATCH',
 			$this->createUrl($path),
 			$this->getDefaultHeaders(),
 			(string)json_encode($data)
