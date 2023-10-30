@@ -102,7 +102,7 @@ abstract class RestApi
 		if (!$className) {
 			$className = get_class($item);
 		}
-		/** @var T */
+		/** @var T $className */
 		return new $className($retData);
 	}
 
