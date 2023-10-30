@@ -109,7 +109,7 @@ class ListsMembersTest extends CollectionTestCase
 		return 'badStatus';
 	}
 
-	protected function getBadDeleteId(): string
+	protected function getNotFoundId(): string
 	{
 		return 'testuser+bad@example.com';
 	}

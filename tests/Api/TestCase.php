@@ -57,7 +57,7 @@ abstract class TestCase extends AbstractTestCase
 
 	abstract protected function getBadCreateParam2(): ?string;
 
-	abstract protected function getBadDeleteId(): string;
+	abstract protected function getNotFoundId(): string;
 
 	/**
 	 * @return array|AbstractData
