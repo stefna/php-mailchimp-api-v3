@@ -13,6 +13,7 @@ use RuntimeException;
 use Stefna\Mailchimp\Api\Campaigns\Campaigns as CampaignsApi;
 use Stefna\Mailchimp\Api\Lists\Lists as ListsApi;
 use Stefna\Mailchimp\Api\Templates\Templates;
+use Stefna\Mailchimp\Exceptions\NotFoundException;
 use function GuzzleHttp\Psr7\str;
 
 class Client
@@ -80,7 +81,7 @@ class Client
 			'GET',
 			$this->createUrl($path, $args),
 			$this->getDefaultHeaders()
-		));
+		)) ?? [];
 	}
 
 	/**
@@ -116,13 +117,17 @@ class Client
 	 */
 	public function put(string $path, array $data = []): array
 	{
-		/** @var array<string, mixed> */
-		return $this->request($this->messageFactory->createRequest(
+		$ret = $this->request($this->messageFactory->createRequest(
 			'PUT',
 			$this->createUrl($path),
 			$this->getDefaultHeaders(),
 			(string)json_encode($data)
 		));
+		if ($ret === null) {
+			throw new NotFoundException('Put item not found: ' . $path);
+		}
+		/** @var array<string, mixed> */
+		return $ret;
 	}
 
 	/**
@@ -132,12 +137,16 @@ class Client
 	 */
 	public function patch(string $path, array $data = [])
 	{
-		return $this->request($this->messageFactory->createRequest(
+		$ret = $this->request($this->messageFactory->createRequest(
 			'PATCH',
 			$this->createUrl($path),
 			$this->getDefaultHeaders(),
 			(string)json_encode($data)
 		));
+		if ($ret === null) {
+			throw new NotFoundException('Patch item not found: ' . $path);
+		}
+		return $ret;
 	}
 
 	/**
@@ -207,6 +216,9 @@ class Client
 				'status' => $status,
 			]);
 		}
+		if ($status === 404) {
+			return null;
+		}
 
 		if ($status > 299 && is_array($ret)) {
 			$errorMsg = $this->formatError($ret);
@@ -214,15 +226,11 @@ class Client
 				$this->logger->alert($errorMsg);
 			}
 
-			if ($status !== 404) {
-				$msg = 'Error from API';
-				if ($errorMsg && $errorMsg[0] !== '{') {
-					$msg .= ": $errorMsg";
-				}
-				throw new RuntimeException($msg, $status);
+			$msg = 'Error from API';
+			if ($errorMsg && $errorMsg[0] !== '{') {
+				$msg .= ": $errorMsg";
 			}
-			// todo replace with a not found exception
-			return null;
+			throw new RuntimeException($msg, $status);
 		}
 		if (!$jsonOk) {
 			return $contents;
