@@ -15,7 +15,7 @@
 		"php-http/curl-client": "^1.0",
 		"php-http/message": "^1.0",
 		"guzzlehttp/psr7": "^1.0",
-		"monolog/monolog": "^1.0",
+		"monolog/monolog": "^2.0",
 		"roave/security-advisories": "dev-latest",
 		"phpunit/phpunit": "^9.0",
 		"phpstan/phpstan": "^1.0",
