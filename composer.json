@@ -17,7 +17,7 @@
 		"guzzlehttp/psr7": "^1.0",
 		"monolog/monolog": "^2.0",
 		"roave/security-advisories": "dev-latest",
-		"phpunit/phpunit": "^9.0",
+		"phpunit/phpunit": "^9.0 || ^10.0",
 		"phpstan/phpstan": "^1.0",
 		"stefna/codestyle": "^1.0"
 	},
@@ -37,5 +37,10 @@
 		"stan": "./vendor/bin/phpstan",
 		"codestyle": "./vendor/bin/phpcs -n --standard=vendor/stefna/codestyle/library.xml src/",
 		"codestyle-fix": "./vendor/bin/phpcbf --colors --standard=vendor/stefna/codestyle/library.xml src/"
+	},
+	"config": {
+		"allow-plugins": {
+			"php-http/discovery": false
+		}
 	}
 }
