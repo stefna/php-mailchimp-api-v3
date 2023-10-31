@@ -102,7 +102,7 @@ abstract class RestApi
 		if (!$className) {
 			$className = get_class($item);
 		}
-		/** @var T $className */
+		/** @var T */
 		return new $className($retData);
 	}
 
@@ -120,7 +120,7 @@ abstract class RestApi
 		$path = $this->getPath(self::ACTION_UPDATE, [$id]);
 		$retData = $this->client->patch($path, $data);
 
-		/** @var T $className */
+		/** @var T */
 		return new $className($retData);
 	}
 
