@@ -46,6 +46,16 @@ abstract class CollectionTestCase extends TestCase
 
 	public function testDeleteNotFound(): void
 	{
-		$this->checkBadDelete($this->getBadDeleteId());
+		$this->checkBadDelete($this->getNotFoundId());
+	}
+
+	public function testGetNotFound(): void
+	{
+		$this->checkGetNotFound($this->getNotFoundId());
+	}
+
+	public function testUpdateNotFound(): void
+	{
+		$this->checkPatchNotFound($this->getNotFoundId());
 	}
 }

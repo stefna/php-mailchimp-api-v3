@@ -104,7 +104,7 @@ class ListsTest extends CollectionTestCase
 		return null;
 	}
 
-	protected function getBadDeleteId(): string
+	protected function getNotFoundId(): string
 	{
 		return 'nonExisting';
 	}

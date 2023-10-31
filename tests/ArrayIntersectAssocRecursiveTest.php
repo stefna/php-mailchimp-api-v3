@@ -18,7 +18,7 @@ class ArrayIntersectAssocRecursiveTest extends UnitTestCase
 		$this->assertEquals($expected, TestedTestCase::array_intersect_assoc_recursive($a, $b));
 	}
 
-	public function provide(): array
+	public static function provide(): array
 	{
 		return [
 			'php.net' => [

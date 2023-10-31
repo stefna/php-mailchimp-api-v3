@@ -109,7 +109,7 @@ EOD;
 		return 'someBadFolderId';
 	}
 
-	protected function getBadDeleteId(): string
+	protected function getNotFoundId(): string
 	{
 		return 'noTemplate';
 	}

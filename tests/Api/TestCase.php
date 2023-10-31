@@ -5,6 +5,7 @@ namespace Tests\Stefna\Mailchimp\Api;
 use Stefna\Mailchimp\Api\CollectionRestApi;
 use Stefna\Mailchimp\Api\Request\AllInterface;
 use Stefna\Mailchimp\Api\RestApi;
+use Stefna\Mailchimp\Exceptions\NotFoundException;
 use Stefna\Mailchimp\Other\AbstractData;
 use Stefna\Mailchimp\Other\AbstractRequest;
 use Tests\Stefna\Mailchimp\AbstractTestCase;
@@ -57,7 +58,7 @@ abstract class TestCase extends AbstractTestCase
 
 	abstract protected function getBadCreateParam2(): ?string;
 
-	abstract protected function getBadDeleteId(): string;
+	abstract protected function getNotFoundId(): string;
 
 	/**
 	 * @return array|AbstractData
@@ -154,6 +155,20 @@ abstract class TestCase extends AbstractTestCase
 		$api = $this->getApi();
 		$ret = $api->delete($id);
 		$this->assertFalse($ret);
+	}
+
+	protected function checkGetNotFound($id): void
+	{
+		$api = $this->getApi();
+		$ret = $api->get($id);
+		$this->assertNull($ret);
+	}
+
+	protected function checkPatchNotFound($id): void
+	{
+		$api = $this->getApi();
+		$this->expectException(NotFoundException::class);
+		$api->update($id, []);
 	}
 
 	protected function checkEntityDefault($entity): void

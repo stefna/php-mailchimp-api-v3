@@ -72,7 +72,7 @@ class CampaignsTest extends CollectionTestCase
 		return 'badType';
 	}
 
-	protected function getBadDeleteId(): string
+	protected function getNotFoundId(): string
 	{
 		return 'nonExisting';
 	}
