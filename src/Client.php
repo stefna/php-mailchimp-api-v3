@@ -2,12 +2,14 @@
 
 namespace Stefna\Mailchimp;
 
-use Http\Client\HttpClient;
-use Http\Discovery\MessageFactoryDiscovery;
-use Http\Message\MessageFactory;
 use InvalidArgumentException;
+use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\StreamFactoryInterface;
+use Psr\Http\Message\UriFactoryInterface;
+use Psr\Http\Message\UriInterface;
 use Psr\Log\LoggerInterface;
 use RuntimeException;
 use Stefna\Mailchimp\Api\Campaigns\Campaigns as CampaignsApi;
@@ -18,25 +20,30 @@ use Stefna\Mailchimp\Exceptions\NotFoundException;
 class Client
 {
 	private const DEFAULT_ENDPOINT = 'https://<dc>.api.mailchimp.com/3.0';
-
 	protected ?LoggerInterface $logger = null;
 	protected ?ResponseInterface $lastResponse;
 	protected ?RequestInterface $lastRequest;
-	protected MessageFactory $messageFactory;
-	protected HttpClient $httpClient;
+	protected RequestFactoryInterface $messageFactory;
+	protected ClientInterface $httpClient;
+	protected UriFactoryInterface $uriFactory;
+	protected StreamFactoryInterface $streamFactory;
 	protected string $apiKey;
 	protected string $apiEndpoint = '';
 
 	public function __construct(
-		HttpClient $httpClient,
+		ClientInterface $httpClient,
 		string $apiKey,
+		RequestFactoryInterface $messageFactory,
+		UriFactoryInterface $uriFactory,
+		StreamFactoryInterface $streamFactory,
 		?string $apiEndpoint = null,
-		?MessageFactory $messageFactory = null
 	) {
 		$this->httpClient = $httpClient;
 		$this->apiKey = $apiKey;
+		$this->messageFactory = $messageFactory;
+		$this->uriFactory = $uriFactory;
+		$this->streamFactory = $streamFactory;
 		$this->apiEndpoint = $apiEndpoint ?: $this->createApiEndpoint($apiKey);
-		$this->messageFactory = $messageFactory ?: MessageFactoryDiscovery::find();
 	}
 
 	public function lists(): ListsApi
@@ -64,7 +71,7 @@ class Client
 		$this->logger = $logger;
 	}
 
-	public function getHttpClient(): HttpClient
+	public function getHttpClient(): ClientInterface
 	{
 		return $this->httpClient;
 	}
@@ -76,7 +83,7 @@ class Client
 	public function get(string $path, array $args = []): array
 	{
 		/** @var array<string, mixed> */
-		return $this->request($this->messageFactory->createRequest(
+		return $this->request($this->createRequest(
 			'GET',
 			$this->createUrl($path, $args),
 			$this->getDefaultHeaders()
@@ -88,7 +95,7 @@ class Client
 	 */
 	public function delete(string $path, array $args = []): bool
 	{
-		return $this->request($this->messageFactory->createRequest(
+		return $this->request($this->createRequest(
 			'DELETE',
 			$this->createUrl($path, $args),
 			$this->getDefaultHeaders()
@@ -102,7 +109,7 @@ class Client
 	public function post(string $path, array $data = [])
 	{
 		/** @var array<string, mixed> */
-		return $this->request($this->messageFactory->createRequest(
+		return $this->request($this->createRequest(
 			'POST',
 			$this->createUrl($path),
 			$this->getDefaultHeaders(),
@@ -116,7 +123,7 @@ class Client
 	 */
 	public function put(string $path, array $data = []): array
 	{
-		$ret = $this->request($this->messageFactory->createRequest(
+		$ret = $this->request($this->createRequest(
 			'PUT',
 			$this->createUrl($path),
 			$this->getDefaultHeaders(),
@@ -136,7 +143,7 @@ class Client
 	 */
 	public function patch(string $path, array $data = [])
 	{
-		$ret = $this->request($this->messageFactory->createRequest(
+		$ret = $this->request($this->createRequest(
 			'PATCH',
 			$this->createUrl($path),
 			$this->getDefaultHeaders(),
@@ -298,11 +305,30 @@ class Client
 	/**
 	 * @param array<string,string> $queryParams
 	 */
-	protected function createUrl(string $path, array $queryParams = []): string
+	protected function createUrl(string $path, array $queryParams = []): UriInterface
 	{
-		$ret = $this->apiEndpoint . '/' . $path;
+		$url = $this->apiEndpoint . '/' . $path;
 		if ($queryParams) {
-			$ret .= '?' . http_build_query($queryParams);
+			$url .= '?' . http_build_query($queryParams);
+		}
+		return $this->uriFactory->createUri($url);
+	}
+
+	/**
+	 * @param array<string, string|string[]> $headers
+	 */
+	protected function createRequest(
+		string $method,
+		UriInterface $uri,
+		array $headers = [],
+		?string $body = null
+	): RequestInterface {
+		$ret = $this->messageFactory->createRequest($method, $uri);
+		foreach ($headers as $key => $value) {
+			$ret = $ret->withHeader($key, $value);
+		}
+		if ($body) {
+			$ret = $ret->withBody($this->streamFactory->createStream($body));
 		}
 		return $ret;
 	}

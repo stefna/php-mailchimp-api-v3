@@ -5,14 +5,16 @@ namespace Tests\Stefna\Mailchimp;
 use Http\Client\Curl\Client as HttpClient;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
+use Nyholm\Psr7\Factory\Psr17Factory;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Client\ClientInterface;
 use Tests\Stefna\Mailchimp\Mocks\Client;
 
 abstract class AbstractTestCase extends TestCase
 {
 	private const ENV_API_KEY = 'MAILCHIMP_API_KEY';
 	private const ENV_LOG = 'MAILCHIMP_LOG';
-	private static HttpClient $httpClient;
+	private static ClientInterface $httpClient;
 	private static string $apiKey;
 
 	public static function setUpBeforeClass(): void
@@ -25,14 +27,28 @@ abstract class AbstractTestCase extends TestCase
 
 	protected function getClient(): Client
 	{
-		$client = new Client(self::$httpClient, self::$apiKey);
+		$factory = new Psr17Factory();
+		$client = new Client(
+			self::$httpClient,
+			self::$apiKey,
+			$factory,
+			$factory,
+			$factory,
+		);
 		$client->setLogger($this->getLogger());
 		return $client;
 	}
 
 	protected function getRealClient(): \Stefna\Mailchimp\Client
 	{
-		$client = new \Stefna\Mailchimp\Client(self::$httpClient, self::$apiKey);
+		$factory = new Psr17Factory();
+		$client = new \Stefna\Mailchimp\Client(
+			self::$httpClient,
+			self::$apiKey,
+			$factory,
+			$factory,
+			$factory,
+		);
 		$client->setLogger($this->getLogger());
 		return $client;
 	}

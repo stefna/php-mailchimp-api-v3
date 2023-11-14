@@ -8,14 +8,15 @@
 	"require": {
 		"php": "^8.0",
 		"ext-json": "*",
-		"php-http/discovery": "^1.0",
-		"php-http/client-implementation": "^1.0",
+		"psr/http-client": "^1.0",
+		"psr/http-factory": "^1.0",
 		"psr/log": "^1.0 || ^2.0 || ^3.0"
 	},
 	"require-dev": {
-		"php-http/curl-client": "^1.0",
+		"php-http/curl-client": "^2.3",
 		"php-http/message": "^1.0",
-		"guzzlehttp/psr7": "^1.0",
+		"nyholm/psr7": "^1.8",
+		"guzzlehttp/psr7": "^2.6",
 		"monolog/monolog": "^2.0",
 		"roave/security-advisories": "dev-latest",
 		"phpunit/phpunit": "^9.0 || ^10.0",
