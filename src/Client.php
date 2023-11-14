@@ -105,9 +105,9 @@ class Client
 
 	/**
 	 * @param array<string, mixed> $data
-	 * @return array<string, mixed>|string|null
+	 * @return array<string, mixed>|null
 	 */
-	public function post(string $path, array $data = [])
+	public function post(string $path, array $data = []): array|null
 	{
 		/** @var array<string, mixed> */
 		return $this->request($this->createRequest(
@@ -139,10 +139,9 @@ class Client
 
 	/**
 	 * @param array<string, mixed> $data
-	 * @return mixed
-	 * @noinspection PhpReturnDocTypeMismatchInspection
+	 * @return array<string, mixed>
 	 */
-	public function patch(string $path, array $data = [])
+	public function patch(string $path, array $data = []): array
 	{
 		$ret = $this->request($this->createRequest(
 			'PATCH',
@@ -157,10 +156,10 @@ class Client
 	}
 
 	/**
-	 * @phpstan-return ($noOutput is true ? bool : array<string, mixed>|string|null)
-	 * @return bool|string|string[]|null
+	 * @phpstan-return ($noOutput is true ? bool : array<string, mixed>|null)
+	 * @return bool|array<string, mixed>|null
 	 */
-	public function request(RequestInterface $request, bool $noOutput = false)
+	public function request(RequestInterface $request, bool $noOutput = false): bool|array|null
 	{
 		$this->lastRequest = $request;
 
@@ -200,17 +199,22 @@ class Client
 	}
 
 	/**
-	 * @return string|string[]|null
+	 * @return array<string, mixed>|null
 	 */
-	public function response(ResponseInterface $response)
+	public function response(ResponseInterface $response): ?array
 	{
 		$this->lastResponse = $response;
 		$contents = $response->getBody()->getContents();
-		/** @var array<string, string>|null $ret */
+		$status = $response->getStatusCode();
+
+		if ($contents === '' && $status === 200) {
+			return [];
+		}
+
+		/** @var array<string, mixed>|null $ret */
 		$ret = json_decode($contents, true);
 		$jsonLastError = json_last_error();
 		$jsonOk = JSON_ERROR_NONE === $jsonLastError;
-		$status = $response->getStatusCode();
 		if ($jsonOk && $ret && isset($ret['status']) && is_numeric($ret['status'])) {
 			$status = (int)$ret['status'];
 		}
@@ -236,8 +240,14 @@ class Client
 			}
 			throw new RuntimeException($msg, $status);
 		}
-		if (!$jsonOk) {
-			return $contents;
+		if (!$jsonOk || !is_array($ret)) {
+			$this->logger?->warning('Could not decode json response', [
+				'headers' => json_encode($response->getHeaders()),
+				'body' => $contents,
+				'jsonLastError' => $jsonLastError,
+				'status' => $status,
+			]);
+			throw new RuntimeException('Could not decode json response');
 		}
 		return $ret;
 	}
@@ -270,13 +280,10 @@ class Client
 	}
 
 	/**
-	 * @param string|array<string,string>|array<string,array<string,string>> $data
+	 * @param array<string,mixed> $data
 	 */
-	protected function formatError($data): string
+	protected function formatError(array $data): string
 	{
-		if (is_string($data)) {
-			return $data;
-		}
 		if (!isset($data['title'])) {
 			return (string)json_encode($data);
 		}

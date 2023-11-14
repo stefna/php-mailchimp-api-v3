@@ -7,7 +7,7 @@ use Psr\Http\Message\ResponseInterface;
 
 class Client extends \Stefna\Mailchimp\Client
 {
-	public function response(ResponseInterface $response)
+	public function response(ResponseInterface $response): ?array
 	{
 		$this->saveResponse($response);
 		return parent::response($response);
