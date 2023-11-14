@@ -163,14 +163,12 @@ class Client
 	{
 		$this->lastRequest = $request;
 
-		if ($this->logger) {
-			$this->logger->debug('Request created', [
-				'method' => $request->getMethod(),
-				'target' => $request->getRequestTarget(),
-				'protocol_version' => $request->getProtocolVersion(),
-				'host' => $request->hasHeader('host') ? $request->getUri()->getHost() : null,
-			]);
-		}
+		$this->logger?->debug('Request created', [
+			'method' => $request->getMethod(),
+			'target' => $request->getRequestTarget(),
+			'protocol_version' => $request->getProtocolVersion(),
+			'host' => $request->hasHeader('host') ? $request->getUri()->getHost() : null,
+		]);
 
 		return !$noOutput
 			? $this->response($this->sendRequest($request))
@@ -182,12 +180,10 @@ class Client
 		$this->lastResponse = $response;
 		$status = $response->getStatusCode();
 
-		if ($this->logger) {
-			$this->logger->debug('Response created without output', [
-				'headers' => json_encode($response->getHeaders()),
-				'status' => $status,
-			]);
-		}
+		$this->logger?->debug('Response created without output', [
+			'headers' => json_encode($response->getHeaders()),
+			'status' => $status,
+		]);
 
 		if ($status > 299) {
 			if ($status != 404) {
@@ -217,23 +213,21 @@ class Client
 		if ($jsonOk && $ret && isset($ret['status']) && is_numeric($ret['status'])) {
 			$status = (int)$ret['status'];
 		}
-		if ($this->logger) {
-			$this->logger->debug('Response created', [
-				'headers' => json_encode($response->getHeaders()),
-				'body' => $jsonOk ? $ret : $contents,
-				'jsonLastError' => $jsonLastError,
-				'status' => $status,
-			]);
-		}
+
+		$this->logger?->debug('Response created', [
+			'headers' => json_encode($response->getHeaders()),
+			'body' => $jsonOk ? $ret : $contents,
+			'jsonLastError' => $jsonLastError,
+			'status' => $status,
+		]);
+
 		if ($status === 404) {
 			return null;
 		}
 
 		if ($status > 299 && is_array($ret)) {
 			$errorMsg = $this->formatError($ret);
-			if ($this->logger) {
-				$this->logger->alert($errorMsg);
-			}
+			$this->logger?->alert($errorMsg);
 
 			$msg = 'Error from API';
 			if ($errorMsg && $errorMsg[0] !== '{') {
