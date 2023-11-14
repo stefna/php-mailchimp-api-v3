@@ -6,7 +6,8 @@
 		"mailchimp"
 	],
 	"require": {
-		"php": "^7.4 || ^8.0",
+		"php": "^8.0",
+		"ext-json": "*",
 		"php-http/discovery": "^1.0",
 		"php-http/client-implementation": "^1.0",
 		"psr/log": "^1.0 || ^2.0 || ^3.0"
