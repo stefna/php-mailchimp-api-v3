@@ -255,11 +255,11 @@ class Client
 
 	protected function createApiEndpoint(string $apiKey): string
 	{
-		if (strpos($apiKey, '-') === false) {
+		if (!str_contains($apiKey, '-')) {
 			throw new InvalidArgumentException("Invalid api key: $apiKey");
 		}
 		[, $dc] = explode('-', $apiKey);
-		return (string)str_replace('<dc>', (string)$dc, self::DEFAULT_ENDPOINT);
+		return (string)str_replace('<dc>', $dc, self::DEFAULT_ENDPOINT);
 	}
 
 	protected function sendRequest(RequestInterface $request): ResponseInterface
