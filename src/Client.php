@@ -14,7 +14,6 @@ use Stefna\Mailchimp\Api\Campaigns\Campaigns as CampaignsApi;
 use Stefna\Mailchimp\Api\Lists\Lists as ListsApi;
 use Stefna\Mailchimp\Api\Templates\Templates;
 use Stefna\Mailchimp\Exceptions\NotFoundException;
-use function GuzzleHttp\Psr7\str;
 
 class Client
 {
@@ -159,7 +158,10 @@ class Client
 
 		if ($this->logger) {
 			$this->logger->debug('Request created', [
-				'request' => str($request),
+				'method' => $request->getMethod(),
+				'target' => $request->getRequestTarget(),
+				'protocol_version' => $request->getProtocolVersion(),
+				'host' => $request->hasHeader('host') ? $request->getUri()->getHost() : null,
 			]);
 		}
 
