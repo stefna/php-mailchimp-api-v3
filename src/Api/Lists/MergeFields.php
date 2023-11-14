@@ -45,7 +45,6 @@ class MergeFields extends CollectionRestApi
 	public function get(string $id, ?AbstractRequest $params = null): ?ListMergeFields
 	{
 		return $this->fetchOne(ListMergeFields::class, $id, $params);
-
 	}
 
 	/**

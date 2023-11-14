@@ -38,9 +38,7 @@ class Client extends \Stefna\Mailchimp\Client
 		if (!is_file($file)) {
 			return false;
 		}
-		if ($this->logger) {
-			$this->logger->debug("Reading response from $file");
-		}
+		$this->logger?->debug("Reading response from $file");
 		return include $file;
 	}
 
@@ -69,7 +67,7 @@ class Client extends \Stefna\Mailchimp\Client
 		}
 	}
 
-	private function writeResponse($file, ResponseInterface $response): void
+	private function writeResponse(string $file, ResponseInterface $response): void
 	{
 		$body = $response->getBody();
 		$body->rewind();
@@ -80,9 +78,7 @@ class Client extends \Stefna\Mailchimp\Client
 			mkdir($dir, 0777, true);
 		}
 		file_put_contents($file, $data);
-		if ($this->logger) {
-			$this->logger->debug("Writing response to $file");
-		}
+		$this->logger?->debug("Writing response to $file");
 		$body->rewind();
 	}
 }

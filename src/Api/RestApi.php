@@ -51,7 +51,7 @@ abstract class RestApi
 	public function fetchOne(
 		string $className,
 		?string $id = null,
-		?AbstractRequest $params = null
+		?AbstractRequest $params = null,
 	): ?AbstractData {
 		$data = $this->fetch($this->getPath(self::ACTION_ONE, [$id]), null, $params);
 		if (!$data) {
@@ -69,7 +69,7 @@ abstract class RestApi
 	public function fetchAll(
 		string $className,
 		?string $returnKey = null,
-		?AbstractRequest $params = null
+		?AbstractRequest $params = null,
 	): array {
 		$data = $this->fetch($this->getPath(self::ACTION_ALL), $returnKey, $params);
 		if (!$data) {

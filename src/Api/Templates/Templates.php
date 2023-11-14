@@ -53,7 +53,7 @@ class Templates extends CollectionRestApi
 		$data = $this->fetch(
 			$this->getPath(self::ACTION_ONE, [$templateId, 'default-content']),
 			null,
-			$params
+			$params,
 		);
 		if (!$data) {
 			return null;

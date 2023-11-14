@@ -20,6 +20,7 @@ use Stefna\Mailchimp\Exceptions\NotFoundException;
 class Client
 {
 	private const DEFAULT_ENDPOINT = 'https://<dc>.api.mailchimp.com/3.0';
+
 	protected ?LoggerInterface $logger = null;
 	protected ?ResponseInterface $lastResponse;
 	protected ?RequestInterface $lastRequest;
@@ -86,7 +87,7 @@ class Client
 		return $this->request($this->createRequest(
 			'GET',
 			$this->createUrl($path, $args),
-			$this->getDefaultHeaders()
+			$this->getDefaultHeaders(),
 		)) ?? [];
 	}
 
@@ -98,7 +99,7 @@ class Client
 		return $this->request($this->createRequest(
 			'DELETE',
 			$this->createUrl($path, $args),
-			$this->getDefaultHeaders()
+			$this->getDefaultHeaders(),
 		), true);
 	}
 
@@ -113,7 +114,7 @@ class Client
 			'POST',
 			$this->createUrl($path),
 			$this->getDefaultHeaders(),
-			(string)json_encode($data)
+			(string)json_encode($data),
 		));
 	}
 
@@ -127,7 +128,7 @@ class Client
 			'PUT',
 			$this->createUrl($path),
 			$this->getDefaultHeaders(),
-			(string)json_encode($data)
+			(string)json_encode($data),
 		));
 		if ($ret === null) {
 			throw new NotFoundException('Put item not found: ' . $path);
@@ -147,7 +148,7 @@ class Client
 			'PATCH',
 			$this->createUrl($path),
 			$this->getDefaultHeaders(),
-			(string)json_encode($data)
+			(string)json_encode($data),
 		));
 		if ($ret === null) {
 			throw new NotFoundException('Patch item not found: ' . $path);
@@ -315,7 +316,7 @@ class Client
 		string $method,
 		UriInterface $uri,
 		array $headers = [],
-		?string $body = null
+		?string $body = null,
 	): RequestInterface {
 		$ret = $this->messageFactory->createRequest($method, $uri);
 		foreach ($headers as $key => $value) {
