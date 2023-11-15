@@ -17,9 +17,9 @@ abstract class CollectionRestApi extends RestApi
 	abstract public function get(string $id, ?AbstractRequest $params = null): ?AbstractData;
 
 	/**
-	 * @param array<string, AbstractData>|AbstractData $data
+	 * @param AbstractData|array<string, mixed> $data
 	 */
-	abstract public function update(string $id, $data): AbstractData;
+	abstract public function update(string $id, array|AbstractData $data): AbstractData;
 
 	abstract public function delete(string $id): bool;
 }

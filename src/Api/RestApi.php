@@ -108,11 +108,11 @@ abstract class RestApi
 
 	/**
 	 * @template T of AbstractData
-	 * @param array<string, mixed>|AbstractData $data
+	 * @param AbstractData|array<string, mixed> $data
 	 * @param class-string<T> $className
 	 * @return T
 	 */
-	protected function doUpdate(string $id, $data, string $className): AbstractData
+	protected function doUpdate(string $id, array|AbstractData $data, string $className): AbstractData
 	{
 		$data = $data instanceof AbstractData
 			? $data->getData()
@@ -131,10 +131,10 @@ abstract class RestApi
 	}
 
 	/**
-	 * @param string[]|AbstractRequest|null $params
+	 * @param AbstractRequest|string[]|null $params
 	 * @return array<string, string>
 	 */
-	protected function paramsToArgs($params = null)
+	protected function paramsToArgs(array|AbstractRequest|null $params = null): array
 	{
 		if (!$params) {
 			return [];

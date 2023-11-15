@@ -53,7 +53,7 @@ class Members extends CollectionRestApi
 	}
 
 	/**
-	 * @param ListMembers|AbstractData $data
+	 * @param ListMembers&AbstractData $data
 	 */
 	public function create(AbstractData $data): ListMembers
 	{
@@ -61,9 +61,9 @@ class Members extends CollectionRestApi
 	}
 
 	/**
-	 * @param array<string, AbstractData>|AbstractData $data
+	 * @param AbstractData|array<string, mixed> $data
 	 */
-	public function update(string $id, $data): ListMembers
+	public function update(string $id, array|AbstractData $data): ListMembers
 	{
 		return $this->doUpdate(self::formatEmailAddress($id), $data, ListMembers::class);
 	}

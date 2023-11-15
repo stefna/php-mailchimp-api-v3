@@ -34,7 +34,7 @@ class Campaigns extends CollectionRestApi
 	}
 
 	/**
-	 * @param CreateCampaign|AbstractData $data
+	 * @param CreateCampaign $data
 	 */
 	public function create(AbstractData $data): Campaign
 	{
@@ -42,9 +42,9 @@ class Campaigns extends CollectionRestApi
 	}
 
 	/**
-	 * @param array<string, AbstractData>|AbstractData|UpdateCampaign $data
+	 * @param array<string, mixed>|UpdateCampaign $data
 	 */
-	public function update(string $id, $data): Campaign
+	public function update(string $id, array|AbstractData $data): Campaign
 	{
 		return $this->doUpdate($id, $data, Campaign::class);
 	}
