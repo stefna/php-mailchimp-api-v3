@@ -23,8 +23,8 @@ require_once 'vendor/autoload.php';
 
 $factory = new \Nyholm\Psr7\Factory\Psr17Factory();
 $client = new \Stefna\MailChimp\Client(
-	httpClient: self::$httpClient,
-	apiKey: self::$apiKey,
+	httpClient: $httpClient,
+	apiKey: $apiKey,
 	requestFactory: $factory,
 	uriFactory: $factory,
 	streamFactory: $factory,
