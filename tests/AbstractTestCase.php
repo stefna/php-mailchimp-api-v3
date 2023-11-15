@@ -29,11 +29,11 @@ abstract class AbstractTestCase extends TestCase
 	{
 		$factory = new Psr17Factory();
 		$client = new Client(
-			self::$httpClient,
-			self::$apiKey,
-			$factory,
-			$factory,
-			$factory,
+			httpClient: self::$httpClient,
+			apiKey: self::$apiKey,
+			requestFactory: $factory,
+			uriFactory: $factory,
+			streamFactory: $factory,
 		);
 		$client->setLogger($this->getLogger());
 		return $client;
