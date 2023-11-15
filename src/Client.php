@@ -24,7 +24,7 @@ class Client
 	protected ?LoggerInterface $logger = null;
 	protected ?ResponseInterface $lastResponse;
 	protected ?RequestInterface $lastRequest;
-	protected RequestFactoryInterface $messageFactory;
+	protected RequestFactoryInterface $requestFactory;
 	protected ClientInterface $httpClient;
 	protected UriFactoryInterface $uriFactory;
 	protected StreamFactoryInterface $streamFactory;
@@ -34,14 +34,14 @@ class Client
 	public function __construct(
 		ClientInterface $httpClient,
 		string $apiKey,
-		RequestFactoryInterface $messageFactory,
+		RequestFactoryInterface $requestFactory,
 		UriFactoryInterface $uriFactory,
 		StreamFactoryInterface $streamFactory,
 		?string $apiEndpoint = null,
 	) {
 		$this->httpClient = $httpClient;
 		$this->apiKey = $apiKey;
-		$this->messageFactory = $messageFactory;
+		$this->requestFactory = $requestFactory;
 		$this->uriFactory = $uriFactory;
 		$this->streamFactory = $streamFactory;
 		$this->apiEndpoint = $apiEndpoint ?: $this->createApiEndpoint($apiKey);
@@ -325,7 +325,7 @@ class Client
 		array $headers = [],
 		?string $body = null,
 	): RequestInterface {
-		$ret = $this->messageFactory->createRequest($method, $uri);
+		$ret = $this->requestFactory->createRequest($method, $uri);
 		foreach ($headers as $key => $value) {
 			$ret = $ret->withHeader($key, $value);
 		}
