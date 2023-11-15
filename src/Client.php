@@ -22,8 +22,8 @@ class Client
 	private const DEFAULT_ENDPOINT = 'https://<dc>.api.mailchimp.com/3.0';
 
 	protected ?LoggerInterface $logger = null;
-	protected ?ResponseInterface $lastResponse;
-	protected ?RequestInterface $lastRequest;
+	protected ?ResponseInterface $lastResponse = null;
+	protected ?RequestInterface $lastRequest = null;
 	protected string $apiEndpoint = '';
 
 	public function __construct(
@@ -252,6 +252,16 @@ class Client
 			'Content-Type' => 'application/vnd.api+json',
 			'Authorization' => 'apikey ' . $this->apiKey,
 		];
+	}
+
+	public function getLastResponse(): ?ResponseInterface
+	{
+		return $this->lastResponse;
+	}
+
+	public function getLastRequest(): ?RequestInterface
+	{
+		return $this->lastRequest;
 	}
 
 	protected function createApiEndpoint(string $apiKey): string
