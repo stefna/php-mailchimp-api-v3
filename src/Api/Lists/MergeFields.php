@@ -23,7 +23,7 @@ class MergeFields extends CollectionRestApi
 	}
 
 	/**
-	 * @param ListMergeFields&AbstractData $data
+	 * @param ListMergeFields $data
 	 */
 	public function create(AbstractData $data): AbstractData
 	{
@@ -40,7 +40,7 @@ class MergeFields extends CollectionRestApi
 	}
 
 	/**
-	 * @param (ListsRequest&AbstractRequest)|null $params
+	 * @param ListsRequest|null $params
 	 */
 	public function get(string $id, ?AbstractRequest $params = null): ?ListMergeFields
 	{

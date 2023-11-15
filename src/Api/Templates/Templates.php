@@ -46,7 +46,7 @@ class Templates extends CollectionRestApi
 	}
 
 	/**
-	 * @param (AbstractRequest&TemplatesRequest)|null $params
+	 * @param TemplatesRequest|null $params
 	 */
 	public function getDefault(string $templateId, ?AbstractRequest $params = null): ?DefaultContent
 	{

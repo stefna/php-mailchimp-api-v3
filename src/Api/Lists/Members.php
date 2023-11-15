@@ -45,15 +45,15 @@ class Members extends CollectionRestApi
 	}
 
 	/**
-	 * @param ListsRequest|AbstractRequest|null $params
+	 * @param ListsRequest|null $params
 	 */
-	public function get(string $id, $params = null): ?ListMembers
+	public function get(string $id, ?AbstractRequest $params = null): ?ListMembers
 	{
 		return $this->fetchOne(ListMembers::class, self::formatEmailAddress($id), $params);
 	}
 
 	/**
-	 * @param ListMembers&AbstractData $data
+	 * @param ListMembers $data
 	 */
 	public function create(AbstractData $data): ListMembers
 	{
