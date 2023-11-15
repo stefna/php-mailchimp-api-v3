@@ -24,26 +24,16 @@ class Client
 	protected ?LoggerInterface $logger = null;
 	protected ?ResponseInterface $lastResponse;
 	protected ?RequestInterface $lastRequest;
-	protected RequestFactoryInterface $requestFactory;
-	protected ClientInterface $httpClient;
-	protected UriFactoryInterface $uriFactory;
-	protected StreamFactoryInterface $streamFactory;
-	protected string $apiKey;
 	protected string $apiEndpoint = '';
 
 	public function __construct(
-		ClientInterface $httpClient,
-		string $apiKey,
-		RequestFactoryInterface $requestFactory,
-		UriFactoryInterface $uriFactory,
-		StreamFactoryInterface $streamFactory,
+		protected ClientInterface $httpClient,
+		protected string $apiKey,
+		protected RequestFactoryInterface $requestFactory,
+		protected UriFactoryInterface $uriFactory,
+		protected StreamFactoryInterface $streamFactory,
 		?string $apiEndpoint = null,
 	) {
-		$this->httpClient = $httpClient;
-		$this->apiKey = $apiKey;
-		$this->requestFactory = $requestFactory;
-		$this->uriFactory = $uriFactory;
-		$this->streamFactory = $streamFactory;
 		$this->apiEndpoint = $apiEndpoint ?: $this->createApiEndpoint($apiKey);
 	}
 
