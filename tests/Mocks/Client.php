@@ -21,7 +21,8 @@ class Client extends \Stefna\Mailchimp\Client
 
 	protected function sendRequest(RequestInterface $request): ResponseInterface
 	{
-		if ($response = $this->mockResponse($request)) {
+		$response = $this->mockResponse($request);
+		if ($response instanceof ResponseInterface) {
 			return $response;
 		}
 		return parent::sendRequest($request);
@@ -32,7 +33,7 @@ class Client extends \Stefna\Mailchimp\Client
 		return __DIR__ . '/responses/';
 	}
 
-	protected function mockResponse(RequestInterface $request)
+	protected function mockResponse(RequestInterface $request): bool|ResponseInterface
 	{
 		$file = $this->getResponseFilename($request);
 		if (!is_file($file)) {

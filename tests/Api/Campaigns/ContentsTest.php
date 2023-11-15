@@ -14,13 +14,11 @@ class ContentsTest extends AbstractTestCase
 
 	public function testGetWorks(): void
 	{
-		/** @var Content $ret */
 		$ret = $this->getClient()->campaigns()->contents(self::CAMPAIGN_ID)->get();
 		$this->assertInstanceOf(Content::class, $ret);
 		$this->assertStringContainsString('<title>TestSubject 00</title>', $ret->archiveHtml);
 		$this->assertStringContainsString('<title>*|MC:SUBJECT|*</title>', $ret->html);
 		$this->assertNull($ret->plainText);
-
 	}
 
 	public function testEditWorks(): void

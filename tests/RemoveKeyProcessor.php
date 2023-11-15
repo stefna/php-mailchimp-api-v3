@@ -7,10 +7,12 @@ use Monolog\Logger;
 class RemoveKeyProcessor
 {
 	private string $key;
-	/** @var int|string */
-	private $level;
+	private int $level;
 
-	public static function removeKey(&$array, $key): void
+	/**
+	 * @param array<string, mixed>|null $array
+	 */
+	public static function removeKey(array|string|null &$array, string $key): void
 	{
 		if (!$array || !is_array($array)) {
 			return;
@@ -25,12 +27,16 @@ class RemoveKeyProcessor
 		}
 	}
 
-	public function __construct(string $key, $level = Logger::DEBUG)
+	public function __construct(string $key)
 	{
 		$this->key = $key;
-		$this->level = Logger::toMonologLevel($level);
+		$this->level = Logger::toMonologLevel(Logger::DEBUG);
 	}
 
+	/**
+	 * @param array<string, scalar|array<string, scalar|array<string, scalar>>> $record
+	 * @return array<string, scalar|array<string, scalar|array<string, scalar>>>
+	 */
 	public function __invoke(array $record): array
 	{
 		if ($record['level'] < $this->level) {
