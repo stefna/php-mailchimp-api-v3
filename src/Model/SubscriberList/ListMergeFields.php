@@ -49,7 +49,7 @@ class ListMergeFields extends AbstractData
 	 */
 	public string $helpText;
 	/**
-	 * The ID that identifies this merge field's audience'.
+	 * The ID that identifies this merge field's audience.
 	 */
 	public string $listId;
 	protected array $classMap = [

@@ -2,9 +2,9 @@
 
 namespace Tests\Stefna\Mailchimp\Api\Lists;
 
+use Stefna\Mailchimp\Api\Lists\Lists;
 use Stefna\Mailchimp\Api\Lists\Lists as ListsApi;
 use Stefna\Mailchimp\Api\Lists\Request\ListsAllRequest;
-use Stefna\Mailchimp\Api\RestApi;
 use Stefna\Mailchimp\Model\SubscriberList;
 use Stefna\Mailchimp\Other\AbstractData;
 use Stefna\Mailchimp\Other\AbstractRequest;
@@ -48,7 +48,7 @@ class ListsTest extends CollectionTestCase
 		return ListsApi::class;
 	}
 
-	protected function getApi(): RestApi
+	protected function getApi(): Lists
 	{
 		return $this->getClient()->lists();
 	}
@@ -58,12 +58,7 @@ class ListsTest extends CollectionTestCase
 		return self::LIST_ID_1;
 	}
 
-	/**
-	 * @param mixed $param1
-	 * @param mixed $param2
-	 * @return AbstractData
-	 */
-	protected function getNewEntity($param1 = null, $param2 = null): AbstractData
+	protected function getNewEntity(?string $param1 = null, ?string $param2 = null): AbstractData
 	{
 		if (!$param1) {
 			$param1 = self::MAIN_LIST_NAME;
@@ -109,6 +104,9 @@ class ListsTest extends CollectionTestCase
 		return 'nonExisting';
 	}
 
+	/**
+	 * @return array<string, string>
+	 */
 	protected function getUpdateData(): array
 	{
 		return [
@@ -120,16 +118,28 @@ class ListsTest extends CollectionTestCase
 	 * @param SubscriberList $entity
 	 * @param SubscriberList $returnEntity
 	 */
-	protected function checkEntity($entity, $returnEntity): void
+	protected function checkEntity(AbstractData $entity, AbstractData $returnEntity): void
 	{
 		$this->assertEquals($entity->name, $returnEntity->name);
 	}
 
-	protected function checkEntityDefault($entity): void
+	/**
+	 * @param SubscriberList $entity
+	 * @return void
+	 */
+	protected function checkEntityDefault(mixed $entity): void
 	{
 		parent::checkEntityDefault($entity);
 
 		$this->assertEquals(self::MAIN_LIST_NAME, $entity->name);
 		$this->assertEquals('TestPermReminder', $entity->permissionReminder);
+	}
+
+	/**
+	 * @param SubscriberList $entity
+	 */
+	protected function getEntityId(AbstractData $entity): string
+	{
+		return $entity->id;
 	}
 }

@@ -2,9 +2,9 @@
 
 namespace Tests\Stefna\Mailchimp\Api\Lists;
 
+use Stefna\Mailchimp\Api\Lists\Members;
 use Stefna\Mailchimp\Api\Lists\Members as MembersApi;
 use Stefna\Mailchimp\Api\Lists\Request\ListsMembersAllRequest;
-use Stefna\Mailchimp\Api\RestApi;
 use Stefna\Mailchimp\Model\SubscriberList\ListMembers;
 use Stefna\Mailchimp\Other\AbstractData;
 use Stefna\Mailchimp\Other\AbstractRequest;
@@ -32,15 +32,16 @@ class ListsMembersTest extends CollectionTestCase
 
 	/**
 	 * @param ListMembers $entity
-	 *
-	 * @return string
 	 */
-	protected function getEntityId($entity): string
+	protected function getEntityId(AbstractData $entity): string
 	{
 		return $entity->id;
 	}
 
-	protected function checkFetchedOne($id, $entity): void
+	/**
+	 * @param ListMembers $entity
+	 */
+	protected function checkFetchedOne(string $id, AbstractData $entity): void
 	{
 		$this->assertEquals(MembersApi::formatEmailAddress($id), $this->getEntityId($entity));
 		$this->checkEntityDefault($entity);
@@ -50,7 +51,7 @@ class ListsMembersTest extends CollectionTestCase
 	 * @param ListMembers $entity
 	 * @param ListMembers $returnEntity
 	 */
-	protected function checkEntity($entity, $returnEntity): void
+	protected function checkEntity(AbstractData $entity, AbstractData $returnEntity): void
 	{
 		$this->assertEquals($entity->emailAddress, $returnEntity->emailAddress);
 	}
@@ -65,7 +66,7 @@ class ListsMembersTest extends CollectionTestCase
 		return MembersApi::class;
 	}
 
-	protected function getApi(): RestApi
+	protected function getApi(): Members
 	{
 		return $this->getClient()->lists()->members(self::LIST_ID_1);
 	}
@@ -75,12 +76,7 @@ class ListsMembersTest extends CollectionTestCase
 		return self::DEFAULT_EMAIL;
 	}
 
-	/**
-	 * @param mixed $param1
-	 * @param mixed $param2
-	 * @return AbstractData
-	 */
-	protected function getNewEntity($param1 = null, $param2 = null): AbstractData
+	protected function getNewEntity(?string $param1 = null, ?string $param2 = null): AbstractData
 	{
 		if (!$param1) {
 			$param1 = self::DEFAULT_EMAIL;
@@ -114,6 +110,9 @@ class ListsMembersTest extends CollectionTestCase
 		return 'testuser+bad@example.com';
 	}
 
+	/**
+	 * @return array<string, string>
+	 */
 	protected function getUpdateData(): array
 	{
 		return [

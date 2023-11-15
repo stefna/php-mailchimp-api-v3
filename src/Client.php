@@ -2,42 +2,39 @@
 
 namespace Stefna\Mailchimp;
 
-use Http\Client\HttpClient;
-use Http\Discovery\MessageFactoryDiscovery;
-use Http\Message\MessageFactory;
 use InvalidArgumentException;
+use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\StreamFactoryInterface;
+use Psr\Http\Message\UriFactoryInterface;
+use Psr\Http\Message\UriInterface;
 use Psr\Log\LoggerInterface;
 use RuntimeException;
 use Stefna\Mailchimp\Api\Campaigns\Campaigns as CampaignsApi;
 use Stefna\Mailchimp\Api\Lists\Lists as ListsApi;
 use Stefna\Mailchimp\Api\Templates\Templates;
 use Stefna\Mailchimp\Exceptions\NotFoundException;
-use function GuzzleHttp\Psr7\str;
 
 class Client
 {
 	private const DEFAULT_ENDPOINT = 'https://<dc>.api.mailchimp.com/3.0';
 
 	protected ?LoggerInterface $logger = null;
-	protected ?ResponseInterface $lastResponse;
-	protected ?RequestInterface $lastRequest;
-	protected MessageFactory $messageFactory;
-	protected HttpClient $httpClient;
-	protected string $apiKey;
+	protected ?ResponseInterface $lastResponse = null;
+	protected ?RequestInterface $lastRequest = null;
 	protected string $apiEndpoint = '';
 
 	public function __construct(
-		HttpClient $httpClient,
-		string $apiKey,
+		protected ClientInterface $httpClient,
+		protected string $apiKey,
+		protected RequestFactoryInterface $requestFactory,
+		protected UriFactoryInterface $uriFactory,
+		protected StreamFactoryInterface $streamFactory,
 		?string $apiEndpoint = null,
-		?MessageFactory $messageFactory = null
 	) {
-		$this->httpClient = $httpClient;
-		$this->apiKey = $apiKey;
 		$this->apiEndpoint = $apiEndpoint ?: $this->createApiEndpoint($apiKey);
-		$this->messageFactory = $messageFactory ?: MessageFactoryDiscovery::find();
 	}
 
 	public function lists(): ListsApi
@@ -65,7 +62,7 @@ class Client
 		$this->logger = $logger;
 	}
 
-	public function getHttpClient(): HttpClient
+	public function getHttpClient(): ClientInterface
 	{
 		return $this->httpClient;
 	}
@@ -77,10 +74,10 @@ class Client
 	public function get(string $path, array $args = []): array
 	{
 		/** @var array<string, mixed> */
-		return $this->request($this->messageFactory->createRequest(
+		return $this->request($this->createRequest(
 			'GET',
 			$this->createUrl($path, $args),
-			$this->getDefaultHeaders()
+			$this->getDefaultHeaders(),
 		)) ?? [];
 	}
 
@@ -89,25 +86,25 @@ class Client
 	 */
 	public function delete(string $path, array $args = []): bool
 	{
-		return $this->request($this->messageFactory->createRequest(
+		return $this->request($this->createRequest(
 			'DELETE',
 			$this->createUrl($path, $args),
-			$this->getDefaultHeaders()
+			$this->getDefaultHeaders(),
 		), true);
 	}
 
 	/**
 	 * @param array<string, mixed> $data
-	 * @return array<string, mixed>|string|null
+	 * @return array<string, mixed>|null
 	 */
-	public function post(string $path, array $data = [])
+	public function post(string $path, array $data = []): array|null
 	{
 		/** @var array<string, mixed> */
-		return $this->request($this->messageFactory->createRequest(
+		return $this->request($this->createRequest(
 			'POST',
 			$this->createUrl($path),
 			$this->getDefaultHeaders(),
-			(string)json_encode($data)
+			(string)json_encode($data),
 		));
 	}
 
@@ -117,11 +114,11 @@ class Client
 	 */
 	public function put(string $path, array $data = []): array
 	{
-		$ret = $this->request($this->messageFactory->createRequest(
+		$ret = $this->request($this->createRequest(
 			'PUT',
 			$this->createUrl($path),
 			$this->getDefaultHeaders(),
-			(string)json_encode($data)
+			(string)json_encode($data),
 		));
 		if ($ret === null) {
 			throw new NotFoundException('Put item not found: ' . $path);
@@ -132,16 +129,15 @@ class Client
 
 	/**
 	 * @param array<string, mixed> $data
-	 * @return mixed
-	 * @noinspection PhpReturnDocTypeMismatchInspection
+	 * @return array<string, mixed>
 	 */
-	public function patch(string $path, array $data = [])
+	public function patch(string $path, array $data = []): array
 	{
-		$ret = $this->request($this->messageFactory->createRequest(
+		$ret = $this->request($this->createRequest(
 			'PATCH',
 			$this->createUrl($path),
 			$this->getDefaultHeaders(),
-			(string)json_encode($data)
+			(string)json_encode($data),
 		));
 		if ($ret === null) {
 			throw new NotFoundException('Patch item not found: ' . $path);
@@ -150,18 +146,19 @@ class Client
 	}
 
 	/**
-	 * @phpstan-return ($noOutput is true ? bool : array<string, mixed>|string|null)
-	 * @return bool|string|string[]|null
+	 * @phpstan-return ($noOutput is true ? bool : array<string, mixed>|null)
+	 * @return bool|array<string, mixed>|null
 	 */
-	public function request(RequestInterface $request, bool $noOutput = false)
+	public function request(RequestInterface $request, bool $noOutput = false): bool|array|null
 	{
 		$this->lastRequest = $request;
 
-		if ($this->logger) {
-			$this->logger->debug('Request created', [
-				'request' => str($request),
-			]);
-		}
+		$this->logger?->debug('Request created', [
+			'method' => $request->getMethod(),
+			'target' => $request->getRequestTarget(),
+			'protocol_version' => $request->getProtocolVersion(),
+			'host' => $request->hasHeader('host') ? $request->getUri()->getHost() : null,
+		]);
 
 		return !$noOutput
 			? $this->response($this->sendRequest($request))
@@ -173,12 +170,10 @@ class Client
 		$this->lastResponse = $response;
 		$status = $response->getStatusCode();
 
-		if ($this->logger) {
-			$this->logger->debug('Response created without output', [
-				'headers' => json_encode($response->getHeaders()),
-				'status' => $status,
-			]);
-		}
+		$this->logger?->debug('Response created without output', [
+			'headers' => json_encode($response->getHeaders()),
+			'status' => $status,
+		]);
 
 		if ($status > 299) {
 			if ($status != 404) {
@@ -194,37 +189,40 @@ class Client
 	}
 
 	/**
-	 * @return string|string[]|null
+	 * @return array<string, mixed>|null
 	 */
-	public function response(ResponseInterface $response)
+	public function response(ResponseInterface $response): ?array
 	{
 		$this->lastResponse = $response;
 		$contents = $response->getBody()->getContents();
-		/** @var array<string, string>|null $ret */
+		$status = $response->getStatusCode();
+
+		if ($contents === '' && $status === 200) {
+			return [];
+		}
+
+		/** @var array<string, mixed>|null $ret */
 		$ret = json_decode($contents, true);
 		$jsonLastError = json_last_error();
 		$jsonOk = JSON_ERROR_NONE === $jsonLastError;
-		$status = $response->getStatusCode();
 		if ($jsonOk && $ret && isset($ret['status']) && is_numeric($ret['status'])) {
 			$status = (int)$ret['status'];
 		}
-		if ($this->logger) {
-			$this->logger->debug('Response created', [
-				'headers' => json_encode($response->getHeaders()),
-				'body' => $jsonOk ? $ret : $contents,
-				'jsonLastError' => $jsonLastError,
-				'status' => $status,
-			]);
-		}
+
+		$this->logger?->debug('Response created', [
+			'headers' => json_encode($response->getHeaders()),
+			'body' => $jsonOk ? $ret : $contents,
+			'jsonLastError' => $jsonLastError,
+			'status' => $status,
+		]);
+
 		if ($status === 404) {
 			return null;
 		}
 
 		if ($status > 299 && is_array($ret)) {
 			$errorMsg = $this->formatError($ret);
-			if ($this->logger) {
-				$this->logger->alert($errorMsg);
-			}
+			$this->logger?->alert($errorMsg);
 
 			$msg = 'Error from API';
 			if ($errorMsg && $errorMsg[0] !== '{') {
@@ -232,8 +230,14 @@ class Client
 			}
 			throw new RuntimeException($msg, $status);
 		}
-		if (!$jsonOk) {
-			return $contents;
+		if (!$jsonOk || !is_array($ret)) {
+			$this->logger?->warning('Could not decode json response', [
+				'headers' => json_encode($response->getHeaders()),
+				'body' => $contents,
+				'jsonLastError' => $jsonLastError,
+				'status' => $status,
+			]);
+			throw new RuntimeException('Could not decode json response');
 		}
 		return $ret;
 	}
@@ -250,13 +254,23 @@ class Client
 		];
 	}
 
+	public function getLastResponse(): ?ResponseInterface
+	{
+		return $this->lastResponse;
+	}
+
+	public function getLastRequest(): ?RequestInterface
+	{
+		return $this->lastRequest;
+	}
+
 	protected function createApiEndpoint(string $apiKey): string
 	{
-		if (strpos($apiKey, '-') === false) {
+		if (!str_contains($apiKey, '-')) {
 			throw new InvalidArgumentException("Invalid api key: $apiKey");
 		}
 		[, $dc] = explode('-', $apiKey);
-		return (string)str_replace('<dc>', (string)$dc, self::DEFAULT_ENDPOINT);
+		return (string)str_replace('<dc>', $dc, self::DEFAULT_ENDPOINT);
 	}
 
 	protected function sendRequest(RequestInterface $request): ResponseInterface
@@ -266,13 +280,10 @@ class Client
 	}
 
 	/**
-	 * @param string|array<string,string>|array<string,array<string,string>> $data
+	 * @param array<string,mixed> $data
 	 */
-	protected function formatError($data): string
+	protected function formatError(array $data): string
 	{
-		if (is_string($data)) {
-			return $data;
-		}
 		if (!isset($data['title'])) {
 			return (string)json_encode($data);
 		}
@@ -296,11 +307,30 @@ class Client
 	/**
 	 * @param array<string,string> $queryParams
 	 */
-	protected function createUrl(string $path, array $queryParams = []): string
+	protected function createUrl(string $path, array $queryParams = []): UriInterface
 	{
-		$ret = $this->apiEndpoint . '/' . $path;
+		$url = $this->apiEndpoint . '/' . $path;
 		if ($queryParams) {
-			$ret .= '?' . http_build_query($queryParams);
+			$url .= '?' . http_build_query($queryParams);
+		}
+		return $this->uriFactory->createUri($url);
+	}
+
+	/**
+	 * @param array<string, string|string[]> $headers
+	 */
+	protected function createRequest(
+		string $method,
+		UriInterface $uri,
+		array $headers = [],
+		?string $body = null,
+	): RequestInterface {
+		$ret = $this->requestFactory->createRequest($method, $uri);
+		foreach ($headers as $key => $value) {
+			$ret = $ret->withHeader($key, $value);
+		}
+		if ($body) {
+			$ret = $ret->withBody($this->streamFactory->createStream($body));
 		}
 		return $ret;
 	}

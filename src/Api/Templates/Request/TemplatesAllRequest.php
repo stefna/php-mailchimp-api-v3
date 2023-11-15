@@ -2,7 +2,6 @@
 
 namespace Stefna\Mailchimp\Api\Templates\Request;
 
-use DateTime;
 use DateTimeInterface;
 use Stefna\Mailchimp\Api\Request\AllInterface;
 use Stefna\Mailchimp\Api\Request\AllTrait;
@@ -17,26 +16,18 @@ class TemplatesAllRequest extends TemplatesRequest implements AllInterface
 	public const PARAM_TYPE = 'type';
 	public const PARAM_FOLDER_ID = 'folder_id';
 
-	/**
-	 * @param DateTime|string $value
-	 * @return $this
-	 */
-	public function setBeforeCreatedAt($value): TemplatesAllRequest
+	public function setBeforeCreatedAt(DateTimeInterface|string $value): TemplatesAllRequest
 	{
-		if ($value instanceof DateTime) {
+		if ($value instanceof DateTimeInterface) {
 			$value = $value->format(DateTimeInterface::W3C);
 		}
 		$this->data[self::PARAM_BEFORE_CREATED_AT] = (string)$value;
 		return $this;
 	}
 
-	/**
-	 * @param DateTime|string $value
-	 * @return $this
-	 */
-	public function setSinceCreatedAt($value): TemplatesAllRequest
+	public function setSinceCreatedAt(DateTimeInterface|string $value): TemplatesAllRequest
 	{
-		if ($value instanceof DateTime) {
+		if ($value instanceof DateTimeInterface) {
 			$value = $value->format(DateTimeInterface::W3C);
 		}
 		$this->data[self::PARAM_SINCE_CREATED_AT] = (string)$value;

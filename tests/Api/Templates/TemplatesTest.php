@@ -33,10 +33,10 @@ class TemplatesTest extends CollectionTestCase
 	}
 
 	/**
-	 * @param NewTemplateInstance $entity
+	 * @param TemplateInstance $entity
 	 * @param TemplateInstance $returnEntity
 	 */
-	protected function checkEntity($entity, $returnEntity): void
+	protected function checkEntity(AbstractData $entity, AbstractData $returnEntity): void
 	{
 		$this->assertEquals($entity->name, $returnEntity->name);
 	}
@@ -61,12 +61,7 @@ class TemplatesTest extends CollectionTestCase
 		return self::TEMPLATE_ID;
 	}
 
-	/**
-	 * @param mixed $param1
-	 * @param mixed $param2
-	 * @return AbstractData
-	 */
-	protected function getNewEntity($param1 = null, $param2 = null): AbstractData
+	protected function getNewEntity(?string $param1 = null, ?string $param2 = null): AbstractData
 	{
 		if (!$param1) {
 			$param1 = self::TEMPLATE_NAME;
@@ -114,6 +109,9 @@ EOD;
 		return 'noTemplate';
 	}
 
+	/**
+	 * @return array<string, string>
+	 */
 	protected function getUpdateData(): array
 	{
 		return [
@@ -124,12 +122,20 @@ EOD;
 	/**
 	 * @param TemplateInstance $entity
 	 */
-	protected function checkEntityDefault($entity): void
+	protected function checkEntityDefault(mixed $entity): void
 	{
 		$this->assertTrue($entity->active);
 		$this->assertEquals(self::TEMPLATE_NAME, $entity->name);
 		$this->assertSame('', $entity->category);
 		$this->assertNull($entity->folderId);
 		$this->assertSame('user', $entity->type);
+	}
+
+	/**
+	 * @param TemplateInstance $entity
+	 */
+	protected function getEntityId(AbstractData $entity): string
+	{
+		return (string)$entity->id;
 	}
 }

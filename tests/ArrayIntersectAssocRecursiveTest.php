@@ -8,16 +8,8 @@ use Tests\Stefna\Mailchimp\Api\TestCase as TestedTestCase;
 class ArrayIntersectAssocRecursiveTest extends UnitTestCase
 {
 	/**
-	 * @param $a
-	 * @param $b
-	 * @param $expected
-	 * @dataProvider provide
+	 * @return array<string, array<int, array<array-key, scalar|array<array-key, scalar>>>>
 	 */
-	public function test($a, $b, $expected): void
-	{
-		$this->assertEquals($expected, TestedTestCase::array_intersect_assoc_recursive($a, $b));
-	}
-
 	public static function provide(): array
 	{
 		return [
@@ -37,5 +29,16 @@ class ArrayIntersectAssocRecursiveTest extends UnitTestCase
 				[],
 			],
 		];
+	}
+
+	/**
+	 * @param array<string, scalar|array<string, scalar>> $a
+	 * @param array<string, scalar|array<string, scalar>> $b
+	 * @param array<string, scalar|array<string, scalar>> $expected
+	 * @dataProvider provide
+	 */
+	public function test(array $a, array $b, array $expected): void
+	{
+		$this->assertEquals($expected, TestedTestCase::array_intersect_assoc_recursive($a, $b));
 	}
 }

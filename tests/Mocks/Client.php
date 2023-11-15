@@ -7,7 +7,7 @@ use Psr\Http\Message\ResponseInterface;
 
 class Client extends \Stefna\Mailchimp\Client
 {
-	public function response(ResponseInterface $response)
+	public function response(ResponseInterface $response): ?array
 	{
 		$this->saveResponse($response);
 		return parent::response($response);
@@ -21,7 +21,8 @@ class Client extends \Stefna\Mailchimp\Client
 
 	protected function sendRequest(RequestInterface $request): ResponseInterface
 	{
-		if ($response = $this->mockResponse($request)) {
+		$response = $this->mockResponse($request);
+		if ($response instanceof ResponseInterface) {
 			return $response;
 		}
 		return parent::sendRequest($request);
@@ -32,15 +33,13 @@ class Client extends \Stefna\Mailchimp\Client
 		return __DIR__ . '/responses/';
 	}
 
-	protected function mockResponse(RequestInterface $request)
+	protected function mockResponse(RequestInterface $request): bool|ResponseInterface
 	{
 		$file = $this->getResponseFilename($request);
 		if (!is_file($file)) {
 			return false;
 		}
-		if ($this->logger) {
-			$this->logger->debug("Reading response from $file");
-		}
+		$this->logger?->debug("Reading response from $file");
 		return include $file;
 	}
 
@@ -69,7 +68,7 @@ class Client extends \Stefna\Mailchimp\Client
 		}
 	}
 
-	private function writeResponse($file, ResponseInterface $response): void
+	private function writeResponse(string $file, ResponseInterface $response): void
 	{
 		$body = $response->getBody();
 		$body->rewind();
@@ -80,9 +79,7 @@ class Client extends \Stefna\Mailchimp\Client
 			mkdir($dir, 0777, true);
 		}
 		file_put_contents($file, $data);
-		if ($this->logger) {
-			$this->logger->debug("Writing response to $file");
-		}
+		$this->logger?->debug("Writing response to $file");
 		$body->rewind();
 	}
 }

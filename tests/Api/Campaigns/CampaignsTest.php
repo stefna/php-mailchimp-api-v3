@@ -9,6 +9,7 @@ use Stefna\Mailchimp\Model\Campaign\Create\Campaign as CreateCampaign;
 use Stefna\Mailchimp\Model\Campaign\Create\CampaignSettings as CreateCampaignSettings;
 use Stefna\Mailchimp\Model\Campaign\Update\Campaign as UpdateCampaign;
 use Stefna\Mailchimp\Model\Campaign\Update\CampaignSettings as UpdateCampaignSettings;
+use Stefna\Mailchimp\Other\AbstractData;
 use Tests\Stefna\Mailchimp\Api\CollectionTestCase;
 
 class CampaignsTest extends CollectionTestCase
@@ -17,18 +18,16 @@ class CampaignsTest extends CollectionTestCase
 	private const SUBJECT_DEFAULT = 'TestSubjectLine';
 	private const SUBJECT_BAD = 'TestSubjectLineBad';
 
-	protected function checkEntityDefault($entity): void
+	/**
+	 * @param Campaign $entity
+	 */
+	protected function checkEntityDefault(mixed $entity): void
 	{
 		parent::checkEntityDefault($entity);
 		$this->assertEquals(self::SUBJECT_DEFAULT, $entity->settings->subjectLine);
 	}
 
-	/**
-	 * @param string $param1
-	 * @param string $param2
-	 * @return CreateCampaign
-	 */
-	protected function getNewEntity($param1 = null, $param2 = null): CreateCampaign
+	protected function getNewEntity(?string $param1 = null, ?string $param2 = null): CreateCampaign
 	{
 		if (null === $param1) {
 			$param1 = self::SUBJECT_DEFAULT;
@@ -95,9 +94,21 @@ class CampaignsTest extends CollectionTestCase
 		return CampaignsApi::class;
 	}
 
-	protected function checkEntity($entity, $returnEntity): void
+	/**
+	 * @param Campaign $entity
+	 * @param Campaign $returnEntity
+	 */
+	protected function checkEntity(AbstractData $entity, AbstractData $returnEntity): void
 	{
 		$this->assertEquals($entity->type, $returnEntity->type);
 		$this->assertEquals($entity->settings->subjectLine, $returnEntity->settings->subjectLine);
+	}
+
+	/**
+	 * @param Campaign $entity
+	 */
+	protected function getEntityId(AbstractData $entity): string
+	{
+		return $entity->id;
 	}
 }

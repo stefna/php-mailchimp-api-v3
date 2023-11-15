@@ -2,7 +2,6 @@
 
 namespace Stefna\Mailchimp\Api\Lists\Request;
 
-use DateTime;
 use DateTimeInterface;
 use Stefna\Mailchimp\Api\Request\AllInterface;
 use Stefna\Mailchimp\Api\Request\AllTrait;
@@ -17,13 +16,9 @@ class ListsMembersAllRequest extends ListsRequest implements AllInterface
 	public const PARAM_SINCE_DATE_CREATED = 'since_date_created';
 	public const PARAM_BEFORE_DATE_CREATED = 'before_date_created';
 
-	/**
-	 * @param DateTime|string $value
-	 * @return $this
-	 */
-	public function setBeforeDateCreated($value): ListsMembersAllRequest
+	public function setBeforeDateCreated(DateTimeInterface|string $value): ListsMembersAllRequest
 	{
-		if ($value instanceof DateTime) {
+		if ($value instanceof DateTimeInterface) {
 			$value = $value->format(DateTimeInterface::W3C);
 		}
 		$this->data[self::PARAM_BEFORE_DATE_CREATED] = (string)$value;
@@ -42,52 +37,36 @@ class ListsMembersAllRequest extends ListsRequest implements AllInterface
 		return $this;
 	}
 
-	/**
-	 * @param DateTime|string $value
-	 * @return $this
-	 */
-	public function setSinceTimestampOpt($value): ListsMembersAllRequest
+	public function setSinceTimestampOpt(DateTimeInterface|string $value): ListsMembersAllRequest
 	{
-		if ($value instanceof DateTime) {
+		if ($value instanceof DateTimeInterface) {
 			$value = $value->format(DateTimeInterface::W3C);
 		}
 		$this->data['since_timestamp_opt'] = (string)$value;
 		return $this;
 	}
 
-	/**
-	 * @param DateTime|string $value
-	 * @return $this
-	 */
-	public function setBeforeTimestampOpt($value): ListsMembersAllRequest
+	public function setBeforeTimestampOpt(DateTimeInterface|string $value): ListsMembersAllRequest
 	{
-		if ($value instanceof DateTime) {
+		if ($value instanceof DateTimeInterface) {
 			$value = $value->format(DateTimeInterface::W3C);
 		}
 		$this->data['before_timestamp_opt'] = (string)$value;
 		return $this;
 	}
 
-	/**
-	 * @param DateTime|string $value
-	 * @return $this
-	 */
-	public function setSinceLastChanged($value): ListsMembersAllRequest
+	public function setSinceLastChanged(DateTimeInterface|string$value): ListsMembersAllRequest
 	{
-		if ($value instanceof DateTime) {
+		if ($value instanceof DateTimeInterface) {
 			$value = $value->format(DateTimeInterface::W3C);
 		}
 		$this->data['since_last_changed'] = (string)$value;
 		return $this;
 	}
 
-	/**
-	 * @param DateTime|string $value
-	 * @return $this
-	 */
-	public function setBeforeLastChanged($value): ListsMembersAllRequest
+	public function setBeforeLastChanged(DateTimeInterface|string $value): ListsMembersAllRequest
 	{
-		if ($value instanceof DateTime) {
+		if ($value instanceof DateTimeInterface) {
 			$value = $value->format(DateTimeInterface::W3C);
 		}
 		$this->data['before_last_changed'] = (string)$value;
@@ -113,10 +92,9 @@ class ListsMembersAllRequest extends ListsRequest implements AllInterface
 	}
 
 	/**
-	 * @param string[]|string $value
-	 * @return $this
+	 * @param string|string[] $value
 	 */
-	public function setInterestIds($value): ListsMembersAllRequest
+	public function setInterestIds(array|string $value): ListsMembersAllRequest
 	{
 		if (is_array($value)) {
 			$value = implode(',', $value);

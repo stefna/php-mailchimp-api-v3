@@ -2,7 +2,6 @@
 
 namespace Stefna\Mailchimp\Api\Lists\Request;
 
-use DateTime;
 use DateTimeInterface;
 use Stefna\Mailchimp\Api\Request\AllInterface;
 use Stefna\Mailchimp\Api\Request\AllTrait;
@@ -17,26 +16,18 @@ class ListsAllRequest extends ListsRequest implements AllInterface
 	private const PARAM_SINCE_DATE_CREATED = 'since_date_created';
 	private const PARAM_BEFORE_DATE_CREATED = 'before_date_created';
 
-	/**
-	 * @param DateTime|string $value
-	 * @return $this
-	 */
-	public function setBeforeDateCreated($value): ListsAllRequest
+	public function setBeforeDateCreated(DateTimeInterface|string $value): ListsAllRequest
 	{
-		if ($value instanceof DateTime) {
+		if ($value instanceof DateTimeInterface) {
 			$value = $value->format(DateTimeInterface::W3C);
 		}
 		$this->data[self::PARAM_BEFORE_DATE_CREATED] = (string)$value;
 		return $this;
 	}
 
-	/**
-	 * @param DateTime|string $value
-	 * @return $this
-	 */
-	public function setSinceDateCreated($value): ListsAllRequest
+	public function setSinceDateCreated(DateTimeInterface|string $value): ListsAllRequest
 	{
-		if ($value instanceof DateTime) {
+		if ($value instanceof DateTimeInterface) {
 			$value = $value->format(DateTimeInterface::W3C);
 		}
 		$this->data[self::PARAM_SINCE_DATE_CREATED] = (string)$value;

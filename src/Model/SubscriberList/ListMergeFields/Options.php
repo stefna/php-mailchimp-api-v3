@@ -20,6 +20,7 @@ class Options extends AbstractData
 	public string $dateFormat;
 	/**
 	 * In a radio or dropdown non-group field, the available options for contacts to pick from.
+	 *
 	 * @var string[]
 	 */
 	public array $choices;

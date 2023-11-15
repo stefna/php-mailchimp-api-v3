@@ -4,7 +4,6 @@ namespace Tests\Stefna\Mailchimp\Api;
 
 use Stefna\Mailchimp\Api\CollectionRestApi;
 use Stefna\Mailchimp\Api\Request\AllInterface;
-use Stefna\Mailchimp\Api\RestApi;
 use Stefna\Mailchimp\Exceptions\NotFoundException;
 use Stefna\Mailchimp\Other\AbstractData;
 use Stefna\Mailchimp\Other\AbstractRequest;
@@ -12,9 +11,15 @@ use Tests\Stefna\Mailchimp\AbstractTestCase;
 
 abstract class TestCase extends AbstractTestCase
 {
-	public static function array_intersect_assoc_recursive(&$arr1, &$arr2)
+	/**
+	 * @param scalar|array<string, mixed> $arr1
+	 * @param scalar|array<string, mixed> $arr2
+	 * @return bool|array<string, mixed>
+	 */
+	public static function array_intersect_assoc_recursive(mixed &$arr1, mixed &$arr2): bool|array
 	{
 		if (!is_array($arr1) || !is_array($arr2)) {
+			// @phpstan-ignore-next-line
 			return (string)$arr1 === (string)$arr2;
 		}
 		$commonkeys = array_intersect(array_keys($arr1), array_keys($arr2));
@@ -32,26 +37,27 @@ abstract class TestCase extends AbstractTestCase
 		$this->checkClientApi();
 	}
 
-	abstract protected function checkEntity($entity, $returnEntity);
-
-	abstract protected function getEntityClass(): string;
-
-	abstract protected function getApiClass(): string;
+	abstract protected function checkEntity(AbstractData $entity, AbstractData $returnEntity): void;
 
 	/**
-	 * @return RestApi|CollectionRestApi
+	 * @return class-string<AbstractData>
 	 */
-	abstract protected function getApi();
+	abstract protected function getEntityClass(): string;
+
+	/**
+	 * @return class-string<CollectionRestApi>
+	 */
+	abstract protected function getApiClass(): string;
+
+	abstract protected function getApi(): CollectionRestApi;
 
 	abstract protected function getSingleEntityId(): string;
 
-	/**
-	 * @param mixed $param1
-	 * @param mixed $param2
-	 * @return AbstractData
-	 */
-	abstract protected function getNewEntity($param1 = null, $param2 = null): AbstractData;
+	abstract protected function getNewEntity(?string $param1 = null, ?string $param2 = null): AbstractData;
 
+	/**
+	 * @return AbstractRequest&AllInterface
+	 */
 	abstract protected function getAllOneParams(): AbstractRequest;
 
 	abstract protected function getBadCreateParam1(): string;
@@ -61,17 +67,18 @@ abstract class TestCase extends AbstractTestCase
 	abstract protected function getNotFoundId(): string;
 
 	/**
-	 * @return array|AbstractData
+	 * @return array<string, mixed>|AbstractData
 	 */
-	abstract protected function getUpdateData();
+	abstract protected function getUpdateData(): array|AbstractData;
 
-	protected function checkCreate($param1 = null, $param2 = null): void
+	abstract protected function getEntityId(AbstractData $entity): string;
+
+	protected function checkCreate(?string $param1 = null, ?string $param2 = null): void
 	{
 		$api = $this->getApi();
 		$entity = $this->getNewEntity($param1, $param2);
 
 		$returnEntity = $api->create($entity);
-		/** @noinspection UnnecessaryAssertionInspection */
 		$this->assertInstanceOf($this->getEntityClass(), $returnEntity);
 		$this->checkEntity($entity, $returnEntity);
 	}
@@ -83,10 +90,9 @@ abstract class TestCase extends AbstractTestCase
 	}
 
 	/**
-	 * @param AllInterface|AbstractRequest $params
-	 * @param int $count
+	 * @param (AbstractRequest&AllInterface)|null $params
 	 */
-	protected function checkAll($params = null, int $count = 1): void
+	protected function checkAll(?AbstractRequest $params = null, int $count = 1): void
 	{
 		$api = $this->getApi();
 		$data = $api->all($params);
@@ -98,21 +104,22 @@ abstract class TestCase extends AbstractTestCase
 		$this->checkEntityDefault($entity);
 	}
 
-	protected function checkOne($id): void
+	protected function checkOne(string $id): void
 	{
 		$api = $this->getApi();
 		$entity = $api->get($id);
+		$this->assertNotNull($entity);
 		$this->checkFetchedOne($id, $entity);
 	}
 
-	protected function checkFetchedOne($id, $entity): void
+	protected function checkFetchedOne(string $id, AbstractData $entity): void
 	{
 		$this->assertEquals($id, $this->getEntityId($entity));
 		$this->checkEntityDefault($entity);
 	}
 
 	/**
-	 * @param AllInterface|AbstractRequest $params
+	 * @param AllInterface&AbstractRequest $params
 	 */
 	protected function checkAllOne(AllInterface $params): void
 	{
@@ -120,21 +127,28 @@ abstract class TestCase extends AbstractTestCase
 		$this->checkAll($params);
 	}
 
-	protected function checkBadCreate($param1, $param2): void
+	protected function checkBadCreate(?string $param1, ?string $param2): void
 	{
 		$this->expectException(\RuntimeException::class);
 		$this->expectExceptionMessage('Error from API');
 		$this->checkCreate($param1, $param2);
 	}
 
-	protected function checkUpdate($id, $data): void
+	/**
+	 * @param array<string, mixed>|AbstractData $data
+	 */
+	protected function checkUpdate(string $id, array|AbstractData $data): void
 	{
 		$returnEntity = $this->getApi()->update($id, $data);
+		$this->assertNotNull($returnEntity);
 		$this->assertInstanceOf($this->getEntityClass(), $returnEntity);
 		$this->checkUpdatedEntity($returnEntity, $data);
 	}
 
-	protected function checkUpdatedEntity(AbstractData $returnEntity, $data): void
+	/**
+	 * @param array<string, mixed>|AbstractData $data
+	 */
+	protected function checkUpdatedEntity(AbstractData $returnEntity, array|AbstractData $data): void
 	{
 		$returnData = $returnEntity->getData();
 		$data = $data instanceof AbstractData
@@ -143,41 +157,35 @@ abstract class TestCase extends AbstractTestCase
 		$this->assertEquals($data, self::array_intersect_assoc_recursive($returnData, $data));
 	}
 
-	protected function checkDelete($id): void
+	protected function checkDelete(string $id): void
 	{
 		$api = $this->getApi();
 		$ret = $api->delete($id);
 		$this->assertTrue($ret);
 	}
 
-	protected function checkBadDelete($id): void
+	protected function checkBadDelete(string $id): void
 	{
 		$api = $this->getApi();
 		$ret = $api->delete($id);
 		$this->assertFalse($ret);
 	}
 
-	protected function checkGetNotFound($id): void
+	protected function checkGetNotFound(string $id): void
 	{
 		$api = $this->getApi();
 		$ret = $api->get($id);
 		$this->assertNull($ret);
 	}
 
-	protected function checkPatchNotFound($id): void
+	protected function checkPatchNotFound(string $id): void
 	{
 		$api = $this->getApi();
 		$this->expectException(NotFoundException::class);
 		$api->update($id, []);
 	}
 
-	protected function checkEntityDefault($entity): void
+	protected function checkEntityDefault(mixed $entity): void
 	{
-
-	}
-
-	protected function getEntityId($entity)
-	{
-		return $entity->id;
 	}
 }
