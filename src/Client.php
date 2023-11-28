@@ -197,7 +197,7 @@ class Client
 		$contents = $response->getBody()->getContents();
 		$status = $response->getStatusCode();
 
-		if ($contents === '' && $status === 200) {
+		if ($contents === '' && $status >= 200 && $status < 300) {
 			return [];
 		}
 
